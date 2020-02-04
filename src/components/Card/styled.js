@@ -21,7 +21,7 @@ const CardContainer = styled.div`
   border-radius: 8px;
 
   ${props => {
-    const { children, ...rest } = props;
+    const { children, marginRight, ...rest } = props;
     return rest;
   }}
 `;

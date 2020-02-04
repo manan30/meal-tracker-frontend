@@ -1,7 +1,9 @@
 import React from 'react';
+import Button from '../../components/Button';
 import CardContainer from '../../components/Card/styled';
+import Carousel from '../../components/Carousel';
 import HeaderBar from '../../components/HeaderBar';
-import { MainSection, SideSection, Wrapper } from './styled';
+import { MainSection, SelectionContainer, SideSection, Wrapper } from './styled';
 
 function Profile() {
   return (
@@ -23,10 +25,25 @@ function Profile() {
           />
         </SideSection>
         <MainSection>
+          <Button text='Add' margin-top='50px' float='right' />
+          <SelectionContainer>
+            <Carousel marginRight='16px'>
+              {new Array(10).fill(0).map(() => (
+                <CardContainer
+                  height='155px'
+                  width='138px'
+                  display='inline-block'
+                  margin-left='16px'
+                  marginRight='16px'
+                  background-color='#ffffff'
+                  box-shadow='0px 6px 20px rgba(13, 51, 32, 0.1)'
+                />
+              ))}
+            </Carousel>
+          </SelectionContainer>
           <CardContainer
             width='100%'
             height='calc(100% - 285px)'
-            margin-top='285px'
             border-radius='8px 8px 0 0'
             overflow-y='scroll'>
             {/* {new Array(50).fill(0).map(() => (

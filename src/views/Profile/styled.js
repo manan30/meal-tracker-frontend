@@ -20,4 +20,18 @@ const MainSection = styled.section`
   overflow: hidden;
 `;
 
-export { Wrapper, SideSection, MainSection };
+const SelectionContainer = styled.div`
+  height: 172px;
+  width: 100%;
+  margin-top: 116px;
+  /* background: black; */
+
+  ${({ marginRight }) => {
+    console.log(marginRight);
+    return `:last-child {
+    margin-right: ${marginRight};
+  }`;
+  }}
+`;
+
+export { Wrapper, SideSection, MainSection, SelectionContainer };
