@@ -21,17 +21,10 @@ const MainSection = styled.section`
 `;
 
 const SelectionContainer = styled.div`
+  position: absolute;
   height: 172px;
   width: 100%;
   margin-top: 116px;
   /* background: black; */
-
-  ${({ marginRight }) => {
-    console.log(marginRight);
-    return `:last-child {
-    margin-right: ${marginRight};
-  }`;
-  }}
 `;
-
 export { Wrapper, SideSection, MainSection, SelectionContainer };

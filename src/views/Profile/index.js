@@ -3,7 +3,12 @@ import Button from '../../components/Button';
 import CardContainer from '../../components/Card/styled';
 import Carousel from '../../components/Carousel';
 import HeaderBar from '../../components/HeaderBar';
-import { MainSection, SelectionContainer, SideSection, Wrapper } from './styled';
+import {
+  MainSection,
+  SelectionContainer,
+  SideSection,
+  Wrapper
+} from './styled';
 
 function Profile() {
   return (
@@ -27,15 +32,15 @@ function Profile() {
         <MainSection>
           <Button text='Add' margin-top='50px' float='right' />
           <SelectionContainer>
-            <Carousel marginRight='16px'>
+            <Carousel width='calc(100% - 138px - 138px - 26px)'>
               {new Array(10).fill(0).map(() => (
                 <CardContainer
                   height='155px'
                   width='138px'
                   display='inline-block'
-                  margin-left='16px'
-                  marginRight='16px'
-                  background-color='#ffffff'
+                  // margin-left='16px'
+                  marginLeft='16px'
+                  margin-right='16px'
                   box-shadow='0px 6px 20px rgba(13, 51, 32, 0.1)'
                 />
               ))}
@@ -44,6 +49,7 @@ function Profile() {
           <CardContainer
             width='100%'
             height='calc(100% - 285px)'
+            margin-top='285px'
             border-radius='8px 8px 0 0'
             overflow-y='scroll'>
             {/* {new Array(50).fill(0).map(() => (

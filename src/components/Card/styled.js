@@ -17,13 +17,18 @@ const CardContainer = styled.div`
     );
   }}; */
 
-  background: #ffffff;
+  background-color: #ffffff;
   border-radius: 8px;
 
+  :first-child {
+    margin-left: ${props => props.marginLeft && props.marginLeft}
+  }
+
   ${props => {
-    const { children, marginRight, ...rest } = props;
+    const { children, marginLeft, ...rest } = props;
     return rest;
   }}
+
 `;
 
 export default CardContainer;
