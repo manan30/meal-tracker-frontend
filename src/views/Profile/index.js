@@ -7,6 +7,7 @@ import {
   MainSection,
   SelectionContainer,
   SideSection,
+  Text,
   Wrapper
 } from './styled';
 
@@ -30,9 +31,10 @@ function Profile() {
           />
         </SideSection>
         <MainSection>
+          <Text>My Recipes</Text>
           <Button text='Add' margin-top='50px' float='right' />
           <SelectionContainer>
-            <Carousel width='calc(100% - 138px - 138px - 26px)'>
+            <Carousel width='calc(70% - 32px)'>
               {new Array(10).fill(0).map(() => (
                 <CardContainer
                   height='155px'

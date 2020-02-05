@@ -27,4 +27,17 @@ const SelectionContainer = styled.div`
   margin-top: 116px;
   /* background: black; */
 `;
-export { Wrapper, SideSection, MainSection, SelectionContainer };
+
+const Text = styled.div`
+  margin-top: 50px;
+  margin-left: 45px;
+
+  font-style: normal;
+  font-weight: bold;
+  font-size: 32px;
+  line-height: 32px;
+
+  color: #030f09;
+`;
+
+export { Wrapper, SideSection, MainSection, SelectionContainer, Text };

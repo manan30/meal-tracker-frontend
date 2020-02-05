@@ -12,5 +12,6 @@ export default createGlobalStyle`
     padding: 0;
     position: relative;
     background-color: #F2F2F2;
+    font-family: 'Nunito Sans', sans-serif;
   }
 `;
