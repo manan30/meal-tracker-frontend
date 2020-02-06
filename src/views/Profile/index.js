@@ -1,13 +1,15 @@
 import React from 'react';
+import { FiEdit3, FiLogOut, FiSettings } from 'react-icons/fi';
 import Button from '../../components/Button';
 import CardContainer from '../../components/Card/styled';
 import Carousel from '../../components/Carousel';
 import HeaderBar from '../../components/HeaderBar';
+import Text from '../../components/Text';
 import {
+  DataContainer,
   MainSection,
   SelectionContainer,
   SideSection,
-  Text,
   Wrapper
 } from './styled';
 
@@ -18,20 +20,78 @@ function Profile() {
       <Wrapper>
         <SideSection>
           <CardContainer
+            display='flex'
             width='calc(100% - 20px)'
             height='215px'
             margin-top='50px'
-            margin-right='20px'
-          />
+            margin-right='20px'>
+            <DataContainer />
+          </CardContainer>
           <CardContainer
+            display='flex'
             width='calc(100% - 20px)'
             height='171px'
             margin-top='20px'
-            margin-right='20px'
-          />
+            margin-right='20px'>
+            <DataContainer>
+              <div>
+                <div style={{ display: 'inline-flex', marginBottom: '16px' }}>
+                  <Text margin-right='16px'>
+                    <FiEdit3 />
+                  </Text>
+                  <Text
+                    font-size='16px'
+                    line-height='27px'
+                    font-style='normal'
+                    font-weight='normal'
+                    color='#030F09'>
+                    Edit Profile
+                  </Text>
+                </div>
+              </div>
+              <div>
+                <div style={{ display: 'inline-flex', marginBottom: '16px' }}>
+                  <Text margin-right='16px'>
+                    <FiSettings />
+                  </Text>
+                  <Text
+                    font-size='16px'
+                    line-height='27px'
+                    font-style='normal'
+                    font-weight='normal'
+                    color='#030F09'>
+                    Settings
+                  </Text>
+                </div>
+              </div>
+              <div>
+                <div style={{ display: 'inline-flex' }}>
+                  <Text margin-right='16px'>
+                    <FiLogOut />
+                  </Text>
+                  <Text
+                    font-size='16px'
+                    line-height='27px'
+                    font-style='normal'
+                    font-weight='normal'
+                    color='#030F09'>
+                    Log Out
+                  </Text>
+                </div>
+              </div>
+            </DataContainer>
+          </CardContainer>
         </SideSection>
         <MainSection>
-          <Text>My Recipes</Text>
+          <Text
+            margin-top='50px'
+            margin-left='45px'
+            font-size='32px'
+            line-height='32px'
+            color='#030f09'
+            display='inline-block'>
+            My Recipes
+          </Text>
           <Button text='Add' margin-top='50px' float='right' />
           <SelectionContainer>
             <Carousel width='calc(70% - 32px)'>

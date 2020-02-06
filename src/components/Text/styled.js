@@ -9,7 +9,7 @@ export default styled.div`
   /* identical to box height, or 100% */
 
   letter-spacing: 0.4px;
-  text-transform: lowercase;
+  /* text-transform: lowercase; */
 
   color: #363837;
 

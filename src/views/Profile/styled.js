@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.section`
+  display: inline-flex;
   margin: 0 80px;
   height: calc(100vh - 80px);
   width: calc(100% - 160px);
@@ -10,13 +11,11 @@ const Wrapper = styled.section`
 const SideSection = styled.section`
   height: 100%;
   width: 30%;
-  display: inline-block;
 `;
 
 const MainSection = styled.section`
   height: 100%;
   width: 70%;
-  display: inline-block;
   overflow: hidden;
 `;
 
@@ -28,16 +27,21 @@ const SelectionContainer = styled.div`
   /* background: black; */
 `;
 
-const Text = styled.div`
-  margin-top: 50px;
-  margin-left: 45px;
-
-  font-style: normal;
-  font-weight: bold;
-  font-size: 32px;
-  line-height: 32px;
-
-  color: #030f09;
+const DataContainer = styled.div`
+  margin: 25px;
+  height: calc(100% - 50px);
+  width: calc(100% - 50px);
 `;
 
-export { Wrapper, SideSection, MainSection, SelectionContainer, Text };
+const LineItem = styled.div`
+  /* display: inline-block; */
+`;
+
+export {
+  Wrapper,
+  SideSection,
+  MainSection,
+  SelectionContainer,
+  DataContainer,
+  LineItem
+};
