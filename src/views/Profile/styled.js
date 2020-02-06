@@ -34,7 +34,9 @@ const DataContainer = styled.div`
 `;
 
 const LineItem = styled.div`
-  /* display: inline-block; */
+  display: inline-flex;
+  margin-bottom: 16px;
+  cursor: pointer;
 `;
 
 export {

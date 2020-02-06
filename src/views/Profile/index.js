@@ -7,6 +7,7 @@ import HeaderBar from '../../components/HeaderBar';
 import Text from '../../components/Text';
 import {
   DataContainer,
+  LineItem,
   MainSection,
   SelectionContainer,
   SideSection,
@@ -35,7 +36,7 @@ function Profile() {
             margin-right='20px'>
             <DataContainer>
               <div>
-                <div style={{ display: 'inline-flex', marginBottom: '16px' }}>
+                <LineItem>
                   <Text margin-right='16px'>
                     <FiEdit3 />
                   </Text>
@@ -47,10 +48,10 @@ function Profile() {
                     color='#030F09'>
                     Edit Profile
                   </Text>
-                </div>
+                </LineItem>
               </div>
               <div>
-                <div style={{ display: 'inline-flex', marginBottom: '16px' }}>
+                <LineItem>
                   <Text margin-right='16px'>
                     <FiSettings />
                   </Text>
@@ -62,10 +63,10 @@ function Profile() {
                     color='#030F09'>
                     Settings
                   </Text>
-                </div>
+                </LineItem>
               </div>
               <div>
-                <div style={{ display: 'inline-flex' }}>
+                <LineItem>
                   <Text margin-right='16px'>
                     <FiLogOut />
                   </Text>
@@ -77,7 +78,7 @@ function Profile() {
                     color='#030F09'>
                     Log Out
                   </Text>
-                </div>
+                </LineItem>
               </div>
             </DataContainer>
           </CardContainer>
