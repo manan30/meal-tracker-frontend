@@ -6,4 +6,9 @@ const Container = styled.div`
   background-color: white;
 `;
 
-export { Container };
+const IconsContainer = styled.div`
+  float: right;
+  padding: 27px 0;
+`;
+
+export { Container, IconsContainer };
