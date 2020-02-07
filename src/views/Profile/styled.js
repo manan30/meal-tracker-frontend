@@ -31,6 +31,9 @@ const DataContainer = styled.div`
   margin: 25px;
   height: calc(100% - 50px);
   width: calc(100% - 50px);
+
+  ${({ children, ...props }) => props}
+  /* return { ...props }; */
 `;
 
 const LineItem = styled.div`
@@ -39,11 +42,19 @@ const LineItem = styled.div`
   cursor: pointer;
 `;
 
+const ProfileImage = styled.div`
+  width: 70px;
+  height: 70px;
+  background-color: #767676;
+  border-radius: 50%;
+`;
+
 export {
   Wrapper,
   SideSection,
   MainSection,
   SelectionContainer,
   DataContainer,
-  LineItem
+  LineItem,
+  ProfileImage
 };

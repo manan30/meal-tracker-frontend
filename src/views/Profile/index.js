@@ -9,6 +9,7 @@ import {
   DataContainer,
   LineItem,
   MainSection,
+  ProfileImage,
   SelectionContainer,
   SideSection,
   Wrapper
@@ -26,7 +27,71 @@ function Profile() {
             height='215px'
             margin-top='50px'
             margin-right='20px'>
-            <DataContainer />
+            <DataContainer display='inline-flex'>
+              <ProfileImage />
+              <div
+                style={{
+                  marginLeft: '16px',
+                  width: 'calc(100% - 100px)',
+                  height: '60%'
+                }}>
+                <Text
+                  font-style='normal'
+                  font-weight='bold'
+                  font-size='16px'
+                  line-height='22px'>
+                  Manan Joshi
+                </Text>
+                <Text
+                  font-style='normal'
+                  font-weight='normal'
+                  font-size='14px'
+                  line-height='22px'
+                  color='#606060'>
+                  Aspiring Chef
+                </Text>
+                <LineItem>
+                  <Text
+                    font-style='normal'
+                    font-weight='normal'
+                    font-size=' 14px'
+                    line-height=' 22px'
+                    color=' #606060'
+                    margin-top='6px'>
+                    500 followers
+                  </Text>
+                  <div
+                    style={{
+                      display: 'inline',
+                      borderRadius: '50%',
+                      backgroundColor: '#979797',
+                      height: '5px',
+                      width: '5px',
+                      fontSize: '14px',
+                      lineHeight: '22px',
+                      margin: '6px 16px 0 16px'
+                    }}
+                  />
+                  <Text
+                    font-style='normal'
+                    font-weight='normal'
+                    font-size=' 14px'
+                    line-height=' 22px'
+                    color=' #606060'
+                    margin-top='6px'>
+                    23k likes
+                  </Text>
+                </LineItem>
+                <div
+                  style={{
+                    height: '1px',
+
+                    backgroundColor: '#E6E6E6',
+                    borderRadius: '0.5px'
+                  }}
+                />
+              </div>
+            </DataContainer>
           </CardContainer>
           <CardContainer
             display='flex'
