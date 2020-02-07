@@ -24,6 +24,13 @@ const CardContainer = styled.div`
     margin-left: ${props => props.marginLeft && props.marginLeft}
   }
 
+  ${({ deduct }) =>
+    deduct &&
+    `:nth-child(odd) {
+        margin-right: 25px;
+        width: 50%;
+      }`}
+
   ${props => {
     const { children, marginLeft, ...rest } = props;
     return rest;

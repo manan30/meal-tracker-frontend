@@ -23,7 +23,7 @@ const SelectionContainer = styled.div`
   position: absolute;
   height: 172px;
   width: 100%;
-  margin-top: 116px;
+  margin-top: 96px;
   /* background: black; */
 `;
 
@@ -32,8 +32,7 @@ const DataContainer = styled.div`
   height: calc(100% - 50px);
   width: calc(100% - 50px);
 
-  ${({ children, ...props }) => props}
-  /* return { ...props }; */
+  ${({ children, ...props }) => props} /* return { ...props }; */
 `;
 
 const LineItem = styled.div`
@@ -49,6 +48,16 @@ const ProfileImage = styled.div`
   border-radius: 50%;
 `;
 
+const GroupItem = styled.div`
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 27px;
+  text-align: center;
+
+  color: #030f09;
+`;
+
 export {
   Wrapper,
   SideSection,
@@ -56,5 +65,6 @@ export {
   SelectionContainer,
   DataContainer,
   LineItem,
-  ProfileImage
+  ProfileImage,
+  GroupItem
 };
