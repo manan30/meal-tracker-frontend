@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FiEdit3, FiLogOut, FiSettings } from 'react-icons/fi';
+import { getRecipes } from '../../api/User';
 import Button from '../../components/Button';
 import CardContainer from '../../components/Card/styled';
 import Carousel from '../../components/Carousel';
@@ -17,6 +18,15 @@ import {
 } from './styled';
 
 function Profile() {
+  const [recipes, setRecipes] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await getRecipes();
+      setRecipes(prevState => [...prevState, ...data]);
+    })();
+  }, []);
+
   return (
     <>
       <HeaderBar />
@@ -180,18 +190,64 @@ function Profile() {
             border-radius='8px 8px 0 0'
             overflow-y='scroll'
             padding='25px'>
-            {new Array(10).fill(0).map(() => (
-              <CardContainer
-                height='320px'
-                width='calc(50% - 25px)'
-                background='white'
-                margin-bottom='25px'
-                display='inline-block'
-                box-shadow='2px 4px 10px rgba(13, 51, 32, 0.1)'
-                deduct>
-                <RecipeImage height='220px' />
-              </CardContainer>
-            ))}
+            {recipes.map((recipe, i) => {
+              const key = i;
+              return (
+                <CardContainer
+                  key={key}
+                  height='320px'
+                  width='calc(50% - 25px)'
+                  background='white'
+                  margin-bottom='25px'
+                  display='inline-block'
+                  box-shadow='2px 4px 10px rgba(13, 51, 32, 0.1)'
+                  deduct>
+                  <RecipeImage height='220px' image={recipe.image} />
+                  <Text
+                    margin-left='22px'
+                    margin-top='16px'
+                    font-weight='600'
+                    font-size='18px'
+                    line-height=' 32px'
+                    color='#030F09'>
+                    {recipe.name}
+                  </Text>
+                  <div
+                    style={{
+                      marginTop: '13px',
+                      marginLeft: '22px',
+                      alignItems: 'center'
+                    }}>
+                    <Text
+                      display='inline-block'
+                      font-style='normal'
+                      font-weight='normal'
+                      font-size=' 14px'
+                      line-height='22px'
+                      color='#606060'>{`${recipe.mins} mins`}</Text>
+                    <Text
+                      display='inline-block'
+                      font-style='normal'
+                      font-weight='normal'
+                      font-size=' 14px'
+                      line-height='22px'
+                      margin-left='24px'
+                      color='#606060'>{`${recipe.ingredients} ingredients`}</Text>
+                    <Button
+                      text='Cook'
+                      float='right'
+                      height='26px'
+                      width='96px'
+                      margin-right="22px"
+                      font-size='14px'
+                      line-height='12px'
+                      letter-spacing=' 0.4px'
+                      border-radius='4px'
+                    />
+                  </div>
+                </CardContainer>
+              );
+            })}
           </CardContainer>
         </MainSection>
       </Wrapper>

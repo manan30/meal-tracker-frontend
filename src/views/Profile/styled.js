@@ -60,8 +60,9 @@ const GroupItem = styled.div`
 
 const RecipeImage = styled.div`
   height: ${props => props.height && props.height};
-  background-color: #f84971;
   border-radius: 8px 8px 0 0;
+  background-color: #e5e5e5;
+  background-image: url(${({ image }) => image && image});
 `;
 
 export {
