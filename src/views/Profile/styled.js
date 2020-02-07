@@ -58,6 +58,12 @@ const GroupItem = styled.div`
   color: #030f09;
 `;
 
+const RecipeImage = styled.div`
+  height: ${props => props.height && props.height};
+  background-color: #f84971;
+  border-radius: 8px 8px 0 0;
+`;
+
 export {
   Wrapper,
   SideSection,
@@ -66,5 +72,6 @@ export {
   DataContainer,
   LineItem,
   ProfileImage,
-  GroupItem
+  GroupItem,
+  RecipeImage
 };

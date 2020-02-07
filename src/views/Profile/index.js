@@ -10,6 +10,7 @@ import {
   LineItem,
   MainSection,
   ProfileImage,
+  RecipeImage,
   SelectionContainer,
   SideSection,
   Wrapper
@@ -166,8 +167,9 @@ function Profile() {
                   display='inline-block'
                   marginLeft='16px'
                   margin-right='16px'
-                  box-shadow='2px 4px 10px rgba(13, 51, 32, 0.1)'
-                />
+                  box-shadow='2px 4px 10px rgba(13, 51, 32, 0.1)'>
+                  <RecipeImage height='105px' />
+                </CardContainer>
               ))}
             </Carousel>
           </SelectionContainer>
@@ -186,8 +188,9 @@ function Profile() {
                 margin-bottom='25px'
                 display='inline-block'
                 box-shadow='2px 4px 10px rgba(13, 51, 32, 0.1)'
-                deduct
-              />
+                deduct>
+                <RecipeImage height='220px' />
+              </CardContainer>
             ))}
           </CardContainer>
         </MainSection>
