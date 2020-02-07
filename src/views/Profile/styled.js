@@ -63,6 +63,9 @@ const RecipeImage = styled.div`
   border-radius: 8px 8px 0 0;
   background-color: #e5e5e5;
   background-image: url(${({ image }) => image && image});
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
 `;
 
 export {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FiEdit3, FiLogOut, FiSettings } from 'react-icons/fi';
-import { getRecipes } from '../../api/User';
+import { getCategories, getRecipes } from '../../api/User';
 import Button from '../../components/Button';
 import CardContainer from '../../components/Card/styled';
 import Carousel from '../../components/Carousel';
@@ -19,11 +19,19 @@ import {
 
 function Profile() {
   const [recipes, setRecipes] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     (async () => {
       const { data } = await getRecipes();
-      setRecipes(prevState => [...prevState, ...data]);
+      setRecipes(prevState => [...prevState, ...data.recipes]);
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await getCategories();
+      setCategories(prevState => [...prevState, ...data.categories]);
     })();
   }, []);
 
@@ -170,17 +178,31 @@ function Profile() {
           <Button text='Add' margin-top='50px' float='right' />
           <SelectionContainer>
             <Carousel width='calc(70% - 32px)'>
-              {new Array(10).fill(0).map(() => (
-                <CardContainer
-                  height='155px'
-                  width='138px'
-                  display='inline-block'
-                  marginLeft='16px'
-                  margin-right='16px'
-                  box-shadow='2px 4px 10px rgba(13, 51, 32, 0.1)'>
-                  <RecipeImage height='105px' />
-                </CardContainer>
-              ))}
+              {categories.map((category, i) => {
+                const key = i;
+                return (
+                  <CardContainer
+                    key={key}
+                    height='138px'
+                    width='155px'
+                    display='inline-block'
+                    marginLeft='16px'
+                    margin-right='16px'
+                    box-shadow='2px 4px 10px rgba(13, 51, 32, 0.1)'>
+                    <RecipeImage height='105px' image={category.image} />
+                    <Text
+                      font-style='normal'
+                      font-weight='normal'
+                      font-size=' 16px'
+                      line-height=' 22px'
+                      text-align='center'
+                      color='#030F09'
+                      margin-top='6px'>
+                      {category.name}
+                    </Text>
+                  </CardContainer>
+                );
+              })}
             </Carousel>
           </SelectionContainer>
           <CardContainer
@@ -238,7 +260,7 @@ function Profile() {
                       float='right'
                       height='26px'
                       width='96px'
-                      margin-right="22px"
+                      margin-right='22px'
                       font-size='14px'
                       line-height='12px'
                       letter-spacing=' 0.4px'
