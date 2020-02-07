@@ -188,7 +188,9 @@ function Profile() {
                     display='inline-block'
                     marginLeft='16px'
                     margin-right='16px'
-                    box-shadow='2px 4px 10px rgba(13, 51, 32, 0.1)'>
+                    box-shadow='2px 4px 10px rgba(13, 51, 32, 0.1)'
+                    cursor='pointer'
+                    hover>
                     <RecipeImage height='105px' image={category.image} />
                     <Text
                       font-style='normal'
