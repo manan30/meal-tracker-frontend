@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const Container = styled.div`
+  display: flex;
   width: 126px;
   height: 36px;
   margin: auto;
@@ -25,6 +26,9 @@ const Container = styled.div`
   cursor: pointer;
 
   transition: all 0.4s ease-in-out;
+
+  align-items: center;
+  justify-content: center;
 
   :hover {
     background: #30be76;

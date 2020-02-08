@@ -24,6 +24,10 @@ const Content = styled.div`
   margin: 25px;
   height: calc(100% - 50px);
   width: calc(100% - 50px);
+
+  ${({ children, ...rest }) => {
+    return rest;
+  }}
 `;
 
 const ImagesContainer = styled.div`
