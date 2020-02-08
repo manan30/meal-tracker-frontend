@@ -15,7 +15,7 @@ function HeaderBar() {
         padding='27px 0'
         display='inline-block'
         cursor='pointer'>
-        Meal Tracker
+        Sculptor
       </Text>
       <IconsContainer>
         <Text>

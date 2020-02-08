@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { FiEdit3, FiLogOut, FiSettings } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 import { getCategories, getRecipes } from '../../api/User';
 import Button from '../../components/Button';
 import CardContainer from '../../components/Card/styled';
 import Carousel from '../../components/Carousel';
-import HeaderBar from '../../components/HeaderBar';
 import Text from '../../components/Text';
 import {
   DataContainer,
@@ -24,20 +24,19 @@ function Profile() {
   useEffect(() => {
     (async () => {
       const { data } = await getRecipes();
-      setRecipes(prevState => [...prevState, ...data.recipes]);
+      setRecipes(prevState => [...prevState, ...data]);
     })();
   }, []);
 
   useEffect(() => {
     (async () => {
       const { data } = await getCategories();
-      setCategories(prevState => [...prevState, ...data.categories]);
+      setCategories(prevState => [...prevState, ...data]);
     })();
   }, []);
 
   return (
     <>
-      <HeaderBar />
       <Wrapper>
         <SideSection>
           <CardContainer
@@ -257,17 +256,19 @@ function Profile() {
                       line-height='22px'
                       margin-left='24px'
                       color='#606060'>{`${recipe.ingredients} ingredients`}</Text>
-                    <Button
-                      text='Cook'
-                      float='right'
-                      height='26px'
-                      width='96px'
-                      margin-right='22px'
-                      font-size='14px'
-                      line-height='12px'
-                      letter-spacing=' 0.4px'
-                      border-radius='4px'
-                    />
+                    <Link to={`/recipe/${recipe.id}`}>
+                      <Button
+                        text='View'
+                        float='right'
+                        height='26px'
+                        width='96px'
+                        margin-right='22px'
+                        font-size='14px'
+                        line-height='12px'
+                        letter-spacing=' 0.4px'
+                        border-radius='4px'
+                      />
+                    </Link>
                   </div>
                 </CardContainer>
               );

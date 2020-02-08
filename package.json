@@ -1,5 +1,5 @@
 {
-  "name": "meal-tracker-frontend",
+  "name": "sculptor",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -9,8 +9,8 @@
     "react-dom": "^16.12.0",
     "react-icons": "3.9.0",
     "react-router-dom": "5.1.2",
-    "react-scripts": "3.3.0",
-    "styled-components": "4.4.1"
+    "react-scripts": "3.3.1",
+    "styled-components": "5.0.1"
   },
   "scripts": {
     "start": "BROWSER='Firefox Developer Edition' react-scripts start",
@@ -36,11 +36,11 @@
   "devDependencies": {
     "eslint": "6.8.0",
     "eslint-config-airbnb": "18.0.1",
-    "eslint-config-prettier": "6.7.0",
-    "eslint-plugin-import": "2.19.1",
+    "eslint-config-prettier": "6.10.0",
+    "eslint-plugin-import": "2.20.1",
     "eslint-plugin-jsx-a11y": "6.2.3",
     "eslint-plugin-prettier": "3.1.2",
-    "eslint-plugin-react": "7.17.0",
+    "eslint-plugin-react": "7.18.3",
     "eslint-plugin-react-hooks": "2.3.0"
   }
 }
