@@ -18,6 +18,14 @@ export default styled.div`
     width: 24px;
   }
 
+  ${({ adjust }) =>
+    adjust &&
+    `
+    :nth-child(even) {
+      margin-right: 0
+    }
+  `}
+
   ${({ children, ...rest }) => {
     return { ...rest };
   }}

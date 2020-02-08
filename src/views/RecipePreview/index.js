@@ -24,7 +24,7 @@ function RecipePreview() {
           <Content>
             <Image height='150px' width='100%' margin-bottom='10px' />
             <ImagesContainer>
-              {new Array(21).fill(0).map(() => (
+              {/* {new Array(20).fill(0).map(() => (
                 <Image
                   display='inline-block'
                   height='80px'
@@ -33,7 +33,7 @@ function RecipePreview() {
                   margin-right='10px'
                   adjust
                 />
-              ))}
+              ))} */}
             </ImagesContainer>
           </Content>
         </CardContainer>
@@ -42,10 +42,10 @@ function RecipePreview() {
         <CardContainer
           display='flex'
           width='100%'
-          height='calc(30% - 20px)'
+          height='calc(35% - 20px)'
           margin-top='50px'
           margin-right='20px'>
-          <Content overflow='scroll'>
+          <Content>
             <div
               style={{
                 display: 'flex',
@@ -53,7 +53,7 @@ function RecipePreview() {
                 alignItems: 'center'
               }}>
               <Text
-                width='70%'
+                width='60%'
                 font-style='normal'
                 font-weight='bold'
                 font-size='24px'
@@ -62,6 +62,7 @@ function RecipePreview() {
                 Sautéed Orange & Mustard Bruschetta
               </Text>
               <Text
+                margin-right='16px'
                 font-style='normal'
                 font-weight='bold'
                 font-size='16px'
@@ -84,30 +85,56 @@ function RecipePreview() {
                 backgroundColor: '#E6E6E6',
                 borderRadius: '0.5px',
                 marginTop: '30px',
-                marginBottom: '20px'
+                marginBottom: '10px'
               }}
             />
-            <Text
-              font-style='normal'
-              font-weight='bold'
-              font-size='16px'
-              line-height='22px'
-              color='#030F09'>
-              Ingredients
-            </Text>
+            <Content
+              margin='0'
+              overflow='scroll'
+              width='100%'
+              height='calc(100% - 70px)'>
+              <Text
+                font-style='normal'
+                font-weight='bold'
+                font-size='16px'
+                line-height='22px'
+                color='#030F09'>
+                Ingredients
+              </Text>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                  marginTop: '10px'
+                }}>
+                {new Array(10).fill(0).map((_, i) => (
+                  <Text
+                    width='calc(50% - 16px)'
+                    margin-right='16px'
+                    font-style='normal'
+                    font-weight='normal'
+                    font-size='14px'
+                    line-height='22px'
+                    adjust>
+                    {`Ingredient ${i}`}
+                  </Text>
+                ))}
+              </div>
+            </Content>
           </Content>
         </CardContainer>
         <CardContainer
           display='flex'
           width='100%'
-          height='calc(50% - 50px)'
+          height='calc(45% - 50px)'
           margin-top='20px'
           margin-right='20px'
         />
         <CardContainer
           display='flex'
           width='100%'
-          height='calc(20% - 50px)'
+          height='calc(23% - 50px)'
           margin-top='20px'
           margin-right='20px'
           margin-bottom='30px'
