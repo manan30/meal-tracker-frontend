@@ -194,8 +194,38 @@ function RecipePreview() {
           height='calc(23% - 50px)'
           margin-top='20px'
           margin-right='20px'
-          margin-bottom='30px'
-        />
+          margin-bottom='30px'>
+          <Content>
+            <Text
+              font-style='normal'
+              font-weight='bold'
+              font-size='16px'
+              line-height='22px'
+              color='#030F09'
+              margin-bottom='8px'>
+              Nutritional Information
+            </Text>
+            <Content
+              overflow='scroll'
+              margin='0'
+              width='100%'
+              height='calc(100% - 20px)'>
+              {new Array(10).fill(0).map(() => (
+                <Text
+                  display='inline-block'
+                  width='50%'
+                  margin-bottom='10px'
+                  font-style='normal'
+                  font-weight='normal'
+                  font-size='14px'
+                  line-height='22px'
+                  adjust>
+                  222 calories
+                </Text>
+              ))}
+            </Content>
+          </Content>
+        </CardContainer>
       </MainSection>
     </Wrapper>
   );
