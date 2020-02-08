@@ -236,8 +236,10 @@ function RecipePreview() {
                 width='100%'
                 height='calc(100% - 20px)'>
                 {recipeDetails.nutritionalInfo.map((info, i) => {
+                  const key = i;
                   return (
                     <Text
+                      key={key}
                       display='inline-block'
                       width='50%'
                       margin-bottom='10px'
