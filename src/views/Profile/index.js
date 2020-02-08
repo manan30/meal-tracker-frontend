@@ -4,7 +4,6 @@ import { getCategories, getRecipes } from '../../api/User';
 import Button from '../../components/Button';
 import CardContainer from '../../components/Card/styled';
 import Carousel from '../../components/Carousel';
-import HeaderBar from '../../components/HeaderBar';
 import Text from '../../components/Text';
 import {
   DataContainer,
@@ -37,7 +36,6 @@ function Profile() {
 
   return (
     <>
-      <HeaderBar />
       <Wrapper>
         <SideSection>
           <CardContainer
