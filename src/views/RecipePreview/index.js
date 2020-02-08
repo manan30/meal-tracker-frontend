@@ -235,19 +235,21 @@ function RecipePreview() {
                 margin='0'
                 width='100%'
                 height='calc(100% - 20px)'>
-                {new Array(10).fill(0).map(() => (
-                  <Text
-                    display='inline-block'
-                    width='50%'
-                    margin-bottom='10px'
-                    font-style='normal'
-                    font-weight='normal'
-                    font-size='14px'
-                    line-height='22px'
-                    adjust>
-                    222 calories
-                  </Text>
-                ))}
+                {recipeDetails.nutritionalInfo.map((info, i) => {
+                  return (
+                    <Text
+                      display='inline-block'
+                      width='50%'
+                      margin-bottom='10px'
+                      font-style='normal'
+                      font-weight='normal'
+                      font-size='14px'
+                      line-height='22px'
+                      adjust>
+                      {info}
+                    </Text>
+                  );
+                })}
               </Content>
             </Content>
           </CardContainer>

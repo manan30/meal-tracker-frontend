@@ -24,14 +24,14 @@ function Profile() {
   useEffect(() => {
     (async () => {
       const { data } = await getRecipes();
-      setRecipes(prevState => [...prevState, ...data.recipes]);
+      setRecipes(prevState => [...prevState, ...data]);
     })();
   }, []);
 
   useEffect(() => {
     (async () => {
       const { data } = await getCategories();
-      setCategories(prevState => [...prevState, ...data.categories]);
+      setCategories(prevState => [...prevState, ...data]);
     })();
   }, []);
 
