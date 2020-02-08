@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '../../components/Button';
 import CardContainer from '../../components/Card/styled';
 import Text from '../../components/Text';
 import {
@@ -9,7 +10,6 @@ import {
   SideSection,
   Wrapper
 } from './styled';
-import Button from '../../components/Button';
 
 function RecipePreview() {
   return (
@@ -88,19 +88,19 @@ function RecipePreview() {
                 marginBottom: '10px'
               }}
             />
+            <Text
+              font-style='normal'
+              font-weight='bold'
+              font-size='16px'
+              line-height='22px'
+              color='#030F09'>
+              Ingredients
+            </Text>
             <Content
               margin='0'
               overflow='scroll'
               width='100%'
-              height='calc(100% - 70px)'>
-              <Text
-                font-style='normal'
-                font-weight='bold'
-                font-size='16px'
-                line-height='22px'
-                color='#030F09'>
-                Ingredients
-              </Text>
+              height='calc(100% - 90px)'>
               <div
                 style={{
                   display: 'flex',
@@ -112,6 +112,7 @@ function RecipePreview() {
                   <Text
                     width='calc(50% - 16px)'
                     margin-right='16px'
+                    margin-bottom='10px'
                     font-style='normal'
                     font-weight='normal'
                     font-size='14px'
@@ -129,8 +130,64 @@ function RecipePreview() {
           width='100%'
           height='calc(45% - 50px)'
           margin-top='20px'
-          margin-right='20px'
-        />
+          margin-right='20px'>
+          <Content>
+            <Text
+              font-style='normal'
+              font-weight='bold'
+              font-size='16px'
+              line-height='22px'
+              color='#030F09'
+              margin-bottom='16px'>
+              How to cook
+            </Text>
+            <Content
+              margin='0'
+              overflow='scroll'
+              width='100%'
+              height='calc(100% - 32px)'>
+              {new Array(10).fill(0).map((_, i) => (
+                <div
+                  style={{
+                    display: 'flex',
+                    direction: 'row',
+                    marginBottom: '10px'
+                  }}>
+                  <div
+                    style={{
+                      height: '20px',
+                      width: '20px',
+                      padding: '5px',
+                      borderRadius: '50%',
+                      border: '1px solid #30BE76',
+                      textAlign: 'center',
+                      fontStyle: 'normal',
+                      fontWeight: 'normal',
+                      fontSize: '12px',
+                      lineHeight: '20px',
+                      marginRight: '15px',
+                      color: '#30BE76'
+                    }}>
+                    {i}
+                  </div>
+                  <Text
+                    width='calc(100% - 50px)'
+                    margin-bottom='10px'
+                    font-style='normal'
+                    font-weight='normal'
+                    font-size='14px'
+                    line-height='22px'
+                    adjust>
+                    Mix the flour, sugar, and baking powder together in a mixing
+                    bowl. Stir in 1 cup eggnog, butter, and the egg until well
+                    blended. Add more eggnog if needed to make a pourable
+                    batter.
+                  </Text>
+                </div>
+              ))}
+            </Content>
+          </Content>
+        </CardContainer>
         <CardContainer
           display='flex'
           width='100%'

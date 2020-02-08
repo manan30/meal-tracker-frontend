@@ -24,6 +24,9 @@ export default styled.div`
     :nth-child(even) {
       margin-right: 0
     }
+    :last-child {
+      margin-bottom: 0;
+    }
   `}
 
   ${({ children, ...rest }) => {
