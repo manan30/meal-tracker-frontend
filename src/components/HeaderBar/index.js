@@ -4,6 +4,7 @@ import {
   MdMailOutline,
   MdNotificationsNone
 } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 import Text from '../Text';
 import { Container, IconsContainer } from './styled';
 
@@ -23,7 +24,11 @@ function HeaderBar() {
             style={{ marginRight: '25px', cursor: 'pointer' }}
           />
           <MdMailOutline style={{ marginRight: '25px', cursor: 'pointer' }} />
-          <MdAccountCircle style={{ marginRight: '80px', cursor: 'pointer' }} />
+          <Link to='/profile'>
+            <MdAccountCircle
+              style={{ marginRight: '80px', cursor: 'pointer' }}
+            />
+          </Link>
         </Text>
       </IconsContainer>
     </Container>
