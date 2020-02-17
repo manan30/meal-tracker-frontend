@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Button from '../../components/Button';
 import Text from '../../components/Text';
@@ -7,6 +7,16 @@ import { Container, FormInput, FormContainer, Wrapper } from './styled';
 function Onboarding() {
   const { pathname } = useLocation();
   const path = pathname.slice(1);
+  // const nameRef = useRef();
+  // const emailRef = useRef();
+
+  // useEffect(() => {
+  //   if (path === 'login') {
+  //     emailRef.current && emailRef.current.focus();
+  //   } else {
+  //     nameRef.current && nameRef.current.focus();
+  //   }
+  // });
 
   const [inputs, setInputs] = useState({
     name: '',
@@ -71,6 +81,7 @@ function Onboarding() {
                 Full Name
               </Text>
               <FormInput
+                // ref={nameRef}
                 type='text'
                 margin-top='10px'
                 value={inputs.name}
@@ -88,6 +99,7 @@ function Onboarding() {
             Email address
           </Text>
           <FormInput
+            // ref={emailRef}
             type='email'
             margin-top='10px'
             value={inputs.email}

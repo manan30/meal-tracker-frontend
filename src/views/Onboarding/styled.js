@@ -40,6 +40,16 @@ const FormInput = styled.input`
   font-size: 16px;
   line-height: 22px;
   color: #030f09;
+  transition: all 0.4s linear;
+
+  :focus {
+    border-bottom: 1px solid #30be76;
+  }
+
+  :hover {
+    border-bottom: 1px solid #30be76;
+  }
+
   ${({ children, type, value, onChange, ...rest }) => rest}
 `;
 
