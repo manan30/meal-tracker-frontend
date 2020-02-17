@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import Button from '../../components/Button';
 import Text from '../../components/Text';
 import { Container, FormInput, FormContainer, Wrapper } from './styled';
@@ -137,18 +137,20 @@ function Onboarding() {
             color='#A8A8A8'>
             {path === 'login' ? 'New to Sculptor?' : 'Already have an account?'}
           </Text>
-          <Text
-            margin-top='10px'
-            width='calc(100% - 32px)'
-            font-style='normal'
-            font-weight='bold'
-            font-size='16px'
-            line-height='22px'
-            text-align='center'
-            letter-spacing='0.32px'
-            color='#30BE76'>
-            {path === 'login' ? 'Create Account Here' : 'Login Here'}
-          </Text>
+          <Link to='/signup'>
+            <Text
+              margin-top='10px'
+              width='calc(100% - 32px)'
+              font-style='normal'
+              font-weight='bold'
+              font-size='16px'
+              line-height='22px'
+              text-align='center'
+              letter-spacing='0.32px'
+              color='#30BE76'>
+              {path === 'login' ? 'Create Account Here' : 'Login Here'}
+            </Text>
+          </Link>
         </FormContainer>
       </Container>
     </Wrapper>
