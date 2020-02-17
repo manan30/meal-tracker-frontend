@@ -4,11 +4,13 @@ import Button from '../../components/Button';
 import Text from '../../components/Text';
 import { Container, FormInput, FormContainer, Wrapper } from './styled';
 import { createUser } from '../../api/User';
+import Spinner from '../../components/Spinner/styled';
+import CheckFormInputs from '../../utils/CheckFormInputs';
 
 function Onboarding() {
   const { pathname } = useLocation();
   const path = pathname.slice(1);
-  const [authenticating, setAuthenticating] = useState(false);
+  // const [authenticating, setAuthenticating] = useState(false);
 
   // const nameRef = useRef();
   // const emailRef = useRef();
@@ -45,14 +47,17 @@ function Onboarding() {
   }
 
   async function handleSubmit() {
+    // setAuthenticating(prevState => !prevState);
     const [firstName, ...lastName] = inputs.name.split(' ');
-    const response = await createUser({
-      firstName,
-      lastName: lastName.length > 0 ? lastName : '',
-      email: inputs.email,
-      password: inputs.password
-    });
-    console.log(response.status);
+
+    const errors = CheckFormInputs(inputs);
+    // const response = await createUser({
+    //   firstName,
+    //   lastName: lastName.length > 0 ? lastName : '',
+    //   email: inputs.email,
+    //   password: inputs.password
+    // });
+    // console.log(response.status);
   }
 
   return (
@@ -131,11 +136,14 @@ function Onboarding() {
             onChange={e => handleInputChange(e, 'password')}
           />
           <Button
-            text={path === 'login' ? 'Login' : 'Sign Up'}
             margin='40px 0 0 0'
             width='calc(100% - 26px)'
-            onClick={handleSubmit}
-          />
+            onClick={handleSubmit}>
+            {/* {!authenticating */}
+            {/* ? */}
+            {path === 'login' ? 'Login' : 'Sign Up'}
+            {/* : <Spinner />} */}
+          </Button>
           <Text
             width='calc(100% - 32px)'
             margin-top='30px'
