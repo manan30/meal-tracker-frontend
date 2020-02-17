@@ -1,12 +1,15 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import Button from '../../components/Button';
 import Text from '../../components/Text';
 import { Container, FormInput, FormContainer, Wrapper } from './styled';
+import { createUser } from '../../api/User';
 
 function Onboarding() {
   const { pathname } = useLocation();
   const path = pathname.slice(1);
+  const [authenticating, setAuthenticating] = useState(false);
+
   // const nameRef = useRef();
   // const emailRef = useRef();
 
@@ -41,8 +44,15 @@ function Onboarding() {
     }
   }
 
-  function handleSubmit() {
-    console.log({ ...inputs });
+  async function handleSubmit() {
+    const [firstName, ...lastName] = inputs.name.split(' ');
+    const response = await createUser({
+      firstName,
+      lastName: lastName.length > 0 ? lastName : '',
+      email: inputs.email,
+      password: inputs.password
+    });
+    console.log(response.status);
   }
 
   return (
@@ -137,7 +147,7 @@ function Onboarding() {
             color='#A8A8A8'>
             {path === 'login' ? 'New to Sculptor?' : 'Already have an account?'}
           </Text>
-          <Link to='/signup'>
+          <Link to={path === 'login' ? '/signup' : '/login'}>
             <Text
               margin-top='10px'
               width='calc(100% - 32px)'

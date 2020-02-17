@@ -5,4 +5,6 @@ const getRecipes = () => axios.get(`${PROTOCOL}://${URL}/recipes`);
 
 const getCategories = () => axios.get(`${PROTOCOL}://${URL}/categories`);
 
-export { getRecipes, getCategories };
+const createUser = data => axios.post(`${PROTOCOL}://${URL}/user/create`, data);
+
+export { createUser, getRecipes, getCategories };
