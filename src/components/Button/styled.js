@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Container = styled.div`
+const Container = styled.button`
   display: flex;
   width: 126px;
   height: 36px;
@@ -31,6 +31,12 @@ const Container = styled.div`
   justify-content: center;
 
   :hover {
+    background: #30be76;
+    color: #ffffff;
+    box-shadow: 0px 6px 20px rgba(13, 51, 32, 0.1);
+  }
+
+  :focus {
     background: #30be76;
     color: #ffffff;
     box-shadow: 0px 6px 20px rgba(13, 51, 32, 0.1);
