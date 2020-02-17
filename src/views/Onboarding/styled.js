@@ -40,7 +40,7 @@ const FormInput = styled.input`
   font-size: 16px;
   line-height: 22px;
   color: #030f09;
-  ${({ children, ...rest }) => rest}
+  ${({ children, type, value, onChange, ...rest }) => rest}
 `;
 
 export { Wrapper, Container, FormContainer, FormInput };

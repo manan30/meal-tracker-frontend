@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Button from '../../components/Button';
 import Text from '../../components/Text';
@@ -7,6 +7,33 @@ import { Container, FormInput, FormContainer, Wrapper } from './styled';
 function Onboarding() {
   const { pathname } = useLocation();
   const path = pathname.slice(1);
+
+  const [inputs, setInputs] = useState({
+    name: '',
+    email: '',
+    password: ''
+  });
+
+  function handleInputChange(e, type) {
+    e.persist();
+    if (type === 'name') {
+      setInputs(prevState => {
+        return { ...prevState, name: e.target.value };
+      });
+    } else if (type === 'email') {
+      setInputs(prevState => {
+        return { ...prevState, email: e.target.value };
+      });
+    } else {
+      setInputs(prevState => {
+        return { ...prevState, password: e.target.value };
+      });
+    }
+  }
+
+  function handleSubmit() {
+    console.log({ ...inputs });
+  }
 
   return (
     <Wrapper>
@@ -43,7 +70,12 @@ function Onboarding() {
                 color='#A8A8A8'>
                 Full Name
               </Text>
-              <FormInput type='text' margin-top='10px' />
+              <FormInput
+                type='text'
+                margin-top='10px'
+                value={inputs.name}
+                onChange={e => handleInputChange(e, 'name')}
+              />
             </>
           )}
           <Text
@@ -55,7 +87,12 @@ function Onboarding() {
             color='#A8A8A8'>
             Email address
           </Text>
-          <FormInput type='email' margin-top='10px' />
+          <FormInput
+            type='email'
+            margin-top='10px'
+            value={inputs.email}
+            onChange={e => handleInputChange(e, 'email')}
+          />
           <Text
             margin-top='30px'
             font-style='normal'
@@ -65,11 +102,17 @@ function Onboarding() {
             color='#A8A8A8'>
             Password
           </Text>
-          <FormInput type='password' margin-top='10px' />
+          <FormInput
+            type='password'
+            margin-top='10px'
+            value={inputs.password}
+            onChange={e => handleInputChange(e, 'password')}
+          />
           <Button
             text={path === 'login' ? 'Login' : 'Sign Up'}
             margin='40px 0 0 0'
             width='calc(100% - 26px)'
+            onClick={handleSubmit}
           />
           <Text
             width='calc(100% - 32px)'
