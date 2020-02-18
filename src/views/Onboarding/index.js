@@ -48,6 +48,7 @@ function Onboarding() {
           if (/[0-9]/.test(password)) state[2] = [state[2][0], true];
           else state[2] = [state[2][0], false];
 
+          // TODO: Regex for special characters is incorrect.
           if (/[!@#$%^&*)(+=._-]*/.test(password))
             state[3] = [state[3][0], true];
           else state[3] = [state[3][0], false];
@@ -79,7 +80,17 @@ function Onboarding() {
         email: inputs.email,
         password: inputs.password
       });
-      console.log(response.status);
+      if (response.status === 201 || response.status === 200) {
+        setInputs(() => {
+          return {
+            name: '',
+            email: '',
+            password: ''
+          };
+        });
+      } else {
+        console.log(response.data.data);
+      }
     }
   }
 
@@ -124,7 +135,7 @@ function Onboarding() {
                 margin-top='10px'
                 value={inputs.name}
                 onChange={e => handleInputChange(e, 'name')}
-                autoFocus
+                // autoFocus
               />
             </>
           )}
@@ -143,7 +154,7 @@ function Onboarding() {
             margin-top='10px'
             value={inputs.email}
             onChange={e => handleInputChange(e, 'email')}
-            autoFocus
+            // autoFocus
           />
           <Text
             margin-top='30px'

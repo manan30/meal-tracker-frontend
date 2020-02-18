@@ -1,8 +1,7 @@
 const checkEmail = email => {
-  const matcher = new RegExp(
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-  );
-  return email.length > 0 && email.test(matcher);
+  const exp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+  return email.length > 0 && exp.test(email);
 };
 
 const checkPassword = (requirements = []) => {
@@ -14,15 +13,16 @@ export default function(inputs = {}, passwordRequirements = []) {
 
   Object.entries(inputs).forEach(entry => {
     const [key, value] = entry;
+    console.log({ key, value });
 
     if (key === 'email') {
       const status = checkEmail(value);
-      if (status) errors.push({ email: 'Invalid email' });
+      if (!status) errors.push({ email: 'Invalid email' });
     }
 
     if (key === 'password') {
       const status = checkPassword(passwordRequirements);
-      if (status) errors.push({ password: 'Invalid password' });
+      if (!status) errors.push({ password: 'Invalid password' });
     }
 
     if (!value || value.length === 0 || value === null)
