@@ -11,15 +11,23 @@ const checkPassword = (requirements = []) => {
 
 export default function(inputs = {}, passwordRequirements = []) {
   const errors = [];
+
   Object.entries(inputs).forEach(entry => {
     const [key, value] = entry;
+
     if (key === 'email') {
       const status = checkEmail(value);
       if (status) errors.push({ email: 'Invalid email' });
-    } else if (key === 'password') {
+    }
+
+    if (key === 'password') {
       const status = checkPassword(passwordRequirements);
       if (status) errors.push({ password: 'Invalid password' });
-      // if (status.)
     }
+
+    if (!value || value.length === 0 || value === null)
+      errors.push({ [key]: 'Required field' });
   });
+
+  return errors;
 }

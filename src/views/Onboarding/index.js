@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { useLocation, Link } from 'react-router-dom';
-import Button from '../../components/Button';
-import Text from '../../components/Text';
-import { Container, FormInput, FormContainer, Wrapper } from './styled';
+import { Link, useLocation } from 'react-router-dom';
 import { createUser } from '../../api/User';
-import Spinner from '../../components/Spinner/styled';
-import CheckFormInputs from '../../utils/CheckFormInputs';
+import Button from '../../components/Button';
 import PasswordRequirements from '../../components/PasswordRequirements';
+import Text from '../../components/Text';
+import CheckFormInputs from '../../utils/CheckFormInputs';
 import { PASSWORD_REQUIREMENTS } from '../../utils/Constants';
+import { Container, FormContainer, FormInput, Wrapper } from './styled';
 
 function Onboarding() {
   const { pathname } = useLocation();
@@ -16,17 +15,6 @@ function Onboarding() {
   const [requirements, setRequirements] = useState(PASSWORD_REQUIREMENTS);
 
   // const [authenticating, setAuthenticating] = useState(false);
-
-  // const nameRef = useRef();
-  // const emailRef = useRef();
-
-  // useEffect(() => {
-  //   if (path === 'login') {
-  //     emailRef.current && emailRef.current.focus();
-  //   } else {
-  //     nameRef.current && nameRef.current.focus();
-  //   }
-  // });
 
   const [inputs, setInputs] = useState({
     name: '',
@@ -81,16 +69,18 @@ function Onboarding() {
 
   async function handleSubmit() {
     // setAuthenticating(prevState => !prevState);
-    const [firstName, ...lastName] = inputs.name.split(' ');
+    const errors = CheckFormInputs(inputs, requirements);
 
-    const errors = CheckFormInputs(requirements, inputs);
-    // const response = await createUser({
-    //   firstName,
-    //   lastName: lastName.length > 0 ? lastName : '',
-    //   email: inputs.email,
-    //   password: inputs.password
-    // });
-    // console.log(response.status);
+    if (errors.length === 0) {
+      const [firstName, ...lastName] = inputs.name.split(' ');
+      const response = await createUser({
+        firstName,
+        lastName: lastName.length > 0 ? lastName : '',
+        email: inputs.email,
+        password: inputs.password
+      });
+      console.log(response.status);
+    }
   }
 
   return (
@@ -134,6 +124,7 @@ function Onboarding() {
                 margin-top='10px'
                 value={inputs.name}
                 onChange={e => handleInputChange(e, 'name')}
+                autoFocus
               />
             </>
           )}
@@ -152,6 +143,7 @@ function Onboarding() {
             margin-top='10px'
             value={inputs.email}
             onChange={e => handleInputChange(e, 'email')}
+            autoFocus
           />
           <Text
             margin-top='30px'
@@ -163,6 +155,7 @@ function Onboarding() {
             Password
           </Text>
           <FormInput
+            // ref={passwordRef}
             type='password'
             margin-top='10px'
             value={inputs.password}
@@ -214,3 +207,31 @@ function Onboarding() {
 }
 
 export default Onboarding;
+
+// TODO: Autofocus input field
+
+// TODO: Change color of input fields on errors
+// const nameRef = useRef();
+// const emailRef = useRef();
+// const passwordRef = useRef();
+
+// } else {
+//   const { current: nameInput } = nameRef;
+//   const { current: emailInput } = emailRef;
+//   const { current: passwordInput } = passwordRef;
+
+//   errors.forEach(obj => {
+//     // const { email, password } = obj;
+//     // console.log(email, password);
+//   });
+
+//   // errors.forEach(obj => {
+//   //   c
+
+//   //   if (key === 'email') {
+//   //     console.log(emailInput);
+//   //     // emailInput.css.color = 'red';
+//   //     // emailInput.placeholder = value;
+//   //   }
+//   // });
+// }
