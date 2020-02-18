@@ -6,10 +6,15 @@ import { Container, FormInput, FormContainer, Wrapper } from './styled';
 import { createUser } from '../../api/User';
 import Spinner from '../../components/Spinner/styled';
 import CheckFormInputs from '../../utils/CheckFormInputs';
+import PasswordRequirements from '../../components/PasswordRequirements';
+import { PASSWORD_REQUIREMENTS } from '../../utils/Constants';
 
 function Onboarding() {
   const { pathname } = useLocation();
   const path = pathname.slice(1);
+  const [showPWRequirements, setShowPwRequirements] = useState(false);
+  const [requirements, setRequirements] = useState(PASSWORD_REQUIREMENTS);
+
   // const [authenticating, setAuthenticating] = useState(false);
 
   // const nameRef = useRef();
@@ -44,6 +49,10 @@ function Onboarding() {
         return { ...prevState, password: e.target.value };
       });
     }
+  }
+
+  function handleFocus() {
+    setShowPwRequirements(prevState => !prevState);
   }
 
   async function handleSubmit() {
@@ -134,9 +143,12 @@ function Onboarding() {
             margin-top='10px'
             value={inputs.password}
             onChange={e => handleInputChange(e, 'password')}
+            onFocus={handleFocus}
+            onBlur={handleFocus}
           />
+          {showPWRequirements && <PasswordRequirements items={requirements} />}
           <Button
-            margin='40px 0 0 0'
+            margin='25px 0 0 0'
             width='calc(100% - 26px)'
             onClick={handleSubmit}>
             {/* {!authenticating */}
