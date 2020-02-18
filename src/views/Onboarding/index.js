@@ -46,6 +46,30 @@ function Onboarding() {
       });
     } else {
       setInputs(prevState => {
+        const { password } = { ...prevState, password: e.target.value };
+
+        setRequirements(oldState => {
+          const state = oldState;
+
+          if (/[A-Z]/.test(password)) state[0] = [state[0][0], true];
+          else state[0] = [state[0][0], false];
+
+          if (/[a-z]/.test(password)) state[1] = [state[1][0], true];
+          else state[1] = [state[1][0], false];
+
+          if (/[0-9]/.test(password)) state[2] = [state[2][0], true];
+          else state[2] = [state[2][0], false];
+
+          if (/[!@#$%^&*)(+=._-]*/.test(password))
+            state[3] = [state[3][0], true];
+          else state[3] = [state[3][0], false];
+
+          if (password.length > 8) state[4] = [state[4][0], true];
+          else state[4] = [state[4][0], false];
+
+          return state;
+        });
+
         return { ...prevState, password: e.target.value };
       });
     }
@@ -59,7 +83,7 @@ function Onboarding() {
     // setAuthenticating(prevState => !prevState);
     const [firstName, ...lastName] = inputs.name.split(' ');
 
-    const errors = CheckFormInputs(inputs);
+    const errors = CheckFormInputs(requirements, inputs);
     // const response = await createUser({
     //   firstName,
     //   lastName: lastName.length > 0 ? lastName : '',
@@ -146,7 +170,9 @@ function Onboarding() {
             onFocus={handleFocus}
             onBlur={handleFocus}
           />
-          {showPWRequirements && <PasswordRequirements items={requirements} />}
+          {path !== 'login' && showPWRequirements && (
+            <PasswordRequirements items={requirements} />
+          )}
           <Button
             margin='25px 0 0 0'
             width='calc(100% - 26px)'

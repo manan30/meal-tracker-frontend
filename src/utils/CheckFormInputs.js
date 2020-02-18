@@ -5,11 +5,11 @@ const checkEmail = email => {
   return email.length > 0 && email.test(matcher);
 };
 
-const checkPassword = (password = '') => {
-  if (password.length < 8) return { error: 'length' };
+const checkPassword = (requirements = []) => {
+  return requirements.reduce((acc, curr) => acc && curr[1], true);
 };
 
-export default function(inputs = {}) {
+export default function(inputs = {}, passwordRequirements = []) {
   const errors = [];
   Object.entries(inputs).forEach(entry => {
     const [key, value] = entry;
@@ -17,7 +17,8 @@ export default function(inputs = {}) {
       const status = checkEmail(value);
       if (status) errors.push({ email: 'Invalid email' });
     } else if (key === 'password') {
-      const status = checkPassword(value);
+      const status = checkPassword(passwordRequirements);
+      if (status) errors.push({ password: 'Invalid password' });
       // if (status.)
     }
   });

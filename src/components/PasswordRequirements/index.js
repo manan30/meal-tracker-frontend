@@ -8,8 +8,7 @@ function PasswordRequirements({ items }) {
     <Container>
       {items.map((item, i) => {
         const key = i;
-        const [[text, status]] = Object.values(item);
-        console.log(status);
+        const [text, status] = item;
         return (
           <LineItem key={key} color={status ? 'green' : 'red'}>
             {!status ? <MdCancel /> : <MdCheckCircle />}
@@ -22,7 +21,7 @@ function PasswordRequirements({ items }) {
 }
 
 PasswordRequirements.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any))
+  items: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.any))
 };
 
 PasswordRequirements.defaultProps = {
