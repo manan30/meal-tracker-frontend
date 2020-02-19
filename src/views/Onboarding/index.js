@@ -65,6 +65,8 @@ function Onboarding() {
   }
 
   function handleFocus() {
+    if (path === 'login') return;
+
     setShowPwRequirements(prevState => !prevState);
   }
 

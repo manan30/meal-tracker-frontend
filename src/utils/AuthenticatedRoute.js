@@ -1,21 +1,22 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 
-function AuthenticatedRoute({ component: Component, ...rest }) {
-  const [authenticated, setAuthenticated] = useState(false);
+function AuthenticatedRoute({ component: Component, authentication, ...rest }) {
+  console.log(authentication);
   return (
     <Route
       {...rest}
       render={props =>
-        authenticated ? <Component {...props} /> : <Redirect to='/login' />
+        authentication ? <Component {...props} /> : <Redirect to='/login' />
       }
     />
   );
 }
 
 AuthenticatedRoute.propTypes = {
-  component: PropTypes.elementType.isRequired
+  component: PropTypes.elementType.isRequired,
+  authentication: PropTypes.bool.isRequired
 };
 
 export default AuthenticatedRoute;

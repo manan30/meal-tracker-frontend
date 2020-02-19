@@ -18,4 +18,9 @@ export default createGlobalStyle`
   a{
     text-decoration: none;
   }
+
+  #root {
+    height: 100%;
+    width: 100%;
+  }
 `;
