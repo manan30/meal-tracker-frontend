@@ -48,6 +48,25 @@ const ProfileImage = styled.div`
   height: 70px;
   background-color: #767676;
   border-radius: 50%;
+
+  ${({ children, ...rest }) => rest}
+`;
+
+const CardImage = styled.image`
+  display: block;
+  height: 180px;
+  width: 100%;
+  background-image: url(${props => props.image && props.image});
+  background-color: grey;
+  background-position: center center;
+  background-repeat: no-repeat;
+`;
+
+const Icon = styled.div`
+  svg {
+    height: 16px;
+    width: 16px;
+  }
 `;
 
 export {
@@ -57,5 +76,7 @@ export {
   RightSideSection,
   DataContainer,
   LineItem,
-  ProfileImage
+  ProfileImage,
+  CardImage,
+  Icon
 };

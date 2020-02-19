@@ -1,4 +1,5 @@
 import React from 'react';
+import { FiHeart } from 'react-icons/fi';
 import Button from '../../components/Button';
 import CardContainer from '../../components/Card/styled';
 import Text from '../../components/Text';
@@ -9,7 +10,9 @@ import {
   MainSection,
   ProfileImage,
   RightSideSection,
-  Wrapper
+  Wrapper,
+  CardImage,
+  Icon
 } from './styled';
 
 function Feed() {
@@ -159,9 +162,78 @@ function Feed() {
             <CardContainer
               height='400px'
               width='100%'
-              background-color='red'
               margin-bottom='20px'
-            />
+              box-shadow='0px 6px 20px rgba(13, 51, 32, 0.1)'>
+              <div
+                style={{
+                  display: 'inline-flex',
+                  height: '30px',
+                  width: 'calc(100% - 30px)',
+                  padding: '15px'
+                }}>
+                <ProfileImage height='32px' width='32px' />
+                <div
+                  style={{
+                    marginLeft: '10px',
+                    height: '100%',
+                    width: 'calc(100% - 45px)'
+                  }}>
+                  <Text
+                    font-style='normal'
+                    font-weight='normal'
+                    font-size='12px'
+                    line-height='16px'
+                    color='#030F09'>
+                    Manan Joshi
+                  </Text>
+                  <Text
+                    font-style='normal'
+                    font-weight='normal'
+                    font-size='12px'
+                    line-height='16px'
+                    letter-spacing='0.4px'
+                    color='#767676'>
+                    2h ago
+                  </Text>
+                </div>
+              </div>
+              <CardImage />
+              <div
+                style={{
+                  margin: '15px',
+                  height: 'calc(100% - 270px)',
+                  width: 'calc(100% - 30px)'
+                }}>
+                <div
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center'
+                  }}>
+                  <Text
+                    width='100%'
+                    font-style='normal'
+                    font-weight='600'
+                    font-size='18px'
+                    line-height='32px'
+                    color='#030F09'>
+                    Tofu Salad Ginger Garlic
+                  </Text>
+                  {/* <Icon>
+                    <FiHeart />
+                  </Icon> */}
+                </div>
+                <Text
+                  font-style='normal'
+                  font-weight='normal'
+                  font-size='14px'
+                  line-height='22px'
+                  color='#A8A8A8'>
+                  I thought this salad was exceptionally delicious and healthy.
+                  I recommend pressing the entire tofu block for at least 20
+                  minutes before to remove excess water in the ...
+                </Text>
+              </div>
+            </CardContainer>
           ))}
         </CardContainer>
       </MainSection>
