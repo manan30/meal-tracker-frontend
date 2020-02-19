@@ -232,6 +232,49 @@ function Feed() {
                   I recommend pressing the entire tofu block for at least 20
                   minutes before to remove excess water in the ...
                 </Text>
+                <div
+                  style={{
+                    display: 'flex',
+                    marginTop: '10px',
+                    alignItems: 'center'
+                  }}>
+                  <Text
+                    flex-grow='0'
+                    flex-basis='auto'
+                    font-style='normal'
+                    font-weight='normal'
+                    font-size='14px'
+                    line-height='22px'
+                    color='#606060'>
+                    32 Likes
+                  </Text>
+                  <Text
+                    flex-grow='1'
+                    flex-basis='auto'
+                    margin-left='20px'
+                    font-style='normal'
+                    font-weight='normal'
+                    font-size='14px'
+                    line-height='22px'
+                    color='#606060'>
+                    8 comments
+                  </Text>
+                  <Button
+                    flex-grow='0'
+                    flex-basis='auto'
+                    text='Save'
+                    height='26px'
+                    border='1px solid #30BE76'
+                    border-radius='4px'
+                    width='72px'
+                    font-style='normal'
+                    font-weight='bold'
+                    font-size='14px'
+                    line-height='18px'
+                    letter-spacing='0.4px'
+                    color='#30BE76'
+                  />
+                </div>
               </div>
             </CardContainer>
           ))}
