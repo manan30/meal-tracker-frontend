@@ -4,6 +4,7 @@ import Button from '../../components/Button';
 import CardContainer from '../../components/Card/styled';
 import Text from '../../components/Text';
 import {
+  CardImage,
   DataContainer,
   LeftSideSection,
   LineItem,
@@ -11,88 +12,79 @@ import {
   ProfileImage,
   RightSideSection,
   Wrapper,
-  CardImage,
   Icon
 } from './styled';
+import { useStore } from '../../Store';
 
 function Feed() {
+  const { state } = useStore();
+
   return (
     <Wrapper>
       <LeftSideSection>
-        <CardContainer
-          // display='flex'
-          width='calc(100% - 20px)'
-          height='215px'
-          margin-right='20px'>
-          <DataContainer display='inline-flex' height='50%'>
-            <ProfileImage />
+        {state.user.isAuthenticated && (
+          <CardContainer
+            width='calc(100% - 20px)'
+            height='215px'
+            margin-bottom='20px'
+            margin-right='20px'>
+            <DataContainer display='inline-flex' height='50%'>
+              <ProfileImage />
+              <div
+                style={{
+                  marginLeft: '16px',
+                  width: 'calc(100% - 86px)'
+                }}>
+                <Text
+                  font-style='normal'
+                  font-weight='bold'
+                  font-size='16px'
+                  line-height='22px'>
+                  Manan Joshi
+                </Text>
+                <Text
+                  font-style='normal'
+                  font-weight='normal'
+                  font-size='14px'
+                  line-height='22px'
+                  color='#606060'>
+                  Aspiring Chef
+                </Text>
+                <LineItem>
+                  <Text
+                    font-style='normal'
+                    font-weight='normal'
+                    font-size=' 14px'
+                    line-height=' 22px'
+                    color=' #606060'
+                    margin-top='6px'>
+                    500 followers
+                  </Text>
+                  <Text
+                    font-style='normal'
+                    font-weight='normal'
+                    font-size=' 14px'
+                    line-height=' 22px'
+                    color=' #606060'
+                    margin-top='6px'>
+                    23k likes
+                  </Text>
+                </LineItem>
+              </div>
+            </DataContainer>
             <div
               style={{
-                marginLeft: '16px',
-                width: 'calc(100% - 86px)'
-              }}>
-              <Text
-                font-style='normal'
-                font-weight='bold'
-                font-size='16px'
-                line-height='22px'>
-                Manan Joshi
-              </Text>
-              <Text
-                font-style='normal'
-                font-weight='normal'
-                font-size='14px'
-                line-height='22px'
-                color='#606060'>
-                Aspiring Chef
-              </Text>
-              <LineItem>
-                <Text
-                  font-style='normal'
-                  font-weight='normal'
-                  font-size=' 14px'
-                  line-height=' 22px'
-                  color=' #606060'
-                  margin-top='6px'>
-                  500 followers
-                </Text>
-                {/* <div
-                  style={{
-                    display: 'inline',
-                    borderRadius: '50%',
-                    backgroundColor: '#979797',
-                    height: '5px',
-                    width: '5px',
-                    fontSize: '14px',
-                    lineHeight: '22px',
-                    margin: '6px 16px 0 16px'
-                  }}
-                /> */}
-                <Text
-                  font-style='normal'
-                  font-weight='normal'
-                  font-size=' 14px'
-                  line-height=' 22px'
-                  color=' #606060'
-                  margin-top='6px'>
-                  23k likes
-                </Text>
-              </LineItem>
-            </div>
-          </DataContainer>
-          <div
-            style={{
-              height: '1px',
-              backgroundColor: '#E6E6E6',
-              borderRadius: '0.5px',
-              margin: '-20px 25px 0 25px'
-            }}
-          />
-        </CardContainer>
+                height: '1px',
+                backgroundColor: '#E6E6E6',
+                borderRadius: '0.5px',
+                margin: '-20px 25px 0 25px'
+              }}
+            />
+          </CardContainer>
+        )}
         <CardContainer
           display='flex'
           width='calc(100% - 20px)'
-          margin-top='20px'
           margin-right='20px'>
           <DataContainer>
             <Text
@@ -121,21 +113,27 @@ function Feed() {
       </LeftSideSection>
       <MainSection>
         <CardContainer
-          display='inline-flex'
+          display='flex'
           width='calc(100% - 50px)'
           height='30px'
           padding='25px'
           align-items='center'>
-          <Text
-            width='80%'
-            font-style='normal'
-            font-weight='normal'
-            font-size='14px'
-            line-height='22px'
-            color='#030F09'>
-            256 followers are online
-          </Text>
+          {state.user.isAuthenticated && (
+            <Text
+              flex-basis='auto'
+              flex-grow='1'
+              width='80%'
+              font-style='normal'
+              font-weight='normal'
+              font-size='14px'
+              line-height='22px'
+              color='#030F09'>
+              256 followers are online
+            </Text>
+          )}
           <Button
+            flex-basis='auto'
+            flex-grow='0'
             text='Create Recipe'
             height='36px'
             width='128px'
@@ -206,10 +204,12 @@ function Feed() {
                 }}>
                 <div
                   style={{
-                    display: 'inline-flex',
+                    display: 'flex',
                     alignItems: 'center'
                   }}>
                   <Text
+                    flex-basis='auto'
+                    flex-grow='1'
                     width='100%'
                     font-style='normal'
                     font-weight='600'
@@ -218,9 +218,9 @@ function Feed() {
                     color='#030F09'>
                     Tofu Salad Ginger Garlic
                   </Text>
-                  {/* <Icon>
+                  <Icon>
                     <FiHeart />
-                  </Icon> */}
+                  </Icon>
                 </div>
                 <Text
                   font-style='normal'

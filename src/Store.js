@@ -2,7 +2,13 @@ import React, { createContext, useReducer, useContext } from 'react';
 import PropTypes from 'prop-types';
 
 const StoreContext = createContext();
-const initialState = { user: { isAuthenticated: false } };
+const initialState = {
+  user: { isAuthenticated: false },
+  feed: {
+    topRecipes: [],
+    recipes: []
+  }
+};
 
 const reducer = (state, action) => {
   switch (action.type) {
