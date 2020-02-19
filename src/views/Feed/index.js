@@ -1,15 +1,16 @@
 import React from 'react';
-import {
-  Wrapper,
-  LeftSideSection,
-  MainSection,
-  RightSideSection,
-  DataContainer,
-  ProfileImage,
-  LineItem
-} from './styled';
+import Button from '../../components/Button';
 import CardContainer from '../../components/Card/styled';
 import Text from '../../components/Text';
+import {
+  DataContainer,
+  LeftSideSection,
+  LineItem,
+  MainSection,
+  ProfileImage,
+  RightSideSection,
+  Wrapper
+} from './styled';
 
 function Feed() {
   return (
@@ -88,7 +89,6 @@ function Feed() {
         <CardContainer
           display='flex'
           width='calc(100% - 20px)'
-          // height='171px'
           margin-top='20px'
           margin-right='20px'>
           <DataContainer>
@@ -116,7 +116,55 @@ function Feed() {
           </DataContainer>
         </CardContainer>
       </LeftSideSection>
-      <MainSection />
+      <MainSection>
+        <CardContainer
+          display='inline-flex'
+          width='calc(100% - 50px)'
+          height='30px'
+          padding='25px'
+          align-items='center'>
+          <Text
+            width='80%'
+            font-style='normal'
+            font-weight='normal'
+            font-size='14px'
+            line-height='22px'
+            color='#030F09'>
+            256 followers are online
+          </Text>
+          <Button
+            text='Create Recipe'
+            height='36px'
+            width='128px'
+            margin='0'
+            font-style='normal'
+            font-weight='bold'
+            font-size='16px'
+            line-height='21px'
+            text-align='center'
+            color='#ffffff'
+            background-color='#30BE76'
+            box-shadow='0px 6px 20px rgba(13, 51, 32, 0.1)'
+            hover={false}
+          />
+        </CardContainer>
+        <CardContainer
+          width='calc(100% - 50px)'
+          height='calc(100% - 150px)'
+          padding='25px'
+          margin-top='20px'
+          border-radius='8px 8px 0 0'
+          overflow-y='scroll'>
+          {new Array(20).fill(0).map(() => (
+            <CardContainer
+              height='400px'
+              width='100%'
+              background-color='red'
+              margin-bottom='20px'
+            />
+          ))}
+        </CardContainer>
+      </MainSection>
       <RightSideSection />
     </Wrapper>
   );
