@@ -6,12 +6,14 @@ const initialState = {
   user: { isAuthenticated: false },
   feed: {
     topRecipes: [],
-    recipes: []
+    feedRecipes: []
   }
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case 'SET_FEED':
+      return { ...state, feed: action.payload };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }

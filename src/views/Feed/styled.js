@@ -46,10 +46,14 @@ const LineItem = styled.div`
 const ProfileImage = styled.div`
   width: 70px;
   height: 70px;
-  background-color: #767676;
+  background-color: #ffffff;
   border-radius: 50%;
+  background-image: url(${props => props.image && props.image});
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
 
-  ${({ children, ...rest }) => rest}
+  ${({ children, image, ...rest }) => rest};
 `;
 
 const CardImage = styled.image`

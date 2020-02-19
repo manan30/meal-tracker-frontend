@@ -1,23 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FiHeart } from 'react-icons/fi';
 import Button from '../../components/Button';
 import CardContainer from '../../components/Card/styled';
 import Text from '../../components/Text';
+import { useStore } from '../../Store';
+import { getInitialFeed } from '../../api/Feed';
 import {
   CardImage,
   DataContainer,
+  Icon,
   LeftSideSection,
   LineItem,
   MainSection,
   ProfileImage,
   RightSideSection,
-  Wrapper,
-  Icon
+  Wrapper
 } from './styled';
-import { useStore } from '../../Store';
 
 function Feed() {
-  const { state } = useStore();
+  const { state, dispatch } = useStore();
+
+  useEffect(() => {
+    (async function fetchFeedData() {
+      const { data } = await getInitialFeed();
+      dispatch({ type: 'SET_FEED', payload: data });
+    })();
+  }, [dispatch]);
 
   return (
     <Wrapper>
@@ -94,7 +102,7 @@ function Feed() {
               color='#030F09'>
               Top 5 recipes for today
             </Text>
-            {new Array(5).fill(0).map((_, i) => {
+            {state.feed.topRecipes.map((recipe, i) => {
               const key = i;
               return (
                 <Text
@@ -104,7 +112,7 @@ function Feed() {
                   font-size='16px'
                   line-height='22px'
                   color='#606060'>
-                  Recipe {i}
+                  {recipe}
                 </Text>
               );
             })}
@@ -156,128 +164,135 @@ function Feed() {
           margin-top='20px'
           border-radius='8px 8px 0 0'
           overflow-y='scroll'>
-          {new Array(20).fill(0).map(() => (
-            <CardContainer
-              height='400px'
-              width='100%'
-              margin-bottom='20px'
-              box-shadow='0px 6px 20px rgba(13, 51, 32, 0.1)'>
-              <div
-                style={{
-                  display: 'inline-flex',
-                  height: '30px',
-                  width: 'calc(100% - 30px)',
-                  padding: '15px'
-                }}>
-                <ProfileImage height='32px' width='32px' />
+          {state.feed.feedRecipes.map(({ user, recipe }, i) => {
+            const key = i;
+            return (
+              <CardContainer
+                key={key}
+                height='400px'
+                width='100%'
+                margin-bottom='20px'
+                box-shadow='0px 6px 20px rgba(13, 51, 32, 0.1)'>
                 <div
                   style={{
-                    marginLeft: '10px',
-                    height: '100%',
-                    width: 'calc(100% - 45px)'
+                    display: 'inline-flex',
+                    height: '30px',
+                    width: 'calc(100% - 30px)',
+                    padding: '15px'
                   }}>
-                  <Text
-                    font-style='normal'
-                    font-weight='normal'
-                    font-size='12px'
-                    line-height='16px'
-                    color='#030F09'>
-                    Manan Joshi
-                  </Text>
-                  <Text
-                    font-style='normal'
-                    font-weight='normal'
-                    font-size='12px'
-                    line-height='16px'
-                    letter-spacing='0.4px'
-                    color='#767676'>
-                    2h ago
-                  </Text>
-                </div>
-              </div>
-              <CardImage />
-              <div
-                style={{
-                  margin: '15px',
-                  height: 'calc(100% - 270px)',
-                  width: 'calc(100% - 30px)'
-                }}>
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center'
-                  }}>
-                  <Text
-                    flex-basis='auto'
-                    flex-grow='1'
-                    width='100%'
-                    font-style='normal'
-                    font-weight='600'
-                    font-size='18px'
-                    line-height='32px'
-                    color='#030F09'>
-                    Tofu Salad Ginger Garlic
-                  </Text>
-                  <Icon>
-                    <FiHeart />
-                  </Icon>
-                </div>
-                <Text
-                  font-style='normal'
-                  font-weight='normal'
-                  font-size='14px'
-                  line-height='22px'
-                  color='#A8A8A8'>
-                  I thought this salad was exceptionally delicious and healthy.
-                  I recommend pressing the entire tofu block for at least 20
-                  minutes before to remove excess water in the ...
-                </Text>
-                <div
-                  style={{
-                    display: 'flex',
-                    marginTop: '10px',
-                    alignItems: 'center'
-                  }}>
-                  <Text
-                    flex-grow='0'
-                    flex-basis='auto'
-                    font-style='normal'
-                    font-weight='normal'
-                    font-size='14px'
-                    line-height='22px'
-                    color='#606060'>
-                    32 Likes
-                  </Text>
-                  <Text
-                    flex-grow='1'
-                    flex-basis='auto'
-                    margin-left='20px'
-                    font-style='normal'
-                    font-weight='normal'
-                    font-size='14px'
-                    line-height='22px'
-                    color='#606060'>
-                    8 comments
-                  </Text>
-                  <Button
-                    flex-grow='0'
-                    flex-basis='auto'
-                    text='Save'
-                    height='26px'
-                    border='1px solid #30BE76'
-                    border-radius='4px'
-                    width='72px'
-                    font-style='normal'
-                    font-weight='bold'
-                    font-size='14px'
-                    line-height='18px'
-                    letter-spacing='0.4px'
-                    color='#30BE76'
+                  <ProfileImage
+                    height='32px'
+                    width='32px'
+                    image={user.profilePicture}
                   />
+                  <div
+                    style={{
+                      marginLeft: '10px',
+                      height: '100%',
+                      width: 'calc(100% - 45px)'
+                    }}>
+                    <Text
+                      font-style='normal'
+                      font-weight='normal'
+                      font-size='12px'
+                      line-height='16px'
+                      color='#030F09'>
+                      {user.username}
+                    </Text>
+                    <Text
+                      font-style='normal'
+                      font-weight='normal'
+                      font-size='12px'
+                      line-height='16px'
+                      letter-spacing='0.4px'
+                      color='#767676'>
+                      {user.lastPosted}h ago
+                    </Text>
+                  </div>
                 </div>
-              </div>
-            </CardContainer>
-          ))}
+                <CardImage image={recipe.recipeImage} />
+                <div
+                  style={{
+                    margin: '15px',
+                    height: 'calc(100% - 270px)',
+                    width: 'calc(100% - 30px)'
+                  }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center'
+                    }}>
+                    <Text
+                      flex-basis='auto'
+                      flex-grow='1'
+                      width='100%'
+                      font-style='normal'
+                      font-weight='600'
+                      font-size='18px'
+                      line-height='32px'
+                      color='#030F09'>
+                      {recipe.recipeName}
+                    </Text>
+                    <Icon>
+                      <FiHeart />
+                    </Icon>
+                  </div>
+                  <Text
+                    font-style='normal'
+                    font-weight='normal'
+                    font-size='14px'
+                    line-height='22px'
+                    color='#A8A8A8'>
+                    {recipe.recipeDesc.split(0, recipe.recipeDesc.length - 10)}
+                    ...
+                  </Text>
+                  <div
+                    style={{
+                      display: 'flex',
+                      marginTop: '10px',
+                      alignItems: 'center'
+                    }}>
+                    <Text
+                      flex-grow='0'
+                      flex-basis='auto'
+                      font-style='normal'
+                      font-weight='normal'
+                      font-size='14px'
+                      line-height='22px'
+                      color='#606060'>
+                      {recipe.likes} Likes
+                    </Text>
+                    <Text
+                      flex-grow='1'
+                      flex-basis='auto'
+                      margin-left='20px'
+                      font-style='normal'
+                      font-weight='normal'
+                      font-size='14px'
+                      line-height='22px'
+                      color='#606060'>
+                      {recipe.comments} comments
+                    </Text>
+                    <Button
+                      flex-grow='0'
+                      flex-basis='auto'
+                      text='Save'
+                      height='26px'
+                      border='1px solid #30BE76'
+                      border-radius='4px'
+                      width='72px'
+                      font-style='normal'
+                      font-weight='bold'
+                      font-size='14px'
+                      line-height='18px'
+                      letter-spacing='0.4px'
+                      color='#30BE76'
+                    />
+                  </div>
+                </div>
+              </CardContainer>
+            );
+          })}
         </CardContainer>
       </MainSection>
       <RightSideSection>
