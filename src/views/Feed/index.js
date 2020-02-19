@@ -280,7 +280,49 @@ function Feed() {
           ))}
         </CardContainer>
       </MainSection>
-      <RightSideSection />
+      <RightSideSection>
+        <CardContainer
+          height='calc(105px - 50px)'
+          width='calc(100% - 70px)'
+          margin-left='20px'
+          padding='25px'>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <Text
+              flex-basis='auto'
+              flex-grow='0'
+              font-size='12px'
+              font-weight='normal'
+              line-height='16px'
+              letter-spacing='0.4px'
+              color='#767676'>
+              About Sculptor
+            </Text>
+            <Text
+              flex-basis='auto'
+              flex-grow='1'
+              margin-left='20px'
+              font-size='12px'
+              font-weight='normal'
+              line-height='16px'
+              letter-spacing='0.4px'
+              color='#767676'>
+              Settings
+            </Text>
+          </div>
+          <Text
+            margin-top='24px'
+            font-weight='normal'
+            font-size='10px'
+            line-height='14px'
+            letter-spacing='0.3px'
+            color='#767676'>
+            <span role='img' aria-label='copyright'>
+              ©️
+            </span>
+            sculptor by Manan 2020
+          </Text>
+        </CardContainer>
+      </RightSideSection>
     </Wrapper>
   );
 }
