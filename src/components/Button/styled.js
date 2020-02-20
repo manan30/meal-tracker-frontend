@@ -36,7 +36,8 @@ const Container = styled.div`
     background: #30be76;
     color: #ffffff;
     box-shadow: 0px 6px 20px rgba(13, 51, 32, 0.1);
-  }`}
+  }
+  `}
 
   ${props => {
     const { children, ...rest } = props;

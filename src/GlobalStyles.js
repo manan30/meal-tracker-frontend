@@ -1,4 +1,5 @@
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
+import { Link as anchor } from 'react-router-dom';
 
 export default createGlobalStyle`
   html, body {
@@ -15,3 +16,11 @@ export default createGlobalStyle`
     font-family: 'Nunito Sans', sans-serif;
   }
 `;
+
+const Link = styled(anchor)`
+  text-decoration: none;
+
+  ${({ children, ...rest }) => rest}
+`;
+
+export { Link };

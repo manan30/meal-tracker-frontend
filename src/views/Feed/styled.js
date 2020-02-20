@@ -69,6 +69,7 @@ const CardImage = styled.image`
 const Icon = styled.div`
   flex-basis: auto;
   flex-grow: 0;
+  cursor: pointer;
 
   svg {
     height: 16px;

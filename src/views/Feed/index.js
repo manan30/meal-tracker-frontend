@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { FiHeart } from 'react-icons/fi';
+import { getInitialFeed } from '../../api/Feed';
 import Button from '../../components/Button';
 import CardContainer from '../../components/Card/styled';
 import Text from '../../components/Text';
+import { Link } from '../../GlobalStyles';
 import { useStore } from '../../Store';
-import { getInitialFeed } from '../../api/Feed';
 import {
   CardImage,
   DataContainer,
@@ -109,15 +110,17 @@ function Feed() {
             {state.feed.topRecipes.map((recipe, i) => {
               const key = i;
               return (
-                <Text
-                  key={key}
-                  margin-top='16px'
-                  font-weight='normal'
-                  font-size='14px'
-                  line-height='22px'
-                  color='#606060'>
-                  {recipe}
-                </Text>
+                <Link to={`/recipe/${recipe.id}`}>
+                  <Text
+                    key={key}
+                    margin-top='16px'
+                    font-weight='normal'
+                    font-size='14px'
+                    line-height='22px'
+                    color='#606060'>
+                    {recipe.name}
+                  </Text>
+                </Link>
               );
             })}
           </DataContainer>
@@ -192,17 +195,18 @@ function Feed() {
                   <div
                     style={{
                       marginLeft: '10px',
-                      height: '100%',
-                      width: 'calc(100% - 45px)'
+                      height: '100%'
                     }}>
-                    <Text
-                      font-style='normal'
-                      font-weight='normal'
-                      font-size='12px'
-                      line-height='16px'
-                      color='#030F09'>
-                      {user.username}
-                    </Text>
+                    <Link to={`/user/${user.id}`}>
+                      <Text
+                        font-style='normal'
+                        font-weight='normal'
+                        font-size='12px'
+                        line-height='16px'
+                        color='#030F09'>
+                        {user.username}
+                      </Text>
+                    </Link>
                     <Text
                       font-style='normal'
                       font-weight='normal'
@@ -226,34 +230,37 @@ function Feed() {
                       display: 'flex',
                       alignItems: 'center'
                     }}>
-                    <Text
-                      flex-basis='auto'
-                      flex-grow='1'
-                      width='100%'
-                      font-style='normal'
-                      font-weight='600'
-                      font-size='18px'
-                      line-height='32px'
-                      color='#030F09'>
-                      {recipe.recipeName}
-                    </Text>
+                    <Link to={`/recipe/${recipe.id}`} width='100%'>
+                      <Text
+                        flex-basis='auto'
+                        flex-grow='1'
+                        width='100%'
+                        font-style='normal'
+                        font-weight='600'
+                        font-size='18px'
+                        line-height='32px'
+                        color='#030F09'>
+                        {recipe.recipeName}
+                      </Text>
+                    </Link>
                     <Icon>
                       <FiHeart />
                     </Icon>
                   </div>
                   <Text
+                    height='45px'
                     font-style='normal'
                     font-weight='normal'
                     font-size='14px'
                     line-height='22px'
                     color='#A8A8A8'>
-                    {recipe.recipeDesc.split(0, recipe.recipeDesc.length - 10)}
+                    {recipe.recipeDesc}
                     ...
                   </Text>
                   <div
                     style={{
                       display: 'flex',
-                      marginTop: '10px',
+                      marginTop: '20px',
                       alignItems: 'center'
                     }}>
                     <Text
@@ -277,21 +284,23 @@ function Feed() {
                       color='#606060'>
                       {recipe.comments} comments
                     </Text>
-                    <Button
-                      flex-grow='0'
-                      flex-basis='auto'
-                      text='Save'
-                      height='26px'
-                      border='1px solid #30BE76'
-                      border-radius='4px'
-                      width='72px'
-                      font-style='normal'
-                      font-weight='bold'
-                      font-size='14px'
-                      line-height='18px'
-                      letter-spacing='0.4px'
-                      color='#30BE76'
-                    />
+                    <Link to='/profile'>
+                      <Button
+                        flex-grow='0'
+                        flex-basis='auto'
+                        text='Save'
+                        height='26px'
+                        border='1px solid #30BE76'
+                        border-radius='4px'
+                        width='72px'
+                        font-style='normal'
+                        font-weight='bold'
+                        font-size='14px'
+                        line-height='18px'
+                        letter-spacing='0.4px'
+                        color='#30BE76'
+                      />
+                    </Link>
                   </div>
                 </div>
               </CardContainer>
