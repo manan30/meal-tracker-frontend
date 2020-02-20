@@ -22,8 +22,12 @@ function Feed() {
 
   useEffect(() => {
     (async function fetchFeedData() {
-      const { data } = await getInitialFeed();
-      dispatch({ type: 'SET_FEED', payload: data });
+      try {
+        const { data } = await getInitialFeed();
+        dispatch({ type: 'SET_FEED', payload: data });
+      } catch (e) {
+        dispatch({ type: 'ERROR', payload: [] });
+      }
     })();
   }, [dispatch]);
 
@@ -109,7 +113,7 @@ function Feed() {
                   key={key}
                   margin-top='16px'
                   font-weight='normal'
-                  font-size='16px'
+                  font-size='14px'
                   line-height='22px'
                   color='#606060'>
                   {recipe}
