@@ -1,10 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import FeedView from './views/Feed';
+import ProfileView from './views/Profile';
+// import RecipePreviewView from './views/RecipePreview';
 import HeaderBar from './components/HeaderBar';
 import { useStore } from './Store';
 import AuthenticatedRoute from './utils/AuthenticatedRoute';
 import OnboardingView from './views/Onboarding';
-import ProfileView from './views/Profile';
+// import ProfileView from './views/Profile';
 
 function RouterComponent() {
   const { state } = useStore();
@@ -21,7 +24,7 @@ function RouterComponent() {
             component={ProfileView}
             authentication={state.user.isAuthenticated}
           />
-          <Route path='/' exact />
+          <Route path='/' exact component={FeedView} />
         </>
       </Switch>
     </Router>
