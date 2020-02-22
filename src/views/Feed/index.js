@@ -149,7 +149,6 @@ function Feed() {
           <Button
             flex-basis='auto'
             flex-grow='0'
-            text='Create Recipe'
             height='36px'
             width='128px'
             margin='0'
@@ -161,8 +160,9 @@ function Feed() {
             color='#ffffff'
             background-color='#30BE76'
             box-shadow='0px 6px 20px rgba(13, 51, 32, 0.1)'
-            hover={false}
-          />
+            hover={false}>
+            Create Recipe
+          </Button>
         </CardContainer>
         <CardContainer
           width='calc(100% - 50px)'
@@ -288,7 +288,6 @@ function Feed() {
                       <Button
                         flex-grow='0'
                         flex-basis='auto'
-                        text='Save'
                         height='26px'
                         border='1px solid #30BE76'
                         border-radius='4px'
@@ -298,8 +297,9 @@ function Feed() {
                         font-size='14px'
                         line-height='18px'
                         letter-spacing='0.4px'
-                        color='#30BE76'
-                      />
+                        color='#30BE76'>
+                        Save
+                      </Button>
                     </Link>
                   </div>
                 </div>
