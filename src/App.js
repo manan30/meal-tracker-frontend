@@ -1,11 +1,12 @@
 import React from 'react';
 import Router from './Router';
+import { StoreProvider } from './Store';
 
 function App() {
   return (
-    <>
+    <StoreProvider>
       <Router />
-    </>
+    </StoreProvider>
   );
 }
 

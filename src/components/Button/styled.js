@@ -30,16 +30,23 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
 
-  :hover {
+  ${({ hover }) =>
+    hover &&
+    `:hover {
     background: #30be76;
     color: #ffffff;
     box-shadow: 0px 6px 20px rgba(13, 51, 32, 0.1);
   }
+  `}
 
   ${props => {
     const { children, ...rest } = props;
     return rest;
   }};
 `;
+
+Container.defaultProps = {
+  hover: true
+};
 
 export default Container;
