@@ -102,6 +102,7 @@ function Onboarding() {
         <FormContainer>
           <Text
             margin-top='48px'
+            margin-left='-5px'
             font-style='normal'
             font-weight='bold'
             font-size='24px'

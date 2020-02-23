@@ -360,15 +360,48 @@ function FeedCard({ user, recipe }) {
       </div>
       {showModal && (
         <Modal display='flex' align-items='center' justify-content='center'>
-          <Card padding='20px' background-color='white'>
+          <Card
+            display='flex'
+            flex-wrap='wrap'
+            width='100%'
+            margin='20%'
+            padding='20px'
+            background-color='white'
+            background='linear-gradient(to right, #11998e, #38ef7d)'>
+            <Text
+              flex-basis='auto'
+              flex-grow='2'
+              font-style='normal'
+              font-weight='bold'
+              font-size='20px'
+              line-height='27px'
+              color='#ffffff'>
+              Login Required
+            </Text>
             <Icon
+              flex-basis='auto'
+              flex-grow='0'
               height='24px'
               width='24px'
               float='right'
+              color='#ffffff'
               onClick={handleModalToggle}>
               <MdClose />
             </Icon>
-            <Text>Please Login or Signup to continue...</Text>
+            <Text
+              width='100%'
+              margin-top='16px'
+              font-style='normal'
+              font-weight='bold'
+              font-size='14px'
+              line-height='21px'
+              text-align='center'
+              color='#ffffff'>
+              It looks like you are not logged in. Please
+              <Link to='/login'> login</Link> or
+              <Link to='/signup'> signup </Link>
+              to continue...
+            </Text>
           </Card>
         </Modal>
       )}

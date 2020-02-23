@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const Wrapper = styled.div`
   height: 100%;
   width: 100%;
-  background-color: #ffffff;
+  background: linear-gradient(to right, #11998e, #38ef7d);
 `;
 
 const Container = styled.div`
@@ -14,7 +14,8 @@ const Container = styled.div`
   height: 570px;
   width: 910px;
 
-  background: rgba(0, 0, 0, 0.0001);
+  /* background: rgba(0, 0, 0, 0.0001); */
+  background-color: #ffffff;
   box-shadow: 0px 6px 20px rgba(13, 51, 32, 0.1);
   border-radius: 8px;
 `;
