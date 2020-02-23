@@ -29,3 +29,11 @@ jobs:
         # - continue-on-error: false
         env:
           CI: false
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Test deploy"
+        run: ls -al
