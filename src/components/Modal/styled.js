@@ -9,7 +9,6 @@ const ModalBackground = styled.div`
 
   background: rgba(40, 41, 40, 0.5);
   mix-blend-mode: normal;
-  opacity: 0.8;
   border-radius: 8px;
 
   ${({ children, ...rest }) => rest}
