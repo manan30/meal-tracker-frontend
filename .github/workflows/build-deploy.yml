@@ -1,4 +1,5 @@
-name: Build and Deploy
+name: Build and Deploy Sculptor
+
 on:
   push:
     branches:
@@ -11,7 +12,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Check out repository
+        uses: actions/checkout@v2
 
       - name: Node setup
         uses: actions/setup-node@v1
@@ -26,4 +28,4 @@ jobs:
 
       - continue-on-error: false
         env:
-          CI: true
+          CI: false
