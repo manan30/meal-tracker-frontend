@@ -3,7 +3,6 @@ import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 
 function AuthenticatedRoute({ component: Component, authentication, ...rest }) {
-  console.log(authentication);
   return (
     <Route
       {...rest}
