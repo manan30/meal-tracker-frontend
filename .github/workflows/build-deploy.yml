@@ -47,4 +47,4 @@ jobs:
 
     steps:
       - name: "Test deploy"
-        run: ls $HOME
+        run: ls /home/runner/work/meal-tracker-frontend/meal-tracker-frontend
