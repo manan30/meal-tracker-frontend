@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Building project
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
@@ -20,7 +20,19 @@ jobs:
         with:
           node-version: 12.x
 
-      - name: Install
+      - name: Cache node modules
+        uses: actions/cache@v1
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/  package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Install dependencies
         run: npm install
 
       - name: Build
@@ -31,9 +43,10 @@ jobs:
           CI: false
 
   deploy:
+    name: Deploy
     needs: build
     runs-on: ubuntu-latest
 
     steps:
       - name: "Test deploy"
-        run: ls -al
+        run: ls $HOME
