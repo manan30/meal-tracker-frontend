@@ -41,8 +41,7 @@ jobs:
       - name: Setup keys
         run: |
           mkdir -p $HOME/.ssh
-          touch $HOME/.ssh/id_rsa
-          echo ${SSH_PRIVATE_KEY} > $HOME/.ssh/id_rsa
+          echo "SSH_PRIVATE_KEY" >> $HOME/.ssh/id_rsa
           chmod 600 $HOME/.ssh/id_rsa
           ssh-keyscan -t rsa mananjoshi.me >> $HOME/.ssh/known_hosts
         env:
