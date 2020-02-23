@@ -44,9 +44,12 @@ jobs:
           touch $HOME/.ssh/id_rsa
           echo ${SSH_PRIVATE_KEY} > $HOME/.ssh/id_rsa
           chmod 600 $HOME/.ssh/id_rsa
-          cat $HOME/.ssh/id_rsa
         env:
           SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
-      # - name: Deploy
-      #   run: ssh -i $HOME/.ssh/id_rsa ${{ secrets.USER }}@${{secrets.HOST}}
+
+      - name: Deploy
+        run: scp build/* ${USER}@${HOST}:~/
+        env:
+          USER: ${{ secrets.USER }}
+          HOST: ${{ secrets.HOST }}
       # - continue-on-error: false
