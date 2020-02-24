@@ -38,24 +38,23 @@ jobs:
         env:
           CI: false
 
-      # - name: Setup keys
-      #   run: |
-      #     mkdir -p $HOME/.ssh
-      #     echo "${SSH_PRIVATE_KEY}" >> $HOME/.ssh/id_rsa
-      #     chmod 600 $HOME/.ssh/id_rsa
-      #     ssh-keyscan -t rsa 174.138.45.246 >> $HOME/.ssh/known_hosts
-      #   env:
-      #     SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
+      - name: Setup keys
+        run: |
+          mkdir -p $HOME/.ssh
+          echo "${SSH_PRIVATE_KEY}" >> $HOME/.ssh/id_rsa
+          chmod 600 $HOME/.ssh/id_rsa
+          ssh-keyscan -t rsa 174.138.45.246 >> $HOME/.ssh/known_hosts
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
 
       - name: Deploy
-        # uses: easingthemes/ssh-deploy@v2.0.7
-        run: rsync
-        env:
-          USER: ${{ secrets.USER }}
-          HOST: ${{ secrets.HOST }}
-          # SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
-          # SOURCE: "build/"
-          # REMOTE_HOST: "174.138.45.246"
-          # REMOTE_USER: "deploy"
-          # TARGET: "~"
+        run: scp -i $HOME/.ssh/id_rsa build/* manan@mananjoshi.me:~
+        # env:
+        #   USER: ${{ secrets.USER }}
+        #   HOST: ${{ secrets.HOST }}
+        # SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
+        # SOURCE: "build/"
+        # REMOTE_HOST: "174.138.45.246"
+        # REMOTE_USER: "deploy"
+        # TARGET: "~"
       # - continue-on-error: false
