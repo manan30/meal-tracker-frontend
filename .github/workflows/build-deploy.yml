@@ -48,7 +48,7 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
 
       - name: Deploy
-        run: scp -i $HOME/.ssh/id_rsa -r build/* ${USER}@mananjoshi.me:~
+        run: scp -i $HOME/.ssh/id_rsa -r build/* ${USER}@${HOST}:~
         env:
           USER: ${{ secrets.USER }}
           HOST: ${{ secrets.HOST }}
