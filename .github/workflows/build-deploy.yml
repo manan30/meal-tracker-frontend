@@ -43,13 +43,15 @@ jobs:
           mkdir -p $HOME/.ssh
           echo "${SSH_PRIVATE_KEY}" >> $HOME/.ssh/id_rsa
           chmod 600 $HOME/.ssh/id_rsa
-          ssh-keyscan -t rsa mananjoshi.me >> $HOME/.ssh/known_hosts
+          ssh-keyscan -t rsa ${HOST} >> $HOME/.ssh/known_hosts
         env:
           SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
+          HOST: ${{ secrets.HOST }}
 
       - name: Deploy
-        run: scp -i $HOME/.ssh/id_rsa -r build/* ${USER}@${HOST}:~
+        run: scp -i $HOME/.ssh/id_rsa -r build/* ${USER}@${HOST}:${TARGET}
         env:
           USER: ${{ secrets.USER }}
           HOST: ${{ secrets.HOST }}
+          TARGET: ${{ secrets.TARGET }}
       # - continue-on-error: false
