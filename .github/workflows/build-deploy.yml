@@ -41,20 +41,15 @@ jobs:
       - name: Setup keys
         run: |
           mkdir -p $HOME/.ssh
-          echo "{SSH_PRIVATE_KEY}" >> $HOME/.ssh/id_rsa
+          echo "${SSH_PRIVATE_KEY}" >> $HOME/.ssh/id_rsa
           chmod 600 $HOME/.ssh/id_rsa
           ssh-keyscan -t rsa mananjoshi.me >> $HOME/.ssh/known_hosts
         env:
           SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
 
       - name: Deploy
-        run: scp -i $HOME/.ssh/id_rsa build/* manan@mananjoshi.me:~
-        # env:
-        #   USER: ${{ secrets.USER }}
-        #   HOST: ${{ secrets.HOST }}
-        # SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
-        # SOURCE: "build/"
-        # REMOTE_HOST: "174.138.45.246"
-        # REMOTE_USER: "deploy"
-        # TARGET: "~"
+        run: scp -i $HOME/.ssh/id_rsa -r build/* deploy@174.138.45.246:~
+        env:
+          USER: ${{ secrets.USER }}
+          HOST: ${{ secrets.HOST }}
       # - continue-on-error: false
