@@ -12,13 +12,29 @@ export default createGlobalStyle`
     margin: 0;
     padding: 0;
     position: relative;
-    background-color: #F2F2F2;
+    background-color: #f2f2f2;
     font-family: 'Nunito Sans', sans-serif;
+
+    @media screen and (max-width: 640px){
+      background-color: #ffffff;
+    }
   }
 `;
 
 const Link = styled(anchor)`
   text-decoration: none;
+
+  :link {
+    color: ${props => props.color && props.color};
+  }
+
+  :visited {
+    color: ${props => props.visitedColor || '#363837'};
+  }
+
+  /* :active {
+    text-decoration: none;
+  } */
 
   ${({ children, ...rest }) => rest}
 `;

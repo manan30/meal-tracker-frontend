@@ -8,8 +8,8 @@ import HeaderBar from './components/HeaderBar';
 function RouterComponent() {
   return (
     <>
-      <HeaderBar />
       <Router>
+        <HeaderBar />
         <Route path='/' component={FeedView} exact />
         <Route path='/profile' component={ProfileView} exact />
         <Route path='/recipe/:id' component={RecipePreviewView} />
