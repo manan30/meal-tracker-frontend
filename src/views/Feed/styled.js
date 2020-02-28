@@ -26,17 +26,20 @@ const SideSection = styled.section`
 `;
 
 const MainSection = styled.section`
-  height: calc(100% - 100px);
+  height: calc(100% - 30px);
   width: 50%;
   margin-top: 30px;
   overflow: hidden;
 
   @media screen and (max-width: 640px) {
     width: 100%;
+    height: calc(100% - 100px);
   }
 `;
 
 const BottomBar = styled.section`
+  display: none;
+
   @media screen and (max-width: 640px) {
     position: fixed;
     bottom: 0;
