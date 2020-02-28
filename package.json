@@ -2,6 +2,11 @@
   "name": "sculptor",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://sculptor.mananjoshi.me",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manan30/meal-tracker-frontend"
+  },
   "dependencies": {
     "axios": "0.19.2",
     "prop-types": "15.7.2",

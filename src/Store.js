@@ -16,7 +16,6 @@ const reducer = (state, action) => {
     case 'SET_FEED':
       return { ...state, feed: action.payload };
     case 'ERROR':
-      console.log(action.payload);
       return { ...state };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
