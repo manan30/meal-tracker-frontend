@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const StoreContext = createContext();
 
 const initialState = {
-  user: { isAuthenticated: false },
+  user: { isAuthenticated: true },
   feed: {
     topRecipes: [],
     feedRecipes: []
@@ -14,7 +14,10 @@ const initialState = {
 const reducer = (state, action) => {
   switch (action.type) {
     case 'SET_FEED':
-      return { ...state, feed: action.payload };
+      return {
+        ...state,
+        feed: action.payload
+      };
     case 'ERROR':
       return { ...state };
     default:

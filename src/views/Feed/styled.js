@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Card from '../../components/Card';
+import Text from '../../components/Text';
 
 const Wrapper = styled.section`
   display: flex;
@@ -19,6 +20,8 @@ const SideSection = styled.section`
   width: 25%;
   margin-top: 30px;
   overflow: hidden;
+  margin-left: ${({ marginLeft }) => marginLeft && marginLeft};
+  margin-right: ${({ marginRight }) => marginRight && marginRight};
 
   @media screen and (max-width: 640px) {
     display: none;
@@ -62,17 +65,15 @@ const BottomBar = styled.section`
 `;
 
 const DataContainer = styled.div`
-  margin: 25px;
-  height: calc(100% - 50px);
-  width: calc(100% - 50px);
+  width: 100%;
 
   ${({ children, ...props }) => props}
 `;
 
 const LineItem = styled.div`
-  display: inline-flex;
+  display: flex;
   margin-bottom: 16px;
-  cursor: pointer;
+  justify-content: space-around;
 `;
 
 const ProfileImage = styled.div`
@@ -101,11 +102,12 @@ const CardImage = styled.image`
 const Icon = styled.div`
   flex-basis: auto;
   flex-grow: 0;
+  height: 24px;
   cursor: pointer;
 
   svg {
-    height: 16px;
-    width: 16px;
+    height: ${props => (props.height ? props.height : '16px')};
+    width: ${props => (props.width ? props.width : '16px')};
   }
 `;
 
@@ -137,6 +139,41 @@ const RecipesList = styled(Card)`
   }
 `;
 
+const NoRecipes = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    height: 128px;
+    width: 128px;
+  }
+`;
+
+const CookBookSelection = styled(Text)`
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+  padding: 11px 0 11px 9px;
+  font-size: 14px;
+  line-height: 22px;
+  color: #030f09;
+  cursor: pointer;
+  justify-content: center;
+
+  :last-child {
+    margin-bottom: 8px;
+  }
+
+  :hover {
+    background: #d6f2e4;
+    border-radius: 8px;
+  }
+`;
+
 export {
   Wrapper,
   SideSection,
@@ -148,5 +185,7 @@ export {
   BottomBar,
   Icon,
   CreateRecipeCard,
-  RecipesList
+  RecipesList,
+  NoRecipes,
+  CookBookSelection
 };
