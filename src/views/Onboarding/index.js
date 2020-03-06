@@ -6,7 +6,14 @@ import PasswordRequirements from '../../components/PasswordRequirements';
 import Text from '../../components/Text';
 import CheckFormInputs from '../../utils/CheckFormInputs';
 import { PASSWORD_REQUIREMENTS } from '../../utils/Constants';
-import { Container, FormContainer, FormInput, Wrapper } from './styled';
+import {
+  Container,
+  FormContainer,
+  FormInput,
+  Wrapper,
+  OnboardingText,
+  OnboardingButton
+} from './styled';
 
 function Onboarding() {
   const { pathname } = useLocation();
@@ -66,7 +73,6 @@ function Onboarding() {
 
   function handleFocus() {
     if (path === 'login') return;
-
     setShowPwRequirements(prevState => !prevState);
   }
 
@@ -100,78 +106,37 @@ function Onboarding() {
     <Wrapper>
       <Container>
         <FormContainer>
-          <Text
-            margin-top='48px'
-            margin-left='-5px'
-            font-style='normal'
-            font-weight='bold'
-            font-size='24px'
-            line-height='32px'
+          <OnboardingText
+            fontSize='24px'
+            lineHeight='32px'
+            fontWeight='bold'
             color='#030F09'>
             {path === 'login' ? 'Welcome Back' : 'Start Sculpting'}
-          </Text>
-          <Text
-            margin-top='10px'
-            font-style='normal'
-            font-weight='normal'
-            font-size='14px'
-            line-height='22px'
-            color='#606060'>
+          </OnboardingText>
+          <OnboardingText marginTop='10px' color='#606060'>
             {path === 'login'
               ? 'Please login to continue'
-              : 'Create account to continue'}
-          </Text>
+              : 'Create account  to continue'}
+          </OnboardingText>
           {path !== 'login' && (
             <>
-              <Text
-                margin-top='60px'
-                font-style='normal'
-                font-weight='normal'
-                font-size='14px'
-                line-height='22px'
-                color='#A8A8A8'>
-                Full Name
-              </Text>
+              <OnboardingText>Full Name</OnboardingText>
               <FormInput
-                // ref={nameRef}
                 type='text'
-                margin-top='10px'
                 value={inputs.name}
                 onChange={e => handleInputChange(e, 'name')}
-                // autoFocus
               />
             </>
           )}
-          <Text
-            margin-top={path === 'login' ? '60px' : '30px'}
-            font-style='normal'
-            font-weight='normal'
-            font-size='14px'
-            line-height='22px'
-            color='#A8A8A8'>
-            Email address
-          </Text>
+          <OnboardingText>Email address</OnboardingText>
           <FormInput
-            // ref={emailRef}
             type='email'
-            margin-top='10px'
             value={inputs.email}
             onChange={e => handleInputChange(e, 'email')}
-            // autoFocus
           />
-          <Text
-            margin-top='30px'
-            font-style='normal'
-            font-weight='normal'
-            font-size='14px'
-            line-height='22px'
-            color='#A8A8A8'>
-            Password
-          </Text>
+          <OnboardingText>Password</OnboardingText>
           <FormInput
-            // ref={passwordRef}
             type='password'
-            margin-top='10px'
             value={inputs.password}
             onChange={e => handleInputChange(e, 'password')}
             onFocus={handleFocus}
@@ -180,39 +145,24 @@ function Onboarding() {
           {path !== 'login' && showPWRequirements && (
             <PasswordRequirements items={requirements} />
           )}
-          <Button
-            margin='25px 0 0 0'
-            width='calc(100% - 26px)'
-            onClick={handleSubmit}>
+          <OnboardingButton onClick={handleSubmit}>
             {/* {!authenticating */}
             {/* ? */}
             {path === 'login' ? 'Login' : 'Sign Up'}
             {/* : <Spinner />} */}
-          </Button>
-          <Text
-            width='calc(100% - 32px)'
-            margin-top='30px'
-            font-style='normal'
-            font-weight='normal'
-            font-size='14px'
-            line-height='22px'
-            text-align='center'
-            color='#A8A8A8'>
+          </OnboardingButton>
+          <OnboardingText marginTop='24px' textAlign='center'>
             {path === 'login' ? 'New to Sculptor?' : 'Already have an account?'}
-          </Text>
+          </OnboardingText>
           <Link to={path === 'login' ? '/signup' : '/login'}>
-            <Text
-              margin-top='10px'
-              width='calc(100% - 32px)'
-              font-style='normal'
-              font-weight='bold'
-              font-size='16px'
-              line-height='22px'
-              text-align='center'
-              letter-spacing='0.32px'
+            <OnboardingText
+              marginTop='10px'
+              fontWeight='bold'
+              fontSize='16px'
+              textAlign='center'
               color='#30BE76'>
               {path === 'login' ? 'Create Account Here' : 'Login Here'}
-            </Text>
+            </OnboardingText>
           </Link>
         </FormContainer>
       </Container>

@@ -6,10 +6,8 @@ export default styled.div`
   font-weight: bold;
   font-size: 20px;
   line-height: 20px;
-  /* identical to box height, or 100% */
 
   letter-spacing: 0.4px;
-  /* text-transform: lowercase; */
 
   color: #363837;
 
