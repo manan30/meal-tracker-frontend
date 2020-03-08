@@ -3,12 +3,9 @@ import PropTypes from 'prop-types';
 
 const StoreContext = createContext();
 
-const initialState = {
+const initialState = JSON.parse(localStorage.getItem('store')) || {
   user: { isAuthenticated: false },
-  feed: {
-    topRecipes: [],
-    feedRecipes: []
-  }
+  feed: { topRecipes: [], feedRecipes: [] }
 };
 
 const reducer = (state, action) => {
@@ -17,11 +14,14 @@ const reducer = (state, action) => {
       return { ...state, feed: action.payload };
     case 'USER_ONBOARD': {
       const { user, accessToken } = action.payload;
-      localStorage.setItem('accessToken', accessToken);
-      return {
+      const { user: storedUser } = state;
+      const newState = {
         ...state,
-        user: { ...state.user, ...user, isAuthenticated: true }
+        user: { ...storedUser, ...user, isAuthenticated: true }
       };
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('store', JSON.stringify(newState));
+      return newState;
     }
     case 'ERROR':
       return { ...state };
