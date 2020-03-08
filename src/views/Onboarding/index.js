@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Link, useLocation, Redirect } from 'react-router-dom';
 import { createUser } from '../../api/User';
 import PasswordRequirements from '../../components/PasswordRequirements';
 import { useStore } from '../../Store';
@@ -14,8 +15,8 @@ import {
   Wrapper
 } from './styled';
 
-function ErrorText({ errors = [], value = '' }) {
-  const index = errors.findIndex(({ errorFor }) => errorFor === value);
+function ErrorText({ errors, compareKey }) {
+  const index = errors.findIndex(({ errorFor }) => errorFor === compareKey);
   return (
     index !== -1 && (
       <OnboardingText marginTop='10px' fontSize='10px' color='#ff0000'>
@@ -26,7 +27,7 @@ function ErrorText({ errors = [], value = '' }) {
 }
 
 function Onboarding() {
-  const { dispatch } = useStore();
+  const { state, dispatch } = useStore();
   const { pathname } = useLocation();
   const path = pathname.slice(1);
   const [showPWRequirements, setShowPwRequirements] = useState(false);
@@ -94,15 +95,17 @@ function Onboarding() {
     const errors = CheckFormInputs(inputs, requirements);
 
     if (errors.length === 0) {
+      setShowError(() => []);
       try {
         const [firstName, ...lastName] = inputs.name.split(' ');
-        const response = await createUser({
+        const { status, data } = await createUser({
           firstName,
           lastName: lastName.length > 0 ? lastName : '',
           email: inputs.email,
           password: inputs.password
         });
-        if (response.status === 201 || response.status === 200) {
+        if (status === 201 || status === 200) {
+          setShowError(() => []);
           setInputs(() => {
             return {
               name: '',
@@ -110,18 +113,22 @@ function Onboarding() {
               password: ''
             };
           });
-          console.log(response.data);
-          dispatch({ type: 'User Created' });
+          console.log(data.data);
+          dispatch({ type: 'USER_CREATED', payload: data.data });
+          // window.location('/feed');
         }
       } catch (err) {
-        const { status, data } = err.response;
-        if (status === 302) {
-          // setShowError(() => {
-          //   return {
-          //     error: true,
-          //     errors: [...errors, ...data.data]
-          //   };
-          // });
+        const { status, data } = err.response && err.response;
+        if (status && status === 302) {
+          setShowError(prevState => {
+            return [
+              ...prevState,
+              {
+                errorFor: 'email',
+                errorValue: data && data.data && data.data
+              }
+            ];
+          });
         }
       }
     } else {
@@ -143,9 +150,12 @@ function Onboarding() {
         }, []);
       });
     }
+    setAuthenticating(() => false);
   }
 
-  return (
+  return state.user.isAuthenticated ? (
+    <Redirect to='/' />
+  ) : (
     <Wrapper>
       <Container>
         <FormContainer>
@@ -180,7 +190,7 @@ function Onboarding() {
                 onChange={e => handleInputChange(e, 'name')}
                 disabled={authenticating}
               />
-              <ErrorText errors={showErrors} value='name' />
+              <ErrorText errors={showErrors} compareKey='name' />
             </>
           )}
           <OnboardingText
@@ -200,7 +210,7 @@ function Onboarding() {
             onChange={e => handleInputChange(e, 'email')}
             disabled={authenticating}
           />
-          <ErrorText errors={showErrors} value='email' />
+          <ErrorText errors={showErrors} compareKey='email' />
           <OnboardingText
             color={
               showErrors.find(({ errorFor }) => errorFor === 'password') &&
@@ -249,6 +259,16 @@ function Onboarding() {
 }
 
 export default Onboarding;
+
+ErrorText.propTypes = {
+  errors: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
+  compareKey: PropTypes.string
+};
+
+ErrorText.defaultProps = {
+  errors: [],
+  compareKey: ''
+};
 
 // TODO: Autofocus input field
 
