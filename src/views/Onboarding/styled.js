@@ -33,7 +33,7 @@ const Container = styled.div`
 `;
 
 const FormContainer = styled.div`
-  height: 100%;
+  height: calc(100% - 16px);
   width: calc(50% - 40px);
   margin-left: 50%;
   padding: 0 24px 0 16px;

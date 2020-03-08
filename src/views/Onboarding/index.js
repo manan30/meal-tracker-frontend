@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { createUser } from '../../api/User';
-import Button from '../../components/Button';
 import PasswordRequirements from '../../components/PasswordRequirements';
-import Text from '../../components/Text';
 import CheckFormInputs from '../../utils/CheckFormInputs';
 import { PASSWORD_REQUIREMENTS } from '../../utils/Constants';
+import { useStore } from '../../Store';
 import {
   Container,
   FormContainer,
   FormInput,
-  Wrapper,
+  OnboardingButton,
   OnboardingText,
-  OnboardingButton
+  Wrapper
 } from './styled';
 
 function Onboarding() {
+  const { dispatch } = useStore();
   const { pathname } = useLocation();
   const path = pathname.slice(1);
   const [showPWRequirements, setShowPwRequirements] = useState(false);
@@ -44,26 +44,26 @@ function Onboarding() {
         const { password } = { ...prevState, password: e.target.value };
 
         setRequirements(oldState => {
-          const state = oldState;
+          const pwrState = oldState;
 
-          if (/[A-Z]/.test(password)) state[0] = [state[0][0], true];
-          else state[0] = [state[0][0], false];
+          if (/[A-Z]/.test(password)) pwrState[0] = [pwrState[0][0], true];
+          else pwrState[0] = [pwrState[0][0], false];
 
-          if (/[a-z]/.test(password)) state[1] = [state[1][0], true];
-          else state[1] = [state[1][0], false];
+          if (/[a-z]/.test(password)) pwrState[1] = [pwrState[1][0], true];
+          else pwrState[1] = [pwrState[1][0], false];
 
-          if (/[0-9]/.test(password)) state[2] = [state[2][0], true];
-          else state[2] = [state[2][0], false];
+          if (/[0-9]/.test(password)) pwrState[2] = [pwrState[2][0], true];
+          else pwrState[2] = [pwrState[2][0], false];
 
           // TODO: Regex for special characters is incorrect.
           if (/[!@#$%^&*)(+=._-]*/.test(password))
-            state[3] = [state[3][0], true];
-          else state[3] = [state[3][0], false];
+            pwrState[3] = [pwrState[3][0], true];
+          else pwrState[3] = [pwrState[3][0], false];
 
-          if (password.length > 8) state[4] = [state[4][0], true];
-          else state[4] = [state[4][0], false];
+          if (password.length > 8) pwrState[4] = [pwrState[4][0], true];
+          else pwrState[4] = [pwrState[4][0], false];
 
-          return state;
+          return pwrState;
         });
 
         return { ...prevState, password: e.target.value };
@@ -96,6 +96,7 @@ function Onboarding() {
             password: ''
           };
         });
+        dispatch({ type: 'User Created' });
       } else {
         console.log(response.data.data);
       }
