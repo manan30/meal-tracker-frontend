@@ -13,7 +13,6 @@ export default function(inputs = {}, passwordRequirements = []) {
 
   Object.entries(inputs).forEach(entry => {
     const [key, value] = entry;
-    console.log({ key, value });
 
     if (key === 'email') {
       const status = checkEmail(value);

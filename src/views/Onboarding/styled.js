@@ -53,20 +53,20 @@ const FormInput = styled.input`
   margin-top: 10px;
   background-color: transparent;
   border: none;
-  border-bottom: 1px solid #cccccc;
+  border-bottom: 1px solid ${props => props.color || '#cccccc'};
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
   line-height: 22px;
-  color: #030f09;
+  color: ${props => props.color || '#030f09'};
   transition: all 0.4s linear;
 
   :focus {
-    border-bottom: 1px solid #30be76;
+    border-bottom: 1px solid ${props => props.color || '#30be76'};
   }
 
   :hover {
-    border-bottom: 1px solid #30be76;
+    border-bottom: 1px solid ${props => props.color || '#30be76'};
   }
 
   @media screen and (max-width: 640px) {

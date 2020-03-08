@@ -4,7 +4,7 @@ const URL = `${
   process.env.NODE_ENV !== 'development'
     ? 'sculptor.mananjoshi.me'
     : 'localhost'
-}:1741`;
+}:2130`;
 
 const PASSWORD_REQUIREMENTS = [
   ['Uppercase character', false],

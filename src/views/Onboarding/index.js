@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { createUser } from '../../api/User';
 import PasswordRequirements from '../../components/PasswordRequirements';
+import { useStore } from '../../Store';
 import CheckFormInputs from '../../utils/CheckFormInputs';
 import { PASSWORD_REQUIREMENTS } from '../../utils/Constants';
-import { useStore } from '../../Store';
 import {
   Container,
   FormContainer,
@@ -14,14 +14,26 @@ import {
   Wrapper
 } from './styled';
 
+function ErrorText({ errors = [], value = '' }) {
+  const index = errors.findIndex(({ errorFor }) => errorFor === value);
+  return (
+    index !== -1 && (
+      <OnboardingText marginTop='10px' fontSize='10px' color='#ff0000'>
+        {errors[index].errorValue}
+      </OnboardingText>
+    )
+  );
+}
+
 function Onboarding() {
   const { dispatch } = useStore();
   const { pathname } = useLocation();
   const path = pathname.slice(1);
   const [showPWRequirements, setShowPwRequirements] = useState(false);
   const [requirements, setRequirements] = useState(PASSWORD_REQUIREMENTS);
+  const [showErrors, setShowError] = useState([]);
 
-  // const [authenticating, setAuthenticating] = useState(false);
+  const [authenticating, setAuthenticating] = useState(false);
 
   const [inputs, setInputs] = useState({
     name: '',
@@ -77,29 +89,59 @@ function Onboarding() {
   }
 
   async function handleSubmit() {
-    // setAuthenticating(prevState => !prevState);
+    setAuthenticating(() => true);
+
     const errors = CheckFormInputs(inputs, requirements);
 
     if (errors.length === 0) {
-      const [firstName, ...lastName] = inputs.name.split(' ');
-      const response = await createUser({
-        firstName,
-        lastName: lastName.length > 0 ? lastName : '',
-        email: inputs.email,
-        password: inputs.password
-      });
-      if (response.status === 201 || response.status === 200) {
-        setInputs(() => {
-          return {
-            name: '',
-            email: '',
-            password: ''
-          };
+      try {
+        const [firstName, ...lastName] = inputs.name.split(' ');
+        const response = await createUser({
+          firstName,
+          lastName: lastName.length > 0 ? lastName : '',
+          email: inputs.email,
+          password: inputs.password
         });
-        dispatch({ type: 'User Created' });
-      } else {
-        console.log(response.data.data);
+        if (response.status === 201 || response.status === 200) {
+          setInputs(() => {
+            return {
+              name: '',
+              email: '',
+              password: ''
+            };
+          });
+          console.log(response.data);
+          dispatch({ type: 'User Created' });
+        }
+      } catch (err) {
+        const { status, data } = err.response;
+        if (status === 302) {
+          // setShowError(() => {
+          //   return {
+          //     error: true,
+          //     errors: [...errors, ...data.data]
+          //   };
+          // });
+        }
       }
+    } else {
+      setShowError(() => {
+        return errors.reduce((acc, curr) => {
+          const [[key, value]] = Object.entries(curr);
+          if (acc.length === 0) {
+            acc.push({ errorFor: key, errorValue: value });
+            return acc;
+          }
+
+          const foundObject = acc.find(({ errorFor }) => errorFor === key);
+
+          if (!foundObject) {
+            acc.push({ errorFor: key, errorValue: value });
+          }
+
+          return acc;
+        }, []);
+      });
     }
   }
 
@@ -121,27 +163,62 @@ function Onboarding() {
           </OnboardingText>
           {path !== 'login' && (
             <>
-              <OnboardingText>Full Name</OnboardingText>
+              <OnboardingText
+                color={
+                  showErrors.find(({ errorFor }) => errorFor === 'name') &&
+                  '#ff0000'
+                }>
+                Full Name
+              </OnboardingText>
               <FormInput
                 type='text'
                 value={inputs.name}
+                color={
+                  showErrors.find(({ errorFor }) => errorFor === 'name') &&
+                  '#ff0000'
+                }
                 onChange={e => handleInputChange(e, 'name')}
+                disabled={authenticating}
               />
+              <ErrorText errors={showErrors} value='name' />
             </>
           )}
-          <OnboardingText>Email address</OnboardingText>
+          <OnboardingText
+            color={
+              showErrors.find(({ errorFor }) => errorFor === 'email') &&
+              '#ff0000'
+            }>
+            Email address
+          </OnboardingText>
           <FormInput
             type='email'
             value={inputs.email}
+            color={
+              showErrors.find(({ errorFor }) => errorFor === 'email') &&
+              '#ff0000'
+            }
             onChange={e => handleInputChange(e, 'email')}
+            disabled={authenticating}
           />
-          <OnboardingText>Password</OnboardingText>
+          <ErrorText errors={showErrors} value='email' />
+          <OnboardingText
+            color={
+              showErrors.find(({ errorFor }) => errorFor === 'password') &&
+              '#ff0000'
+            }>
+            Password
+          </OnboardingText>
           <FormInput
             type='password'
             value={inputs.password}
+            color={
+              showErrors.find(({ errorFor }) => errorFor === 'password') &&
+              '#ff0000'
+            }
             onChange={e => handleInputChange(e, 'password')}
             onFocus={handleFocus}
             onBlur={handleFocus}
+            disabled={authenticating}
           />
           {path !== 'login' && showPWRequirements && (
             <PasswordRequirements items={requirements} />
