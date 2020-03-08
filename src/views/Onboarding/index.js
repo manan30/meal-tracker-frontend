@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useLocation, Redirect } from 'react-router-dom';
-import { createUser } from '../../api/User';
+import { createUser, loginUser } from '../../api/User';
 import PasswordRequirements from '../../components/PasswordRequirements';
 import { useStore } from '../../Store';
 import CheckFormInputs from '../../utils/CheckFormInputs';
@@ -92,18 +92,29 @@ function Onboarding() {
   async function handleSubmit() {
     setAuthenticating(() => true);
 
-    const errors = CheckFormInputs(inputs, requirements);
+    const errors = CheckFormInputs(
+      path === 'login'
+        ? { email: inputs.email, password: inputs.password }
+        : inputs,
+      requirements
+    );
 
     if (errors.length === 0) {
       setShowError(() => []);
       try {
         const [firstName, ...lastName] = inputs.name.split(' ');
-        const { status, data } = await createUser({
-          firstName,
-          lastName: lastName.length > 0 ? lastName : '',
-          email: inputs.email,
-          password: inputs.password
-        });
+        const { status, data } =
+          path === 'login'
+            ? await loginUser({
+                email: inputs.email,
+                password: inputs.password
+              })
+            : await createUser({
+                firstName,
+                lastName: lastName.length > 0 ? lastName : '',
+                email: inputs.email,
+                password: inputs.password
+              });
         if (status === 201 || status === 200) {
           setShowError(() => []);
           setInputs(() => {
@@ -114,8 +125,7 @@ function Onboarding() {
             };
           });
           console.log(data.data);
-          dispatch({ type: 'USER_CREATED', payload: data.data });
-          // window.location('/feed');
+          dispatch({ type: 'USER_ONBOARD', payload: data.data });
         }
       } catch (err) {
         const { status, data } = err.response && err.response;

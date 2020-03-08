@@ -15,12 +15,12 @@ const reducer = (state, action) => {
   switch (action.type) {
     case 'SET_FEED':
       return { ...state, feed: action.payload };
-    case 'USER_CREATED': {
-      const { createdUser, accessToken } = action.payload;
+    case 'USER_ONBOARD': {
+      const { user, accessToken } = action.payload;
       localStorage.setItem('accessToken', accessToken);
       return {
         ...state,
-        user: { ...state.user, ...createdUser, isAuthenticated: true }
+        user: { ...state.user, ...user, isAuthenticated: true }
       };
     }
     case 'ERROR':
