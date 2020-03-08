@@ -124,7 +124,6 @@ function Onboarding() {
               password: ''
             };
           });
-          console.log(data.data);
           dispatch({ type: 'USER_ONBOARD', payload: data.data });
         }
       } catch (err) {
