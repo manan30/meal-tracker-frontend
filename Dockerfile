@@ -1,15 +1,21 @@
-FROM node:latest
+FROM node:latest as build
 
-WORKDIR /usr/src/sculptor-backend
+WORKDIR /usr/src/sculptor-frontend
 
 COPY package*.json ./
 
-RUN npm install
+RUN npm install --production
 
 COPY . .
 
 RUN npm run build
 
-EXPOSE 80:3000
+# CMD [ "npm", "start" ]
 
-CMD ["npm", "start"]
+FROM nginx:alpine
+
+COPY --from=build /usr/src/sculptor-frontend/build/ usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]

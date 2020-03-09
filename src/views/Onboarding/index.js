@@ -139,6 +139,8 @@ function Onboarding() {
             ];
           });
         }
+
+        // TODO: errors for login user and UI as well. Lastname validation throws an error in signup
       }
     } else {
       setShowError(() => {
