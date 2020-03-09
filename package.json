@@ -2,7 +2,7 @@
   "name": "sculptor",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://sculptor.mananjoshi.me",
+  "homepage": "http://sculptor.mananjoshi.me",
   "repository": {
     "type": "git",
     "url": "https://github.com/manan30/meal-tracker-frontend"
@@ -18,7 +18,7 @@
     "styled-components": "5.0.1"
   },
   "scripts": {
-    "start": "BROWSER='Firefox Developer Edition' react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
