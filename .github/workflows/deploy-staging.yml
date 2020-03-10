@@ -4,7 +4,7 @@ name: Build and Deploy - Staging
 on:
   pull_request:
     branches:
-      - develop
+      - master
     types:
       - opened
       - edited
