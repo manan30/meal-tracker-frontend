@@ -121,6 +121,20 @@ const Snackbar = styled(Card)`
   background-color: #ff0055;
   color: #ffffff;
   font-size: 12px;
+
+  @media screen and (max-width: 640px) {
+    bottom: 0;
+    right: 0;
+    padding: 16px;
+    width: calc(100% - 32px);
+    font-size: 16px;
+    border-radius: 0;
+
+    :hover {
+      background-color: #ffffff;
+      color: #30be76;
+    }
+  }
 `;
 
 export {

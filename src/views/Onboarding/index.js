@@ -127,7 +127,20 @@ function Onboarding() {
         }
       } catch (err) {
         setAuthenticating(() => false);
+        if (err.message === 'Network Error') {
+          setShowError(() => {
+            return [
+              {
+                errorFor: 'all',
+                errorValue: 'API not available'
+              }
+            ];
+          });
+          return;
+        }
+
         const { status, data } = err.response && err.response;
+
         if ((status && status === 302) || (status && status === 204)) {
           setShowError(() => {
             return [
@@ -137,6 +150,7 @@ function Onboarding() {
               }
             ];
           });
+          return;
         }
 
         if (status && status === 400) {
@@ -148,6 +162,7 @@ function Onboarding() {
               }
             ];
           });
+          return;
         }
 
         // Generic status error
