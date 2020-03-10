@@ -1,8 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { FiHeart } from 'react-icons/fi';
-import { MdClose } from 'react-icons/md';
+import { GiChefToque } from 'react-icons/gi';
+import { IoIosSearch } from 'react-icons/io';
+import { MdClose, MdViewCarousel } from 'react-icons/md';
 import { getInitialFeed } from '../../api/Feed';
+import { ReactComponent as NoRecipeIcon } from '../../assets/img/no-recipes.svg';
 import Button from '../../components/Button';
 import Card from '../../components/Card';
 import CardContainer from '../../components/Card/styled';
@@ -11,15 +14,19 @@ import Text from '../../components/Text';
 import { Link } from '../../GlobalStyles';
 import { useStore } from '../../Store';
 import {
+  BottomBar,
   CardImage,
+  CreateRecipeCard as CRCard,
   DataContainer,
   Icon,
-  LeftSideSection,
   LineItem,
   MainSection,
+  NoRecipes,
   ProfileImage,
-  RightSideSection,
-  Wrapper
+  RecipesList,
+  SideSection,
+  Wrapper,
+  CookBookSelection
 } from './styled';
 
 function Feed() {
@@ -38,18 +45,19 @@ function Feed() {
 
   return (
     <Wrapper>
-      <LeftSideSection>
+      <SideSection marginRight='20px'>
         {state.user.isAuthenticated && (
           <Card
-            width='calc(100% - 20px)'
-            height='215px'
-            margin-bottom='20px'
-            margin-right='20px'>
-            <DataContainer display='inline-flex' height='50%'>
-              <ProfileImage />
+            width='calc(100% - 50px)'
+            height='165px'
+            padding='25px'
+            margin-bottom='20px'>
+            <DataContainer display='flex'>
+              <ProfileImage background-color='#606060' />
               <div
                 style={{
                   marginLeft: '16px',
+                  marginTop: '4px',
                   width: 'calc(100% - 86px)'
                 }}>
                 <Text
@@ -71,18 +79,22 @@ function Feed() {
                   <Text
                     font-style='normal'
                     font-weight='normal'
-                    font-size=' 14px'
-                    line-height=' 22px'
+                    font-size=' 10px'
+                    line-height=' 12px'
                     color=' #606060'
+                    flex-basis='auto'
+                    flex-grow='1'
                     margin-top='6px'>
                     500 followers
                   </Text>
                   <Text
                     font-style='normal'
                     font-weight='normal'
-                    font-size=' 14px'
-                    line-height=' 22px'
+                    font-size=' 10px'
+                    line-height=' 12px'
                     color=' #606060'
+                    flex-basis='auto'
+                    flex-grow='1'
                     margin-top='6px'>
                     23k likes
                   </Text>
@@ -93,13 +105,12 @@ function Feed() {
               style={{
                 height: '1px',
                 backgroundColor: '#E6E6E6',
-                borderRadius: '0.5px',
-                margin: '-20px 25px 0 25px'
+                borderRadius: '0.5px'
               }}
             />
           </Card>
         )}
-        <Card display='flex' width='calc(100% - 20px)' margin-right='20px'>
+        <CardContainer display='flex' padding='25px' width='calc(100% - 50px)'>
           <DataContainer>
             <Text
               font-weight='bold'
@@ -108,80 +119,66 @@ function Feed() {
               color='#030F09'>
               Top 5 recipes for today
             </Text>
-            {state.feed.topRecipes.map((recipe, i) => {
-              const key = i;
-              return (
-                <Link to={`/recipe/${recipe.id}`} key={key}>
-                  <Text
-                    margin-top='16px'
-                    font-weight='normal'
-                    font-size='14px'
-                    line-height='22px'
-                    color='#606060'>
-                    {recipe.name}
-                  </Text>
-                </Link>
-              );
-            })}
+            {state.feed.topRecipes.length > 0 ? (
+              state.feed.topRecipes.map((recipe, i) => {
+                const key = i;
+                return (
+                  <Link key={key} to={`/recipe/${recipe.id}`}>
+                    <Text
+                      margin-top='16px'
+                      font-weight='normal'
+                      font-size='14px'
+                      line-height='22px'
+                      color='#606060'>
+                      {recipe.name}
+                    </Text>
+                  </Link>
+                );
+              })
+            ) : (
+              /* <Text
+                font-size='16px'
+                font-weight='normal'
+                line-height='21px'
+                letter-spacing='0.4px'
+                text-align='center'
+                margin-top='16px'
+                color='#767676'>
+                No top recipes.
+              </Text> */
+              <div />
+            )}
           </DataContainer>
-        </Card>
-      </LeftSideSection>
+        </CardContainer>
+      </SideSection>
       <MainSection>
-        <Card
-          display='flex'
-          width='calc(100% - 50px)'
-          height='30px'
-          padding='25px'
-          align-items='center'>
-          {state.user.isAuthenticated && (
-            <Text
-              flex-basis='auto'
-              flex-grow='1'
-              width='80%'
-              font-style='normal'
-              font-weight='normal'
-              font-size='14px'
-              line-height='22px'
-              color='#030F09'>
-              256 followers are online
-            </Text>
+        <CreateRecipeCard />
+        <RecipesList>
+          {state.feed.feedRecipes.length > 0 ? (
+            state.feed.feedRecipes.map(({ user, recipe }, i) => {
+              const key = i;
+              return <FeedCard key={key} recipe={recipe} user={user} />;
+            })
+          ) : (
+            <NoRecipes>
+              <NoRecipeIcon />
+              <Text
+                font-size='21px'
+                font-weight='normal'
+                line-height='27px'
+                letter-spacing='0.4px'
+                color='#767676'
+                margin-top='24px'>
+                No recipes found
+              </Text>
+            </NoRecipes>
           )}
-          <Button
-            flex-basis='auto'
-            flex-grow='0'
-            height='36px'
-            width='128px'
-            margin='0'
-            font-style='normal'
-            font-weight='bold'
-            font-size='16px'
-            line-height='21px'
-            text-align='center'
-            color='#ffffff'
-            background-color='#30BE76'
-            box-shadow='0px 6px 20px rgba(13, 51, 32, 0.1)'
-            hover={false}>
-            Create Recipe
-          </Button>
-        </Card>
-        <Card
-          width='calc(100% - 50px)'
-          height='calc(100% - 150px)'
-          padding='25px'
-          margin-top='20px'
-          border-radius='8px 8px 0 0'
-          overflow-y='scroll'>
-          {state.feed.feedRecipes.map(({ user, recipe }, i) => {
-            const key = i;
-            return <FeedCard key={key} user={user} recipe={recipe} />;
-          })}
-        </Card>
+        </RecipesList>
       </MainSection>
-      <RightSideSection>
+      <SideSection marginLeft='20px'>
         <Card
           height='calc(105px - 50px)'
           width='calc(100% - 70px)'
-          margin-left='20px'
           padding='25px'>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <Text
@@ -219,12 +216,57 @@ function Feed() {
             sculptor by Manan 2020
           </Text>
         </Card>
-      </RightSideSection>
+      </SideSection>
+      <BottomBar>
+        <IoIosSearch />
+        <MdViewCarousel />
+        <GiChefToque />
+      </BottomBar>
     </Wrapper>
   );
 }
 
+function CreateRecipeCard() {
+  const { state } = useStore();
+
+  return (
+    <CRCard>
+      {state.user.isAuthenticated && (
+        <Text
+          flex-basis='auto'
+          flex-grow='1'
+          width='80%'
+          font-style='normal'
+          font-weight='normal'
+          font-size='14px'
+          line-height='22px'
+          color='#030F09'>
+          256 followers are online
+        </Text>
+      )}
+      <Button
+        flex-basis='auto'
+        flex-grow='0'
+        height='36px'
+        width='128px'
+        margin='0'
+        font-style='normal'
+        font-weight='bold'
+        font-size='16px'
+        line-height='21px'
+        text-align='center'
+        color='#ffffff'
+        background-color='#30BE76'
+        box-shadow='0px 6px 20px rgba(13, 51, 32, 0.1)'
+        hover={false}>
+        Create Recipe
+      </Button>
+    </CRCard>
+  );
+}
+
 function FeedCard({ user, recipe }) {
+  const { state } = useStore();
   const [showModal, setShowModal] = useState(false);
 
   function handleModalToggle() {
@@ -360,49 +402,105 @@ function FeedCard({ user, recipe }) {
       </div>
       {showModal && (
         <Modal display='flex' align-items='center' justify-content='center'>
-          <Card
-            display='flex'
-            flex-wrap='wrap'
-            width='100%'
-            margin='20%'
-            padding='20px'
-            background-color='white'
-            background='linear-gradient(to right, #11998e, #38ef7d)'>
-            <Text
-              flex-basis='auto'
-              flex-grow='2'
-              font-style='normal'
-              font-weight='bold'
-              font-size='20px'
-              line-height='27px'
-              color='#ffffff'>
-              Login Required
-            </Text>
-            <Icon
-              flex-basis='auto'
-              flex-grow='0'
-              height='24px'
-              width='24px'
-              float='right'
-              color='#ffffff'
-              onClick={handleModalToggle}>
-              <MdClose />
-            </Icon>
-            <Text
+          {state.user.isAuthenticated ? (
+            <Card
+              display='flex'
+              flex-wrap='wrap'
+              flex-direction='column'
+              height='254px'
+              width='286px'
+              padding='11px'
+              background-color='white'>
+              <div
+                style={{
+                  height: '24px',
+                  display: 'flex',
+                  alignItems: 'center'
+                }}>
+                <Text
+                  margin-left='7px'
+                  font-size='20px'
+                  font-weight='bold'
+                  line-height='27px'
+                  color='#030F09'
+                  flex-basis='auto'
+                  flex-grow='2'>
+                  Save to
+                </Text>
+                <Icon
+                  height='24px'
+                  width='24px'
+                  color='#ffffff'
+                  onClick={handleModalToggle}>
+                  <MdClose />
+                </Icon>
+              </div>
+              <div
+                style={{
+                  height: '206px',
+                  overflow: 'none',
+                  overflowY: 'scroll'
+                }}>
+                {new Array(10).fill(0).map((_, i) => (
+                  <CookBookSelection>{`Cookbook ${i}`}</CookBookSelection>
+                ))}
+              </div>
+              <Text
+                height='24px'
+                margin-left='9px'
+                font-weight='bold'
+                font-size='16px'
+                line-height='22px'
+                letter-spacing='0.32px'
+                color='#30BE76'>
+                Add New Cookbook
+              </Text>
+            </Card>
+          ) : (
+            <Card
+              display='flex'
+              flex-wrap='wrap'
               width='100%'
-              margin-top='16px'
-              font-style='normal'
-              font-weight='bold'
-              font-size='14px'
-              line-height='21px'
-              text-align='center'
-              color='#ffffff'>
-              It looks like you are not logged in. Please
-              <Link to='/login'> login</Link> or
-              <Link to='/signup'> signup </Link>
-              to continue...
-            </Text>
-          </Card>
+              margin='20%'
+              padding='20px'
+              background-color='white'
+              background='linear-gradient(to right, #11998e, #38ef7d)'>
+              <Text
+                flex-basis='auto'
+                flex-grow='2'
+                font-style='normal'
+                font-weight='bold'
+                font-size='20px'
+                line-height='27px'
+                color='#ffffff'>
+                Login Required
+              </Text>
+              <Icon
+                flex-basis='auto'
+                flex-grow='0'
+                height='24px'
+                width='24px'
+                float='right'
+                color='#ffffff'
+                onClick={handleModalToggle}>
+                <MdClose />
+              </Icon>
+              <Text
+                width='100%'
+                margin-top='16px'
+                font-style='normal'
+                font-weight='bold'
+                font-size='14px'
+                line-height='21px'
+                text-align='center'
+                color='#ffffff'>
+                It looks like you are not logged in. Please
+                <Link to='/login'> login</Link> or
+                <Link to='/signup'> signup </Link>
+                to continue...
+              </Text>
+            </Card>
+          )}
         </Modal>
       )}
     </CardContainer>
