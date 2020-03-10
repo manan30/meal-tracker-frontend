@@ -123,17 +123,10 @@ function Onboarding() {
                 password: inputs.password
               });
         if (status === 201 || status === 200) {
-          setShowError(() => []);
-          setInputs(() => {
-            return {
-              name: '',
-              email: '',
-              password: ''
-            };
-          });
           dispatch({ type: 'USER_ONBOARD', payload: data.data });
         }
       } catch (err) {
+        setAuthenticating(() => false);
         const { status, data } = err.response && err.response;
         if ((status && status === 302) || (status && status === 204)) {
           setShowError(() => {
@@ -157,18 +150,17 @@ function Onboarding() {
           });
         }
 
-        if (status && status === 500) {
-          setShowError(() => {
-            return [
-              {
-                errorFor: 'all',
-                errorValue: data && data.data && data.data
-              }
-            ];
-          });
-        }
-
-        // TODO: errors for login user and UI as well.
+        // Generic status error
+        // if (status && status === 500) {
+        setShowError(() => {
+          return [
+            {
+              errorFor: 'all',
+              errorValue: data && data.data && data.data
+            }
+          ];
+        });
+        // }
       }
     } else {
       setShowError(() => {
@@ -188,8 +180,8 @@ function Onboarding() {
           return acc;
         }, []);
       });
+      setAuthenticating(() => false);
     }
-    setAuthenticating(() => false);
   }
 
   return state.user.isAuthenticated ? (
