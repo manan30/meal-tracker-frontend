@@ -15,6 +15,15 @@ export default createGlobalStyle`
     background-color: #F2F2F2;
     font-family: 'Nunito Sans', sans-serif;
   }
+
+  a{
+    text-decoration: none;
+  }
+
+  #root {
+    height: 100%;
+    width: 100%;
+  }
 `;
 
 const Link = styled(anchor)`

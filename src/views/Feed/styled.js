@@ -72,9 +72,11 @@ const Icon = styled.div`
   cursor: pointer;
 
   svg {
-    height: 16px;
-    width: 16px;
+    height: ${props => props.height || '16px'};
+    width: ${props => props.width || '16px'};
   }
+
+  ${({ children, ...rest }) => rest}
 `;
 
 export {

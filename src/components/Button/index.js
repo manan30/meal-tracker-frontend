@@ -3,8 +3,8 @@ import React from 'react';
 import Container from './styled';
 
 function Button(props) {
-  const { text, ...styles } = props;
-  return <Container {...styles}> {text} </Container>;
+  const { children, ...styles } = props;
+  return <Container {...styles}> {children} </Container>;
 }
 
 Button.propTypes = {
