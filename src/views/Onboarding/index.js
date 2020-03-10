@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link, useLocation, Redirect } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, Redirect, useLocation } from 'react-router-dom';
 import { createUser, loginUser } from '../../api/User';
 import PasswordRequirements from '../../components/PasswordRequirements';
 import { useStore } from '../../Store';
@@ -12,18 +12,25 @@ import {
   FormInput,
   OnboardingButton,
   OnboardingText,
+  Snackbar,
   Wrapper
 } from './styled';
 
-function ErrorText({ errors, compareKey }) {
+function ErrorComponent({ errors, compareKey }) {
   const index = errors.findIndex(({ errorFor }) => errorFor === compareKey);
-  return (
-    index !== -1 && (
-      <OnboardingText marginTop='10px' fontSize='10px' color='#ff0000'>
-        {errors[index].errorValue}
-      </OnboardingText>
-    )
-  );
+  if (index !== -1) {
+    if (compareKey !== 'all')
+      return (
+        <OnboardingText marginTop='10px' fontSize='10px' color='#ff0000'>
+          {errors[index].errorValue}
+        </OnboardingText>
+      );
+    console.log(`Internal error: ${errors[index].errorValue}`);
+    return (
+      <Snackbar>Internal server error. Please try again in some time.</Snackbar>
+    );
+  }
+  return <></>;
 }
 
 function Onboarding() {
@@ -91,6 +98,7 @@ function Onboarding() {
 
   async function handleSubmit() {
     setAuthenticating(() => true);
+    setShowPwRequirements(() => false);
 
     const errors = CheckFormInputs(
       path === 'login'
@@ -100,7 +108,6 @@ function Onboarding() {
     );
 
     if (errors.length === 0) {
-      setShowError(() => []);
       try {
         const [firstName, ...lastName] = inputs.name.split(' ');
         const { status, data } =
@@ -111,7 +118,7 @@ function Onboarding() {
               })
             : await createUser({
                 firstName,
-                lastName: lastName.length > 0 ? lastName : '',
+                lastName: lastName.length > 0 ? { ...lastName } : '',
                 email: inputs.email,
                 password: inputs.password
               });
@@ -128,10 +135,9 @@ function Onboarding() {
         }
       } catch (err) {
         const { status, data } = err.response && err.response;
-        if (status && status === 302) {
-          setShowError(prevState => {
+        if ((status && status === 302) || (status && status === 204)) {
+          setShowError(() => {
             return [
-              ...prevState,
               {
                 errorFor: 'email',
                 errorValue: data && data.data && data.data
@@ -140,7 +146,29 @@ function Onboarding() {
           });
         }
 
-        // TODO: errors for login user and UI as well. Lastname validation throws an error in signup
+        if (status && status === 400) {
+          setShowError(() => {
+            return [
+              {
+                errorFor: 'password',
+                errorValue: data && data.data && data.data
+              }
+            ];
+          });
+        }
+
+        if (status && status === 500) {
+          setShowError(() => {
+            return [
+              {
+                errorFor: 'all',
+                errorValue: data && data.data && data.data
+              }
+            ];
+          });
+        }
+
+        // TODO: errors for login user and UI as well.
       }
     } else {
       setShowError(() => {
@@ -201,7 +229,7 @@ function Onboarding() {
                 onChange={e => handleInputChange(e, 'name')}
                 disabled={authenticating}
               />
-              <ErrorText errors={showErrors} compareKey='name' />
+              <ErrorComponent errors={showErrors} compareKey='name' />
             </>
           )}
           <OnboardingText
@@ -221,7 +249,7 @@ function Onboarding() {
             onChange={e => handleInputChange(e, 'email')}
             disabled={authenticating}
           />
-          <ErrorText errors={showErrors} compareKey='email' />
+          <ErrorComponent errors={showErrors} compareKey='email' />
           <OnboardingText
             color={
               showErrors.find(({ errorFor }) => errorFor === 'password') &&
@@ -241,10 +269,11 @@ function Onboarding() {
             onBlur={handleFocus}
             disabled={authenticating}
           />
+          <ErrorComponent errors={showErrors} compareKey='password' />
           {path !== 'login' && showPWRequirements && (
             <PasswordRequirements items={requirements} />
           )}
-          <OnboardingButton onClick={handleSubmit}>
+          <OnboardingButton onMouseDown={handleSubmit}>
             {/* {!authenticating */}
             {/* ? */}
             {path === 'login' ? 'Login' : 'Sign Up'}
@@ -265,18 +294,19 @@ function Onboarding() {
           </Link>
         </FormContainer>
       </Container>
+      <ErrorComponent errors={showErrors} compareKey='all' />
     </Wrapper>
   );
 }
 
 export default Onboarding;
 
-ErrorText.propTypes = {
+ErrorComponent.propTypes = {
   errors: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
   compareKey: PropTypes.string
 };
 
-ErrorText.defaultProps = {
+ErrorComponent.defaultProps = {
   errors: [],
   compareKey: ''
 };

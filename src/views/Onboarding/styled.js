@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Text from '../../components/Text';
 import Button from '../../components/Button';
+import Card from '../../components/Card';
 
 const Wrapper = styled.div`
   display: flex;
@@ -110,11 +111,24 @@ const OnboardingButton = styled(Button)`
   }
 `;
 
+const Snackbar = styled(Card)`
+  position: fixed;
+  bottom: 10px;
+  border-radius: 4px;
+  right: 48px;
+  width: 256px;
+  padding: 8px;
+  background-color: #ff0055;
+  color: #ffffff;
+  font-size: 12px;
+`;
+
 export {
   Wrapper,
   Container,
   FormContainer,
   FormInput,
   OnboardingText,
-  OnboardingButton
+  OnboardingButton,
+  Snackbar
 };
