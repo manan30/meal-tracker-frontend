@@ -1,21 +1,62 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import FeedView from './views/Feed';
 import ProfileView from './views/Profile';
-import RecipePreviewView from './views/RecipePreview';
+// import RecipePreviewView from './views/RecipePreview';
 import HeaderBar from './components/HeaderBar';
+import { useStore } from './Store';
+import AuthenticatedRoute from './utils/AuthenticatedRoute';
+import OnboardingView from './views/Onboarding';
+// import ProfileView from './views/Profile';
 
 function RouterComponent() {
+  const { state } = useStore();
+
   return (
-    <>
-      <Router>
-        <HeaderBar />
-        <Route path='/' component={FeedView} exact />
-        <Route path='/profile' component={ProfileView} exact />
-        <Route path='/recipe/:id' component={RecipePreviewView} />
-      </Router>
-    </>
+    <Router>
+      <Switch>
+        <Route exact path='/login' component={OnboardingView} />
+        <Route exact path='/signup' component={OnboardingView} />
+        <>
+          <HeaderBar />
+          <AuthenticatedRoute
+            path='/profile'
+            component={ProfileView}
+            authentication={state.user.isAuthenticated}
+          />
+          <Route path='/' exact component={FeedView} />
+        </>
+      </Switch>
+    </Router>
   );
 }
 
 export default RouterComponent;
+
+// TODO: Add this route for recipe previews
+/* <Route path='/recipe/:id' component={RecipePreviewView} /> */
+
+// TODO: Separate app in authenticated and unauthenticated content
+// function AuthenticatedApp() {
+//   const { state } = useStore();
+//   return (
+//     <Switch>
+//       <AuthenticatedRoute
+//         path='/profile'
+//         component={ProfileView}
+//         authentication={state.user.isAuthenticated}
+//       />
+//     </Switch>
+//   );
+// }
+
+// function UnAuthenticatedApp() {
+//   return (
+//     <Switch>
+//       <Route exact path='/login' component={OnboardingView} />
+//       <Route exact path='/signup' component={OnboardingView} />
+//       <HeaderBar />
+//       <Route path='/' exact />
+//     </Switch>
+//   );
+// }

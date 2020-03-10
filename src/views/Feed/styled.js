@@ -172,6 +172,8 @@ const CookBookSelection = styled(Text)`
     background: #d6f2e4;
     border-radius: 8px;
   }
+
+  ${({ children, ...rest }) => rest}
 `;
 
 export {

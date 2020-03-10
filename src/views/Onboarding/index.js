@@ -1,20 +1,47 @@
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { createUser } from '../../api/User';
-import Button from '../../components/Button';
+import { Link, Redirect, useLocation } from 'react-router-dom';
+import { createUser, loginUser } from '../../api/User';
 import PasswordRequirements from '../../components/PasswordRequirements';
-import Text from '../../components/Text';
+import { useStore } from '../../Store';
 import CheckFormInputs from '../../utils/CheckFormInputs';
 import { PASSWORD_REQUIREMENTS } from '../../utils/Constants';
-import { Container, FormContainer, FormInput, Wrapper } from './styled';
+import {
+  Container,
+  FormContainer,
+  FormInput,
+  OnboardingButton,
+  OnboardingText,
+  Snackbar,
+  Wrapper
+} from './styled';
+
+function ErrorComponent({ errors, compareKey }) {
+  const index = errors.findIndex(({ errorFor }) => errorFor === compareKey);
+  if (index !== -1) {
+    if (compareKey !== 'all')
+      return (
+        <OnboardingText marginTop='10px' fontSize='10px' color='#ff0000'>
+          {errors[index].errorValue}
+        </OnboardingText>
+      );
+    console.log(`Internal error: ${errors[index].errorValue}`);
+    return (
+      <Snackbar>Internal server error. Please try again in some time.</Snackbar>
+    );
+  }
+  return <></>;
+}
 
 function Onboarding() {
+  const { state, dispatch } = useStore();
   const { pathname } = useLocation();
   const path = pathname.slice(1);
   const [showPWRequirements, setShowPwRequirements] = useState(false);
   const [requirements, setRequirements] = useState(PASSWORD_REQUIREMENTS);
+  const [showErrors, setShowError] = useState([]);
 
-  // const [authenticating, setAuthenticating] = useState(false);
+  const [authenticating, setAuthenticating] = useState(false);
 
   const [inputs, setInputs] = useState({
     name: '',
@@ -37,26 +64,26 @@ function Onboarding() {
         const { password } = { ...prevState, password: e.target.value };
 
         setRequirements(oldState => {
-          const state = oldState;
+          const pwrState = oldState;
 
-          if (/[A-Z]/.test(password)) state[0] = [state[0][0], true];
-          else state[0] = [state[0][0], false];
+          if (/[A-Z]/.test(password)) pwrState[0] = [pwrState[0][0], true];
+          else pwrState[0] = [pwrState[0][0], false];
 
-          if (/[a-z]/.test(password)) state[1] = [state[1][0], true];
-          else state[1] = [state[1][0], false];
+          if (/[a-z]/.test(password)) pwrState[1] = [pwrState[1][0], true];
+          else pwrState[1] = [pwrState[1][0], false];
 
-          if (/[0-9]/.test(password)) state[2] = [state[2][0], true];
-          else state[2] = [state[2][0], false];
+          if (/[0-9]/.test(password)) pwrState[2] = [pwrState[2][0], true];
+          else pwrState[2] = [pwrState[2][0], false];
 
           // TODO: Regex for special characters is incorrect.
           if (/[!@#$%^&*)(+=._-]*/.test(password))
-            state[3] = [state[3][0], true];
-          else state[3] = [state[3][0], false];
+            pwrState[3] = [pwrState[3][0], true];
+          else pwrState[3] = [pwrState[3][0], false];
 
-          if (password.length > 8) state[4] = [state[4][0], true];
-          else state[4] = [state[4][0], false];
+          if (password.length > 8) pwrState[4] = [pwrState[4][0], true];
+          else pwrState[4] = [pwrState[4][0], false];
 
-          return state;
+          return pwrState;
         });
 
         return { ...prevState, password: e.target.value };
@@ -66,162 +93,230 @@ function Onboarding() {
 
   function handleFocus() {
     if (path === 'login') return;
-
     setShowPwRequirements(prevState => !prevState);
   }
 
   async function handleSubmit() {
-    // setAuthenticating(prevState => !prevState);
-    const errors = CheckFormInputs(inputs, requirements);
+    setAuthenticating(() => true);
+    setShowPwRequirements(() => false);
+
+    const errors = CheckFormInputs(
+      path === 'login'
+        ? { email: inputs.email, password: inputs.password }
+        : inputs,
+      requirements
+    );
 
     if (errors.length === 0) {
-      const [firstName, ...lastName] = inputs.name.split(' ');
-      const response = await createUser({
-        firstName,
-        lastName: lastName.length > 0 ? lastName : '',
-        email: inputs.email,
-        password: inputs.password
-      });
-      if (response.status === 201 || response.status === 200) {
-        setInputs(() => {
-          return {
-            name: '',
-            email: '',
-            password: ''
-          };
+      try {
+        const [firstName, ...lastName] = inputs.name.split(' ');
+        const { status, data } =
+          path === 'login'
+            ? await loginUser({
+                email: inputs.email,
+                password: inputs.password
+              })
+            : await createUser({
+                firstName,
+                lastName: lastName.length > 0 ? { ...lastName } : '',
+                email: inputs.email,
+                password: inputs.password
+              });
+        if (status === 201 || status === 200) {
+          dispatch({ type: 'USER_ONBOARD', payload: data.data });
+        }
+      } catch (err) {
+        setAuthenticating(() => false);
+        if (err.message === 'Network Error') {
+          setShowError(() => {
+            return [
+              {
+                errorFor: 'all',
+                errorValue: 'API not available'
+              }
+            ];
+          });
+          return;
+        }
+
+        const { status, data } = err.response && err.response;
+
+        if ((status && status === 302) || (status && status === 204)) {
+          setShowError(() => {
+            return [
+              {
+                errorFor: 'email',
+                errorValue: data && data.data && data.data
+              }
+            ];
+          });
+          return;
+        }
+
+        if (status && status === 400) {
+          setShowError(() => {
+            return [
+              {
+                errorFor: 'password',
+                errorValue: data && data.data && data.data
+              }
+            ];
+          });
+          return;
+        }
+
+        // Generic status error
+        // if (status && status === 500) {
+        setShowError(() => {
+          return [
+            {
+              errorFor: 'all',
+              errorValue: data && data.data && data.data
+            }
+          ];
         });
-      } else {
-        console.log(response.data.data);
+        // }
       }
+    } else {
+      setShowError(() => {
+        return errors.reduce((acc, curr) => {
+          const [[key, value]] = Object.entries(curr);
+          if (acc.length === 0) {
+            acc.push({ errorFor: key, errorValue: value });
+            return acc;
+          }
+
+          const foundObject = acc.find(({ errorFor }) => errorFor === key);
+
+          if (!foundObject) {
+            acc.push({ errorFor: key, errorValue: value });
+          }
+
+          return acc;
+        }, []);
+      });
+      setAuthenticating(() => false);
     }
   }
 
-  return (
+  return state.user.isAuthenticated ? (
+    <Redirect to='/' />
+  ) : (
     <Wrapper>
       <Container>
         <FormContainer>
-          <Text
-            margin-top='32px'
-            margin-left='-5px'
-            font-style='normal'
-            font-weight='bold'
-            font-size='24px'
-            line-height='32px'
+          <OnboardingText
+            fontSize='24px'
+            lineHeight='32px'
+            fontWeight='bold'
             color='#030F09'>
             {path === 'login' ? 'Welcome Back' : 'Start Sculpting'}
-          </Text>
-          <Text
-            margin-top='10px'
-            font-style='normal'
-            font-weight='normal'
-            font-size='14px'
-            line-height='22px'
-            color='#606060'>
+          </OnboardingText>
+          <OnboardingText marginTop='10px' color='#606060'>
             {path === 'login'
               ? 'Please login to continue'
-              : 'Create account to continue'}
-          </Text>
+              : 'Create account  to continue'}
+          </OnboardingText>
           {path !== 'login' && (
             <>
-              <Text
-                margin-top='45px'
-                font-style='normal'
-                font-weight='normal'
-                font-size='14px'
-                line-height='22px'
-                color='#A8A8A8'>
+              <OnboardingText
+                color={
+                  showErrors.find(({ errorFor }) => errorFor === 'name') &&
+                  '#ff0000'
+                }>
                 Full Name
-              </Text>
+              </OnboardingText>
               <FormInput
-                // ref={nameRef}
                 type='text'
-                margin-top='10px'
                 value={inputs.name}
+                color={
+                  showErrors.find(({ errorFor }) => errorFor === 'name') &&
+                  '#ff0000'
+                }
                 onChange={e => handleInputChange(e, 'name')}
-                // autoFocus
+                disabled={authenticating}
               />
+              <ErrorComponent errors={showErrors} compareKey='name' />
             </>
           )}
-          <Text
-            margin-top={path === 'login' ? '60px' : '30px'}
-            font-style='normal'
-            font-weight='normal'
-            font-size='14px'
-            line-height='22px'
-            color='#A8A8A8'>
+          <OnboardingText
+            color={
+              showErrors.find(({ errorFor }) => errorFor === 'email') &&
+              '#ff0000'
+            }>
             Email address
-          </Text>
+          </OnboardingText>
           <FormInput
-            // ref={emailRef}
             type='email'
-            margin-top='10px'
             value={inputs.email}
+            color={
+              showErrors.find(({ errorFor }) => errorFor === 'email') &&
+              '#ff0000'
+            }
             onChange={e => handleInputChange(e, 'email')}
-            // autoFocus
+            disabled={authenticating}
           />
-          <Text
-            margin-top='30px'
-            font-style='normal'
-            font-weight='normal'
-            font-size='14px'
-            line-height='22px'
-            color='#A8A8A8'>
+          <ErrorComponent errors={showErrors} compareKey='email' />
+          <OnboardingText
+            color={
+              showErrors.find(({ errorFor }) => errorFor === 'password') &&
+              '#ff0000'
+            }>
             Password
-          </Text>
+          </OnboardingText>
           <FormInput
-            // ref={passwordRef}
             type='password'
-            margin-top='10px'
             value={inputs.password}
+            color={
+              showErrors.find(({ errorFor }) => errorFor === 'password') &&
+              '#ff0000'
+            }
             onChange={e => handleInputChange(e, 'password')}
             onFocus={handleFocus}
             onBlur={handleFocus}
+            disabled={authenticating}
           />
+          <ErrorComponent errors={showErrors} compareKey='password' />
           {path !== 'login' && showPWRequirements && (
             <PasswordRequirements items={requirements} />
           )}
-          <Button
-            margin='25px 0 0 0'
-            width='calc(100% - 26px)'
-            onClick={handleSubmit}>
+          <OnboardingButton onMouseDown={handleSubmit}>
             {/* {!authenticating */}
             {/* ? */}
             {path === 'login' ? 'Login' : 'Sign Up'}
             {/* : <Spinner />} */}
-          </Button>
-          <Text
-            width='calc(100% - 32px)'
-            margin-top='30px'
-            font-style='normal'
-            font-weight='normal'
-            font-size='14px'
-            line-height='22px'
-            text-align='center'
-            color='#A8A8A8'>
+          </OnboardingButton>
+          <OnboardingText marginTop='24px' textAlign='center'>
             {path === 'login' ? 'New to Sculptor?' : 'Already have an account?'}
-          </Text>
+          </OnboardingText>
           <Link to={path === 'login' ? '/signup' : '/login'}>
-            <Text
-              margin-top='10px'
-              margin-bottom='16px'
-              width='calc(100% - 32px)'
-              font-style='normal'
-              font-weight='bold'
-              font-size='16px'
-              line-height='22px'
-              text-align='center'
-              letter-spacing='0.32px'
+            <OnboardingText
+              marginTop='10px'
+              fontWeight='bold'
+              fontSize='16px'
+              textAlign='center'
               color='#30BE76'>
               {path === 'login' ? 'Create Account Here' : 'Login Here'}
-            </Text>
+            </OnboardingText>
           </Link>
         </FormContainer>
       </Container>
+      <ErrorComponent errors={showErrors} compareKey='all' />
     </Wrapper>
   );
 }
 
 export default Onboarding;
+
+ErrorComponent.propTypes = {
+  errors: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
+  compareKey: PropTypes.string
+};
+
+ErrorComponent.defaultProps = {
+  errors: [],
+  compareKey: ''
+};
 
 // TODO: Autofocus input field
 

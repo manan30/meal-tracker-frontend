@@ -19,6 +19,15 @@ export default createGlobalStyle`
       background-color: #ffffff;
     }
   }
+
+  a{
+    text-decoration: none;
+  }
+
+  #root {
+    height: 100%;
+    width: 100%;
+  }
 `;
 
 const Link = styled(anchor)`

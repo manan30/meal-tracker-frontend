@@ -1,14 +1,18 @@
-name: Build and Deploy
+#TODO: Checkout the PR branch after cloning
+name: Build and Deploy - Staging
 
 on:
-  push:
+  pull_request:
     branches:
       - master
-      - develop
+    types:
+      - opened
+      - edited
+      - synchronize
 
 jobs:
   build-and-deploy:
-    name: Build and Deploy
+    name: Deploy
     runs-on: ubuntu-latest
 
     steps:
@@ -30,7 +34,7 @@ jobs:
           restore-keys: |
             npm-
 
-      - name: Install dependencies
+            - name: Install dependencies
         run: npm install
 
       - name: Build
@@ -54,4 +58,3 @@ jobs:
           USER: ${{ secrets.USER }}
           HOST: ${{ secrets.HOST }}
           TARGET: ${{ secrets.TARGET }}
-      # - continue-on-error: false

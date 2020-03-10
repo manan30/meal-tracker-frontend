@@ -6,4 +6,12 @@ const URL = `${
     : 'localhost'
 }:1741`;
 
-export { PROTOCOL, URL };
+const PASSWORD_REQUIREMENTS = [
+  ['Uppercase character', false],
+  ['Lowercase character', false],
+  ['Number', false],
+  ['Special characters', false],
+  ['8 characters long', false]
+];
+
+export { PROTOCOL, URL, PASSWORD_REQUIREMENTS };

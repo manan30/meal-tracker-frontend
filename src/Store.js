@@ -3,21 +3,26 @@ import PropTypes from 'prop-types';
 
 const StoreContext = createContext();
 
-const initialState = {
-  user: { isAuthenticated: true },
-  feed: {
-    topRecipes: [],
-    feedRecipes: []
-  }
+const initialState = JSON.parse(localStorage.getItem('store')) || {
+  user: { isAuthenticated: false },
+  feed: { topRecipes: [], feedRecipes: [] }
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
     case 'SET_FEED':
-      return {
+      return { ...state, feed: action.payload };
+    case 'USER_ONBOARD': {
+      const { user, accessToken } = action.payload;
+      const { user: storedUser } = state;
+      const newState = {
         ...state,
-        feed: action.payload
+        user: { ...storedUser, ...user, isAuthenticated: true }
       };
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('store', JSON.stringify(newState));
+      return newState;
+    }
     case 'ERROR':
       return { ...state };
     default:

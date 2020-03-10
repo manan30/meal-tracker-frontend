@@ -1,8 +1,14 @@
 import axios from 'axios';
 import { PROTOCOL, URL } from '../utils/Constants';
 
-const getRecipes = () => axios.get(`${PROTOCOL}://${URL}/recipes`);
+const URL_PREFIX = `${PROTOCOL}://${URL}`;
 
-const getCategories = () => axios.get(`${PROTOCOL}://${URL}/categories`);
+const getRecipes = () => axios.get(`${URL_PREFIX}/recipes`);
 
-export { getRecipes, getCategories };
+const getCategories = () => axios.get(`${URL_PREFIX}/categories`);
+
+const createUser = data => axios.post(`${URL_PREFIX}/user/create`, data);
+
+const loginUser = data => axios.post(`${URL_PREFIX}/user/login`, data);
+
+export { createUser, getRecipes, getCategories, loginUser };
