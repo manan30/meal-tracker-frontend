@@ -108,8 +108,8 @@ function Onboarding() {
 
     if (errors.length === 0) {
       try {
-        let [firstName, ...lastName] = inputs.name.split(' ');
-        lastName = lastName.length > 0 ? lastName.join(' ') : '';
+        const [firstName, ...lastName] = inputs.name.split(' ');
+        const lastNameSanitized = lastName.length > 0 ? lastName.join(' ') : '';
         const { status, data } =
           path === 'login'
             ? await loginUser({
@@ -118,7 +118,7 @@ function Onboarding() {
               })
             : await createUser({
                 firstName,
-                lastName,
+                lastName: lastNameSanitized,
                 email: inputs.email,
                 password: inputs.password
               });
@@ -143,23 +143,11 @@ function Onboarding() {
 
         const { status, data } = err.response && err.response;
 
-        if ((status && status === 302) || (status && status === 204)) {
-          setShowError(() => {
-            return [
-              {
-                errorFor: 'email',
-                errorValue: data && data.data && data.data
-              }
-            ];
-          });
-          return;
-        }
-
         if (status && status === 400) {
           setShowError(() => {
             return [
               {
-                errorFor: 'password',
+                errorFor: 'email',
                 errorValue: data && data.data && data.data
               }
             ];
