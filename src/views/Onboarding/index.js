@@ -180,6 +180,7 @@ function Onboarding() {
         // }
       }
     } else {
+      setAuthenticating(() => false);
       setShowError(() => {
         return errors.reduce((acc, curr) => {
           const [[key, value]] = Object.entries(curr);
@@ -310,7 +311,15 @@ function Onboarding() {
 export default Onboarding;
 
 ErrorComponent.propTypes = {
-  errors: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
+  errors: PropTypes.arrayOf(
+    PropTypes.shape({
+      errorFor: PropTypes.string,
+      errorValue: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.arrayOf(PropTypes.string)
+      ])
+    })
+  ),
   compareKey: PropTypes.string
 };
 
