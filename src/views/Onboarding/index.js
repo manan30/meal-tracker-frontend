@@ -123,7 +123,7 @@ function Onboarding() {
                 password: inputs.password
               });
         if (status === 201 || status === 200) {
-          setAuthenticating(() => false);
+          // setAuthenticating(() => false);
           dispatch({ type: 'USER_ONBOARD', payload: data.data });
         }
       } catch (err) {
