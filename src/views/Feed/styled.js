@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import Button from '../../components/Button';
 import Card from '../../components/Card';
 import Text from '../../components/Text';
 
@@ -64,10 +65,55 @@ const BottomBar = styled.section`
   }
 `;
 
-const DataContainer = styled.div`
-  width: 100%;
+const FeedCard = styled(Card)`
+  display: flex;
+  align-items: ${props => props.alignItems && props.alignItems};
 
-  ${({ children, ...props }) => props}
+  width: ${props => props.width || 'calc(100% - 50px)'};
+  height: ${props => props.height || '165px'};
+  padding: 25px;
+  margin-bottom: 20px;
+
+  box-shadow: ${props => props.boxShadow && props.boxShadow};
+
+  ${props =>
+    props.adjustDisplay &&
+    css`
+      @media screen and (max-width: 640px) {
+        display: none;
+      }
+    `};
+`;
+
+const FeedButton = styled(Button)`
+  flex-basis: auto;
+  flex-grow: ${props => props.flexGrow || '0'};
+
+  height: ${props => props.height && props.height};
+  width: ${props => props.width && props.width};
+  margin: ${props => props.margin && props.margin};
+
+  font-style: normal;
+  font-weight: bold;
+  font-size: ${props => props.fontSize || '16px'};
+  line-height: 21px;
+  text-align: center;
+
+  background-color: ${props => props.bgColor && props.bgColor};
+  color: ${props => props.color && props.color};
+  box-shadow: ${props => props.boxShadow && props.boxShadow};
+  border: ${props => props.border && props.border};
+`;
+
+const FeedText = styled(Text)`
+  height: ${props => props.height && props.height};
+  width: ${props => props.width && props.width};
+  margin-top: ${props => props.marginTop && props.marginTop};
+  font-weight: ${props => props.fontWeight || 'normal'};
+  font-size: ${props => props.fontSize || '14px'};
+  line-height: 22px;
+  letter-spacing: 0.4px;
+  color: ${props => props.color || '#767676'};
 `;
 
 const LineItem = styled.div`
@@ -111,18 +157,6 @@ const Icon = styled.div`
   }
 `;
 
-const CreateRecipeCard = styled(Card)`
-  display: flex;
-  width: calc(100% - 50px);
-  height: 30px;
-  padding: 25px;
-  align-items: center;
-
-  @media screen and (max-width: 640px) {
-    display: none;
-  }
-`;
-
 const RecipesList = styled(Card)`
   width: calc(100% - 50px);
   height: calc(100% - 150px);
@@ -137,6 +171,11 @@ const RecipesList = styled(Card)`
     padding: 0;
     margin: 0;
   }
+`;
+
+const RecipeListCard = styled(FeedCard)`
+  height: 400px;
+  box-shadow: 0px 6px 20px rgba(13, 51, 32, 0.1);
 `;
 
 const NoRecipes = styled.div`
@@ -180,14 +219,16 @@ export {
   Wrapper,
   SideSection,
   MainSection,
-  DataContainer,
   LineItem,
   ProfileImage,
   CardImage,
   BottomBar,
   Icon,
-  CreateRecipeCard,
   RecipesList,
   NoRecipes,
-  CookBookSelection
+  CookBookSelection,
+  FeedCard,
+  FeedText,
+  FeedButton,
+  RecipeListCard as ListCard
 };
