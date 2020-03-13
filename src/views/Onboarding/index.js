@@ -98,7 +98,6 @@ function Onboarding() {
 
   async function handleSubmit() {
     setAuthenticating(() => true);
-    setShowPwRequirements(() => false);
 
     const errors = CheckFormInputs(
       path === 'login'
@@ -109,7 +108,8 @@ function Onboarding() {
 
     if (errors.length === 0) {
       try {
-        const [firstName, ...lastName] = inputs.name.split(' ');
+        let [firstName, ...lastName] = inputs.name.split(' ');
+        lastName = lastName.length > 0 ? lastName.join(' ') : '';
         const { status, data } =
           path === 'login'
             ? await loginUser({
@@ -118,15 +118,17 @@ function Onboarding() {
               })
             : await createUser({
                 firstName,
-                lastName: lastName.length > 0 ? { ...lastName } : '',
+                lastName,
                 email: inputs.email,
                 password: inputs.password
               });
         if (status === 201 || status === 200) {
+          // setAuthenticating(() => false);
           dispatch({ type: 'USER_ONBOARD', payload: data.data });
         }
       } catch (err) {
         setAuthenticating(() => false);
+
         if (err.message === 'Network Error') {
           setShowError(() => {
             return [
@@ -178,6 +180,7 @@ function Onboarding() {
         // }
       }
     } else {
+      setAuthenticating(() => false);
       setShowError(() => {
         return errors.reduce((acc, curr) => {
           const [[key, value]] = Object.entries(curr);
@@ -195,7 +198,6 @@ function Onboarding() {
           return acc;
         }, []);
       });
-      setAuthenticating(() => false);
     }
   }
 
@@ -280,7 +282,7 @@ function Onboarding() {
           {path !== 'login' && showPWRequirements && (
             <PasswordRequirements items={requirements} />
           )}
-          <OnboardingButton onMouseDown={handleSubmit}>
+          <OnboardingButton onMouseDown={handleSubmit} onClick={handleSubmit}>
             {/* {!authenticating */}
             {/* ? */}
             {path === 'login' ? 'Login' : 'Sign Up'}
@@ -309,7 +311,15 @@ function Onboarding() {
 export default Onboarding;
 
 ErrorComponent.propTypes = {
-  errors: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
+  errors: PropTypes.arrayOf(
+    PropTypes.shape({
+      errorFor: PropTypes.string,
+      errorValue: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.arrayOf(PropTypes.string)
+      ])
+    })
+  ),
   compareKey: PropTypes.string
 };
 
