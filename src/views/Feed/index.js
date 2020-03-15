@@ -113,7 +113,7 @@ function Feed() {
             </Container>
           </FeedCard>
         )}
-        <FeedCard>
+        <FeedCard flexDirection='column'>
           <FeedText fontWeight='bold' fontSize='16px' color='#030f09'>
             Top 5 recipes for today
           </FeedText>
