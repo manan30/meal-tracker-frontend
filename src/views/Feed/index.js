@@ -20,11 +20,10 @@ import {
   FeedCard,
   FeedText,
   Icon,
-  ListCard,
   MainSection,
   NoRecipes,
   ProfileDataContainer,
-  ProfileImage,
+  FeedImage,
   RecipesList,
   Separator,
   SideSection,
@@ -51,7 +50,7 @@ function Feed() {
         {state.user.isAuthenticated && (
           <FeedCard flexDirection='column'>
             <Container>
-              <ProfileImage backgroundColor='#606060' />
+              <FeedImage backgroundColor='#606060' />
               <ProfileDataContainer>
                 <FeedText fontWeight='bold' font-size='16px' color='#030F09'>
                   {state.user.firstName} {state.user.lastName}
@@ -113,7 +112,7 @@ function Feed() {
             </Container>
           </FeedCard>
         )}
-        <FeedCard flexDirection='column'>
+        <FeedCard flexDirection='column' height='auto'>
           <FeedText fontWeight='bold' fontSize='16px' color='#030f09'>
             Top 5 recipes for today
           </FeedText>
@@ -123,7 +122,7 @@ function Feed() {
               return (
                 <Link key={key} to={`/recipe/${recipe.id}`}>
                   <FeedText marginTop='16px' color='#606060'>
-                    New recipe: {recipe.name}
+                    {recipe.name}
                   </FeedText>
                 </Link>
               );
@@ -211,100 +210,75 @@ function RecipeListCard({ user, recipe }) {
   }
 
   return (
-    <ListCard>
-      <div
-        style={{
-          display: 'inline-flex',
-          height: '30px',
-          width: 'calc(100% - 30px)',
-          padding: '15px'
-        }}>
-        <ProfileImage height='32px' width='32px' image={user.profilePicture} />
-        <div
-          style={{
-            marginLeft: '10px',
-            height: '100%'
-          }}>
+    <FeedCard
+      height='400px'
+      boxShadow='0px 6px 20px rgba(13, 51, 32, 0.1)'
+      flexDirection='column'
+      recipeCard>
+      <Container height='45px' flexShrink='0'>
+        <FeedImage height='32px' width='32px' image={user.profilePicture} />
+        <Container
+          flexDirection='column'
+          alignItems='flex-start'
+          width='100%'
+          marginLeft='16px'>
           <Link to={`/user/${user.id}`}>
             <FeedText color='#030F09'>{user.username}</FeedText>
           </Link>
           <FeedText>{user.lastPosted}h ago</FeedText>
-        </div>
-      </div>
-      <CardImage image={recipe.recipeImage} />
-      <div
-        style={{
-          margin: '15px',
-          height: 'calc(100% - 270px)',
-          width: 'calc(100% - 30px)'
-        }}>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center'
-          }}>
+        </Container>
+      </Container>
+      <FeedImage
+        height='180px'
+        width='100%'
+        image={recipe.recipeImage}
+        borderRadius='0'
+      />
+      <Container
+        flexDirection='column'
+        alignItems='flex-start'
+        marginTop='15px'
+        height='100%'>
+        <Container width='100%' flexGrow='0'>
           <Link to={`/recipe/${recipe.id}`} width='100%'>
-            <Text
-              flex-basis='auto'
-              flex-grow='1'
-              width='100%'
-              font-style='normal'
-              font-weight='600'
-              font-size='18px'
-              line-height='32px'
+            <FeedText
+              fontWeight='600'
+              fontSize='18px'
+              lineHeight='32px'
               color='#030F09'>
               {recipe.recipeName}
-            </Text>
+            </FeedText>
           </Link>
           <Icon>
             <FiHeart />
           </Icon>
-        </div>
-        <Text height='45px' color='#A8A8A8'>
-          {recipe.recipeDesc}
-          ...
-        </Text>
-        <div
-          style={{
-            display: 'flex',
-            marginTop: '20px',
-            alignItems: 'center'
-          }}>
-          <Text
-            flex-grow='0'
-            flex-basis='auto'
-            font-style='normal'
-            font-weight='normal'
-            font-size='14px'
-            line-height='22px'
-            color='#606060'>
-            {recipe.likes} Likes
-          </Text>
-          <Text
-            flex-grow='1'
-            flex-basis='auto'
-            margin-left='20px'
-            font-style='normal'
-            font-weight='normal'
-            font-size='14px'
-            line-height='22px'
-            color='#606060'>
+        </Container>
+        <Container flexGrow='4' width='100%' alignItems='flex-start'>
+          <FeedText color='#A8A8A8' width='100%'>
+            {recipe.recipeDesc}
+            ...
+          </FeedText>
+        </Container>
+        <Container marginTop='10px' width='100%' flexGrow='0'>
+          <FeedText color='#606060'>{recipe.likes} Likes</FeedText>
+          <FeedText color='#606060' marginLeft='20px'>
             {recipe.comments} comments
-          </Text>
+          </FeedText>
           {/* <Link to='/profile'> */}
           <FeedButton
             height='26px'
-            border='1px solid #30BE76'
-            border-radius='4px'
             width='72px'
+            margin='0 0 0 auto'
+            border='1px solid #30BE76'
+            borderRadius='4px'
             fontSize='14px'
-            color='#30BE76'
+            hover='true'
             onClick={handleModalToggle}>
             Save
           </FeedButton>
           {/* </Link> */}
-        </div>
-      </div>
+        </Container>
+      </Container>
       {showModal && (
         <Modal display='flex' align-items='center' justify-content='center'>
           {state.user.isAuthenticated ? (
@@ -408,7 +382,7 @@ function RecipeListCard({ user, recipe }) {
           )}
         </Modal>
       )}
-    </ListCard>
+    </FeedCard>
   );
 }
 

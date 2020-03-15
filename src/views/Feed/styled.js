@@ -84,6 +84,16 @@ const FeedCard = styled(Card)`
         display: none;
       }
     `};
+
+  ${props =>
+    props.recipeCard &&
+    css`
+      @media screen and (max-width: 640px) {
+        width: calc(100% - 52px);
+        box-shadow: none;
+        border: 0.2px solid #30be76;
+      }
+    `}
 `;
 
 const FeedButton = styled(Button)`
@@ -105,6 +115,15 @@ const FeedButton = styled(Button)`
   color: ${props => props.color && props.color};
   box-shadow: ${props => props.boxShadow && props.boxShadow};
   border: ${props => props.border && props.border};
+
+  ${props =>
+    props.hover &&
+    css`
+      :hover {
+        background-color: #30be76;
+        color: #ffffff;
+      }
+    `}
 `;
 
 const FeedText = styled(Text)`
@@ -124,7 +143,15 @@ const Container = styled.div`
   display: flex;
   flex-direction: ${props => props.flexDirection && props.flexDirection};
   justify-content: ${props => props.justifyContent && props.justifyContent};
-  align-items: center;
+  align-items: ${props => props.alignItems || 'center'};
+  flex-basis: auto;
+  flex-grow: ${props => props.flexGrow && props.flexGrow};
+  flex-shrink: ${props => props.flexShrink && props.flexShrink};
+
+  height: ${props => props.height && props.height};
+  width: ${props => props.width && props.width};
+  margin-left: ${props => props.marginLeft && props.marginLeft};
+  margin-top: ${props => props.marginTop && props.marginTop};
 `;
 
 const ProfileDataContainer = styled.div`
@@ -137,7 +164,7 @@ const ProfileDataContainer = styled.div`
   height: 72px;
 `;
 
-const ProfileImage = styled.div`
+const FeedImage = styled.image`
   flex-basis: auto;
   flex-grow: 0;
   flex-shrink: 0;
@@ -145,7 +172,7 @@ const ProfileImage = styled.div`
   width: ${props => props.width || '70px'};
   height: ${props => props.height || '70px'};
 
-  border-radius: 50%;
+  border-radius: ${props => props.borderRadius || '50%'};
   background-color: ${props => props.backgroundColor || '#ffffff'};
   background-image: url(${props => props.image && props.image});
   background-position: center center;
@@ -189,11 +216,6 @@ const RecipesList = styled(Card)`
     padding: 0;
     margin: 0;
   }
-`;
-
-const RecipeListCard = styled(FeedCard)`
-  height: 400px;
-  box-shadow: 0px 6px 20px rgba(13, 51, 32, 0.1);
 `;
 
 const NoRecipes = styled.div`
@@ -249,7 +271,7 @@ export {
   SideSection,
   MainSection,
   Container,
-  ProfileImage,
+  FeedImage,
   CardImage,
   BottomBar,
   Icon,
@@ -259,7 +281,6 @@ export {
   FeedCard,
   FeedText,
   FeedButton,
-  RecipeListCard as ListCard,
   ProfileDataContainer,
   Separator
 };
