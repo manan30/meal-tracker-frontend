@@ -154,46 +154,25 @@ function Feed() {
         </RecipesList>
       </MainSection>
       <SideSection marginLeft='20px'>
-        <Card
+        <FeedCard
+          flexDirection='column'
           height='calc(105px - 50px)'
-          width='calc(100% - 70px)'
-          padding='25px'>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <Text
-              flex-basis='auto'
-              flex-grow='0'
-              font-size='12px'
-              font-weight='normal'
-              line-height='16px'
-              letter-spacing='0.4px'
-              color='#767676'>
+          width='calc(100% - 70px)'>
+          <Container>
+            <FeedText fontSize='12px' lineHeight='16px'>
               About Sculptor
-            </Text>
-            <Text
-              flex-basis='auto'
-              flex-grow='1'
-              margin-left='20px'
-              font-size='12px'
-              font-weight='normal'
-              line-height='16px'
-              letter-spacing='0.4px'
-              color='#767676'>
+            </FeedText>
+            <FeedText marginLeft='20px' fontSize='12px' line-height='16px'>
               Settings
-            </Text>
-          </div>
-          <Text
-            margin-top='24px'
-            font-weight='normal'
-            font-size='10px'
-            line-height='14px'
-            letter-spacing='0.3px'
-            color='#767676'>
+            </FeedText>
+          </Container>
+          <FeedText marginTop='24px' fontSize='10px' lineHeight='14px'>
             <span role='img' aria-label='copyright'>
               ©️
             </span>
             sculptor by Manan 2020
-          </Text>
-        </Card>
+          </FeedText>
+        </FeedCard>
       </SideSection>
       <BottomBar>
         <IoIosSearch />
