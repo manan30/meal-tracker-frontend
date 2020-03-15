@@ -14,19 +14,21 @@ import { useStore } from '../../Store';
 import {
   BottomBar,
   CardImage,
+  Container,
   CookBookSelection,
-  Icon,
-  LineItem,
-  MainSection,
-  NoRecipes,
-  ProfileImage,
-  RecipesList,
-  SideSection,
-  Wrapper,
+  FeedButton,
   FeedCard,
   FeedText,
-  FeedButton,
-  ListCard
+  Icon,
+  ListCard,
+  MainSection,
+  NoRecipes,
+  ProfileDataContainer,
+  ProfileImage,
+  RecipesList,
+  Separator,
+  SideSection,
+  Wrapper
 } from './styled';
 
 function Feed() {
@@ -47,61 +49,68 @@ function Feed() {
     <Wrapper>
       <SideSection marginRight='20px'>
         {state.user.isAuthenticated && (
-          <FeedCard>
-            <ProfileImage background-color='#606060' />
-            <div
-              style={{
-                marginLeft: '16px',
-                marginTop: '4px',
-                width: 'calc(100% - 86px)'
-              }}>
-              <Text
-                font-style='normal'
-                font-weight='bold'
-                font-size='16px'
-                line-height='22px'>
-                Manan Joshi
-              </Text>
-              <Text
-                font-style='normal'
-                font-weight='normal'
-                font-size='14px'
-                line-height='22px'
-                color='#606060'>
-                Aspiring Chef
-              </Text>
-              <LineItem>
-                <Text
-                  font-style='normal'
-                  font-weight='normal'
-                  font-size=' 10px'
-                  line-height=' 12px'
-                  color=' #606060'
-                  flex-basis='auto'
-                  flex-grow='1'
-                  margin-top='6px'>
-                  500 followers
-                </Text>
-                <Text
-                  font-style='normal'
-                  font-weight='normal'
-                  font-size=' 10px'
-                  line-height=' 12px'
-                  color=' #606060'
-                  flex-basis='auto'
-                  flex-grow='1'
-                  margin-top='6px'>
-                  23k likes
-                </Text>
-              </LineItem>
-            </div>
-            <div
-              style={{
-                height: '1px',
-                backgroundColor: '#E6E6E6',
-                borderRadius: '0.5px'
-              }}
-            />
+          <FeedCard flexDirection='column'>
+            <Container>
+              <ProfileImage backgroundColor='#606060' />
+              <ProfileDataContainer>
+                <FeedText fontWeight='bold' font-size='16px' color='#030F09'>
+                  {state.user.firstName} {state.user.lastName}
+                </FeedText>
+                <FeedText color='#606060'>{state.user.title}</FeedText>
+                <Container justifyContent='flex-start'>
+                  <FeedText
+                    fontSize=' 10px'
+                    lineHeight=' 12px'
+                    color=' #606060'
+                    marginTop='6px'>
+                    {state.user.followers} followers
+                  </FeedText>
+                  <FeedText
+                    fontSize=' 12px'
+                    lineHeight=' 12px'
+                    color=' #606060'
+                    marginTop='6px'
+                    marginLeft='10px'>
+                    |
+                  </FeedText>
+                  <FeedText
+                    fontSize=' 10px'
+                    lineHeight=' 12px'
+                    color=' #606060'
+                    marginTop='6px'
+                    marginLeft='10px'>
+                    {state.user.likes} likes
+                  </FeedText>
+                </Container>
+              </ProfileDataContainer>
+            </Container>
+            <Separator />
+            <Container justifyContent='space-between'>
+              <Container justifyContent='center' flexDirection='column'>
+                <FeedText fontWeight='bold' fontSize='16px' color='#030f09'>
+                  20
+                </FeedText>
+                <FeedText fontSize='12px' color='#030f09'>
+                  Recipes
+                </FeedText>
+              </Container>
+              <Container justifyContent='center' flexDirection='column'>
+                <FeedText fontWeight='bold' fontSize='16px' color='#030f09'>
+                  20
+                </FeedText>
+                <FeedText fontSize='12px' color='#030f09'>
+                  Recipes
+                </FeedText>
+              </Container>
+              <Container justifyContent='center' flexDirection='column'>
+                <FeedText fontWeight='bold' fontSize='16px' color='#030f09'>
+                  20
+                </FeedText>
+                <FeedText fontSize='12px' color='#030f09'>
+                  Recipes
+                </FeedText>
+              </Container>
+            </Container>
           </FeedCard>
         )}
         <FeedCard>

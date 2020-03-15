@@ -67,6 +67,7 @@ const BottomBar = styled.section`
 
 const FeedCard = styled(Card)`
   display: flex;
+  flex-direction: ${props => props.flexDirection && props.flexDirection};
   align-items: ${props => props.alignItems && props.alignItems};
 
   width: ${props => props.width || 'calc(100% - 50px)'};
@@ -108,31 +109,48 @@ const FeedButton = styled(Button)`
 const FeedText = styled(Text)`
   height: ${props => props.height && props.height};
   width: ${props => props.width && props.width};
+
   margin-top: ${props => props.marginTop && props.marginTop};
+  margin-left: ${props => props.marginLeft && props.marginLeft};
+
   font-weight: ${props => props.fontWeight || 'normal'};
   font-size: ${props => props.fontSize || '14px'};
-  line-height: 22px;
+  line-height: ${props => props.lineHeight || '22px'};
   letter-spacing: 0.4px;
   color: ${props => props.color || '#767676'};
 `;
 
-const LineItem = styled.div`
+const Container = styled.div`
   display: flex;
-  margin-bottom: 16px;
-  justify-content: space-around;
+  flex-direction: ${props => props.flexDirection && props.flexDirection};
+  justify-content: ${props => props.justifyContent && props.justifyContent};
+  align-items: center;
+`;
+
+const ProfileDataContainer = styled.div`
+  flex-basis: auto;
+  flex-grow: 1;
+  flex-shrink: 0;
+
+  margin-left: 16px;
+  margin-top: 4px;
+  height: 72px;
 `;
 
 const ProfileImage = styled.div`
-  width: 70px;
-  height: 70px;
-  background-color: #ffffff;
+  flex-basis: auto;
+  flex-grow: 0;
+  flex-shrink: 0;
+
+  width: ${props => props.width || '70px'};
+  height: ${props => props.height || '70px'};
+
   border-radius: 50%;
+  background-color: ${props => props.backgroundColor || '#ffffff'};
   background-image: url(${props => props.image && props.image});
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-
-  ${({ children, image, ...rest }) => rest};
 `;
 
 const CardImage = styled.image`
@@ -215,11 +233,22 @@ const CookBookSelection = styled(Text)`
   ${({ children, ...rest }) => rest}
 `;
 
+const Separator = styled.div`
+  flex-shrink: 0;
+
+  height: 1px;
+  width: 100%;
+  margin: 20px 0;
+
+  background-color: #e6e6e6;
+  border-radius: 0.5px;
+`;
+
 export {
   Wrapper,
   SideSection,
   MainSection,
-  LineItem,
+  Container,
   ProfileImage,
   CardImage,
   BottomBar,
@@ -230,5 +259,7 @@ export {
   FeedCard,
   FeedText,
   FeedButton,
-  RecipeListCard as ListCard
+  RecipeListCard as ListCard,
+  ProfileDataContainer,
+  Separator
 };
