@@ -72,7 +72,7 @@ const FeedCard = styled(Card)`
 
   width: ${props => props.width || 'calc(100% - 50px)'};
   height: ${props => props.height || '165px'};
-  padding: 25px;
+  padding: ${props => props.padding || '25px'};
   margin-bottom: 20px;
 
   box-shadow: ${props => props.boxShadow && props.boxShadow};
@@ -89,6 +89,7 @@ const FeedCard = styled(Card)`
 const FeedButton = styled(Button)`
   flex-basis: auto;
   flex-grow: ${props => props.flexGrow || '0'};
+  flex-shrink: 0;
 
   height: ${props => props.height && props.height};
   width: ${props => props.width && props.width};
@@ -97,7 +98,7 @@ const FeedButton = styled(Button)`
   font-style: normal;
   font-weight: bold;
   font-size: ${props => props.fontSize || '16px'};
-  line-height: 21px;
+  line-height: 22px;
   text-align: center;
 
   background-color: ${props => props.bgColor && props.bgColor};
@@ -109,7 +110,6 @@ const FeedButton = styled(Button)`
 const FeedText = styled(Text)`
   height: ${props => props.height && props.height};
   width: ${props => props.width && props.width};
-
   margin-top: ${props => props.marginTop && props.marginTop};
   margin-left: ${props => props.marginLeft && props.marginLeft};
 

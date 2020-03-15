@@ -136,7 +136,26 @@ function Feed() {
         </FeedCard>
       </SideSection>
       <MainSection>
-        <CreateRecipeCard />
+        <FeedCard
+          height='30px'
+          padding='25px 22px'
+          alignItems='center'
+          adjustDisplay>
+          {state.user.isAuthenticated && (
+            <FeedText width='75%' color='#030F09'>
+              {state.user.onlineFollowers || 0} followers are online
+            </FeedText>
+          )}
+          <FeedButton
+            flexGrow='2'
+            width='128px'
+            margin='0'
+            color='#ffffff'
+            bgColor='#30BE76'
+            boxShadow='0px 6px 20px rgba(13, 51, 32, 0.1)'>
+            Create Recipe
+          </FeedButton>
+        </FeedCard>
         <RecipesList>
           {state.feed.feedRecipes.length > 0 ? (
             state.feed.feedRecipes.map(({ user, recipe }, i) => {
@@ -180,29 +199,6 @@ function Feed() {
         <GiChefToque />
       </BottomBar>
     </Wrapper>
-  );
-}
-
-function CreateRecipeCard() {
-  const { state } = useStore();
-
-  return (
-    <FeedCard height='30px' alignItems='center' adjustDisplay>
-      {state.user.isAuthenticated && (
-        <FeedText width='80%' color='#030F09'>
-          256 followers are online
-        </FeedText>
-      )}
-      <FeedButton
-        width='128px'
-        margin='0'
-        color='#ffffff'
-        bgColor='#30BE76'
-        boxShadow='0px 6px 20px rgba(13, 51, 32, 0.1)'
-        hover={false}>
-        Create Recipe
-      </FeedButton>
-    </FeedCard>
   );
 }
 
