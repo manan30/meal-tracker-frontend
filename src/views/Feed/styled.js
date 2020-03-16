@@ -96,7 +96,7 @@ const FeedCard = styled(Card)`
       @media screen and (max-width: 640px) {
         width: calc(100% - 52px);
         box-shadow: none;
-        border: 0.2px solid #30be76;
+        border: 1px solid #cccccc;
       }
     `}
 `;
@@ -147,6 +147,23 @@ const FeedText = styled(Text)`
   letter-spacing: 0.4px;
   text-align: ${props => props.textAlign && props.textAlign};
   color: ${props => props.color || '#767676'};
+  cursor: ${props => props.cursor && props.cursor};
+
+  ${props =>
+    props.cookBookSelection &&
+    css`
+      padding: 8px;
+      width: calc(100% - 16px);
+
+      :last-child {
+        margin-bottom: 8px;
+      }
+
+      :hover {
+        background: #d6f2e4;
+        border-radius: 8px;
+      }
+    `}
 `;
 
 const Container = styled.div`
@@ -162,6 +179,9 @@ const Container = styled.div`
   width: ${props => props.width && props.width};
   margin-left: ${props => props.marginLeft && props.marginLeft};
   margin-top: ${props => props.marginTop && props.marginTop};
+
+  overflow: ${props => props.overflow && props.overflow};
+  overflow-y: ${props => props.overflowY && props.overflowY};
 `;
 
 const ProfileDataContainer = styled.div`
@@ -236,29 +256,6 @@ const NoRecipes = styled.div`
   }
 `;
 
-const CookBookSelection = styled(Text)`
-  display: flex;
-  flex-direction: column;
-  margin-top: 8px;
-  padding: 11px 0 11px 9px;
-  font-size: 14px;
-  line-height: 22px;
-  color: #030f09;
-  cursor: pointer;
-  justify-content: center;
-
-  :last-child {
-    margin-bottom: 8px;
-  }
-
-  :hover {
-    background: #d6f2e4;
-    border-radius: 8px;
-  }
-
-  ${({ children, ...rest }) => rest}
-`;
-
 const Separator = styled.div`
   flex-shrink: 0;
 
@@ -280,7 +277,6 @@ export {
   Icon,
   RecipesList,
   NoRecipes,
-  CookBookSelection,
   FeedCard,
   FeedText,
   FeedButton,

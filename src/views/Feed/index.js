@@ -6,15 +6,12 @@ import { IoIosSearch } from 'react-icons/io';
 import { MdClose, MdViewCarousel } from 'react-icons/md';
 import { getInitialFeed } from '../../api/Feed';
 import { ReactComponent as NoRecipeIcon } from '../../assets/img/no-recipes.svg';
-import Card from '../../components/Card';
 import Modal from '../../components/Modal';
-import Text from '../../components/Text';
 import { Link } from '../../GlobalStyles';
 import { useStore } from '../../Store';
 import {
   BottomBar,
   Container,
-  CookBookSelection,
   FeedButton,
   FeedCard,
   FeedImage,
@@ -282,59 +279,60 @@ function RecipeListCard({ user, recipe }) {
       {showModal && (
         <Modal display='flex' align-items='center' justify-content='center'>
           {state.user.isAuthenticated ? (
-            <Card
-              display='flex'
-              flex-wrap='wrap'
-              flex-direction='column'
+            <FeedCard
+              flexWrap='wrap'
+              flexDirection='column'
               height='254px'
               width='286px'
               padding='11px'
-              background-color='white'>
-              <div
-                style={{
-                  height: '24px',
-                  display: 'flex',
-                  alignItems: 'center'
-                }}>
-                <Text
-                  margin-left='7px'
-                  font-size='20px'
-                  font-weight='bold'
-                  line-height='27px'
-                  color='#030F09'
-                  flex-basis='auto'
-                  flex-grow='2'>
+              margin='0'
+              backgroundColor='white'>
+              <Container height='24px' width='100%'>
+                <FeedText
+                  marginLeft='7px'
+                  fontSize='20px'
+                  fontWeight='bold'
+                  lineHeight='27px'
+                  color='#030F09'>
                   Save to
-                </Text>
+                </FeedText>
                 <Icon
                   height='24px'
                   width='24px'
-                  color='#ffffff'
+                  margin='0 0 0 auto'
+                  color='#030f09'
                   onClick={handleModalToggle}>
                   <MdClose />
                 </Icon>
-              </div>
-              <div
-                style={{
-                  height: '206px',
-                  overflow: 'none',
-                  overflowY: 'scroll'
-                }}>
-                {new Array(10).fill(0).map((_, i) => (
-                  <CookBookSelection>{`Cookbook ${i}`}</CookBookSelection>
-                ))}
-              </div>
-              <Text
+              </Container>
+              <Container
+                height='206px'
+                overflow='none'
+                overflowY='scroll'
+                flexDirection='column'
+                alignItems='flex-start'>
+                {new Array(10).fill(0).map((_, i) => {
+                  const key = i;
+                  return (
+                    <FeedText
+                      key={key}
+                      marginTop='8px'
+                      color='030f09'
+                      cursor='pointer'
+                      cookBookSelection='true'>{`Cookbook ${i}`}</FeedText>
+                  );
+                })}
+              </Container>
+              <FeedText
                 height='24px'
-                margin-left='9px'
-                font-weight='bold'
-                font-size='16px'
-                line-height='22px'
-                letter-spacing='0.32px'
-                color='#30BE76'>
+                marginLeft='9px'
+                fontWeight='bold'
+                fontSize='16px'
+                color='#30BE76'
+                cursor='pointer'>
                 Add New Cookbook
-              </Text>
-            </Card>
+              </FeedText>
+            </FeedCard>
           ) : (
             <FeedCard
               flexWrap='wrap'
