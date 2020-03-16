@@ -13,17 +13,16 @@ import { Link } from '../../GlobalStyles';
 import { useStore } from '../../Store';
 import {
   BottomBar,
-  CardImage,
   Container,
   CookBookSelection,
   FeedButton,
   FeedCard,
+  FeedImage,
   FeedText,
   Icon,
   MainSection,
   NoRecipes,
   ProfileDataContainer,
-  FeedImage,
   RecipesList,
   Separator,
   SideSection,
@@ -141,14 +140,13 @@ function Feed() {
           alignItems='center'
           adjustDisplay>
           {state.user.isAuthenticated && (
-            <FeedText width='75%' color='#030F09'>
+            <FeedText color='#030F09' flexGrow='0'>
               {state.user.onlineFollowers || 0} followers are online
             </FeedText>
           )}
           <FeedButton
-            flexGrow='2'
             width='128px'
-            margin='0'
+            margin='0 0 0 auto'
             color='#ffffff'
             bgColor='#30BE76'
             boxShadow='0px 6px 20px rgba(13, 51, 32, 0.1)'>
@@ -214,9 +212,10 @@ function RecipeListCard({ user, recipe }) {
       height='400px'
       boxShadow='0px 6px 20px rgba(13, 51, 32, 0.1)'
       flexDirection='column'
+      position='relative'
       recipeCard>
       <Container height='45px' flexShrink='0'>
-        <FeedImage height='32px' width='32px' image={user.profilePicture} />
+        <FeedImage height='32px' width='32px' src={user.profilePicture} />
         <Container
           flexDirection='column'
           alignItems='flex-start'
@@ -231,7 +230,8 @@ function RecipeListCard({ user, recipe }) {
       <FeedImage
         height='180px'
         width='100%'
-        image={recipe.recipeImage}
+        src={recipe.recipeImage}
+        backgroundColor='#606060'
         borderRadius='0'
       />
       <Container
@@ -336,49 +336,40 @@ function RecipeListCard({ user, recipe }) {
               </Text>
             </Card>
           ) : (
-            <Card
-              display='flex'
-              flex-wrap='wrap'
+            <FeedCard
+              flexWrap='wrap'
               width='100%'
               margin='20%'
               padding='20px'
-              background-color='white'
-              background='linear-gradient(to right, #11998e, #38ef7d)'>
-              <Text
-                flex-basis='auto'
-                flex-grow='2'
-                font-style='normal'
-                font-weight='bold'
-                font-size='20px'
-                line-height='27px'
-                color='#ffffff'>
-                Login Required
-              </Text>
-              <Icon
-                flex-basis='auto'
-                flex-grow='0'
-                height='24px'
-                width='24px'
-                float='right'
+              backgroundColor='linear-gradient(to right, #11998e, #38ef7d)'>
+              <Container width='100%' alignItems='flex-start'>
+                <FeedText
+                  fontWeight='bold'
+                  fontSize='20px'
+                  lineHeight='27px'
+                  color='#ffffff'>
+                  Login Required
+                </FeedText>
+                <Icon
+                  height='24px'
+                  width='24px'
+                  margin='0 0 0 auto'
+                  color='#ffffff'
+                  onClick={handleModalToggle}>
+                  <MdClose />
+                </Icon>
+              </Container>
+              <FeedText
+                marginTop='16px'
+                fontWeight='bold'
                 color='#ffffff'
-                onClick={handleModalToggle}>
-                <MdClose />
-              </Icon>
-              <Text
-                width='100%'
-                margin-top='16px'
-                font-style='normal'
-                font-weight='bold'
-                font-size='14px'
-                line-height='21px'
-                text-align='center'
-                color='#ffffff'>
+                textAlign='center'>
                 It looks like you are not logged in. Please
                 <Link to='/login'> login</Link> or
                 <Link to='/signup'> signup </Link>
                 to continue...
-              </Text>
-            </Card>
+              </FeedText>
+            </FeedCard>
           )}
         </Modal>
       )}

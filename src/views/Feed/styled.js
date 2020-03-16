@@ -66,16 +66,21 @@ const BottomBar = styled.section`
 `;
 
 const FeedCard = styled(Card)`
+  position: ${props => props.position && props.position};
+
   display: flex;
   flex-direction: ${props => props.flexDirection && props.flexDirection};
+  flex-wrap: ${props => props.flexWrap && props.flexWrap};
   align-items: ${props => props.alignItems && props.alignItems};
 
   width: ${props => props.width || 'calc(100% - 50px)'};
   height: ${props => props.height || '165px'};
   padding: ${props => props.padding || '25px'};
   margin-bottom: 20px;
+  margin: ${props => props.margin && props.margin};
 
   box-shadow: ${props => props.boxShadow && props.boxShadow};
+  background: ${props => props.backgroundColor && props.backgroundColor};
 
   ${props =>
     props.adjustDisplay &&
@@ -104,6 +109,7 @@ const FeedButton = styled(Button)`
   height: ${props => props.height && props.height};
   width: ${props => props.width && props.width};
   margin: ${props => props.margin && props.margin};
+  padding: 0;
 
   font-style: normal;
   font-weight: bold;
@@ -127,6 +133,9 @@ const FeedButton = styled(Button)`
 `;
 
 const FeedText = styled(Text)`
+  flex-basis: auto;
+  flex-grow: ${props => props.flexGrow && props.flexGrow};
+
   height: ${props => props.height && props.height};
   width: ${props => props.width && props.width};
   margin-top: ${props => props.marginTop && props.marginTop};
@@ -136,6 +145,7 @@ const FeedText = styled(Text)`
   font-size: ${props => props.fontSize || '14px'};
   line-height: ${props => props.lineHeight || '22px'};
   letter-spacing: 0.4px;
+  text-align: ${props => props.textAlign && props.textAlign};
   color: ${props => props.color || '#767676'};
 `;
 
@@ -164,7 +174,7 @@ const ProfileDataContainer = styled.div`
   height: 72px;
 `;
 
-const FeedImage = styled.image`
+const FeedImage = styled.img`
   flex-basis: auto;
   flex-grow: 0;
   flex-shrink: 0;
@@ -172,33 +182,27 @@ const FeedImage = styled.image`
   width: ${props => props.width || '70px'};
   height: ${props => props.height || '70px'};
 
+  border: none;
   border-radius: ${props => props.borderRadius || '50%'};
   background-color: ${props => props.backgroundColor || '#ffffff'};
-  background-image: url(${props => props.image && props.image});
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
 `;
 
-const CardImage = styled.image`
-  display: block;
-  height: 180px;
-  width: 100%;
-  background-image: url(${props => props.image && props.image});
-  background-color: grey;
-  background-position: center center;
-  background-repeat: no-repeat;
-`;
-
 const Icon = styled.div`
   flex-basis: auto;
   flex-grow: 0;
+
   height: 24px;
+  margin: ${props => props.margin && props.margin};
+
   cursor: pointer;
 
   svg {
-    height: ${props => (props.height ? props.height : '16px')};
-    width: ${props => (props.width ? props.width : '16px')};
+    height: ${props => props.height || '16px'};
+    width: ${props => props.width || '16px'};
+    color: ${props => props.color && props.color};
   }
 `;
 
@@ -272,7 +276,6 @@ export {
   MainSection,
   Container,
   FeedImage,
-  CardImage,
   BottomBar,
   Icon,
   RecipesList,

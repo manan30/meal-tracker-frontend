@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const StoreContext = createContext();
 
 const initialState = JSON.parse(localStorage.getItem('store')) || {
-  user: { isAuthenticated: true },
+  user: { isAuthenticated: false },
   feed: { topRecipes: [], feedRecipes: [] }
 };
 
