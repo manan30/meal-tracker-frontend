@@ -250,7 +250,11 @@ function RecipeListCard({ user, recipe }) {
             <FiHeart />
           </Icon>
         </Container>
-        <Container flexGrow='4' width='100%' alignItems='flex-start'>
+        <Container
+          flexGrow='4'
+          width='100%'
+          alignItems='flex-start'
+          adjustRecipeCardText='true'>
           <FeedText color='#A8A8A8' width='100%'>
             {recipe.recipeDesc}
             ...
@@ -271,7 +275,7 @@ function RecipeListCard({ user, recipe }) {
             fontSize='14px'
             hover='true'
             onClick={handleModalToggle}>
-            Save
+            + Save
           </FeedButton>
           {/* </Link> */}
         </Container>
