@@ -37,13 +37,13 @@ const MainSection = styled.section`
 
   @media screen and (min-width: 320px) and (max-width: 767px) {
     width: 100%;
-    height: calc(100% - 70px);
+    height: calc(100% - 50px);
     margin-top: 5px;
   }
 
   @media screen and (min-width: 768px) and (max-width: 1024px) {
     width: 100%;
-    height: calc(100% - 70px);
+    height: calc(100% - 50px);
   }
 `;
 
@@ -55,18 +55,18 @@ const BottomBar = styled.section`
     bottom: 0;
     left: 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
-    height: calc(72px - 60px);
-    width: calc(100% - 100px);
-    padding: 30px 50px;
+    /* height: calc(72px - 60px); */
+    width: calc(100% - 32px);
+    padding: 16px;
     background-color: #ffffff;
     box-shadow: 0px -1px 1px rgba(0, 0, 0, 0.1);
     color: #363837;
 
     svg {
-      width: 32px;
-      height: 32px;
+      width: 20px;
+      height: 20px;
     }
   }
 `;
