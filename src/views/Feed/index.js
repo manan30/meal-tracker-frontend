@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { FiHeart } from 'react-icons/fi';
 import { GiChefToque } from 'react-icons/gi';
 import { IoIosSearch } from 'react-icons/io';
@@ -31,16 +31,29 @@ function Feed() {
   const { state, dispatch } = useStore();
   // const [data] = useInfiniteScroll();
 
-  useEffect(() => {
-    (async function fetchFeedData() {
+  const callback = useCallback(
+    async function fetchFeedData() {
       try {
         const { data } = await getInitialFeed();
         dispatch({ type: 'SET_FEED', payload: data });
       } catch (e) {
         dispatch({ type: 'ERROR', payload: [] });
       }
-    })();
-  }, [dispatch]);
+    },
+    [dispatch]
+  );
+
+  const cb = () => {
+    const newRecipes = new Array(10).fill(state.feed.feedRecipes[0]);
+    dispatch({
+      type: 'SET_FEED',
+      payload: newRecipes
+    });
+  };
+
+  useEffect(() => {
+    callback();
+  }, [callback, dispatch]);
 
   return (
     <Wrapper>
@@ -154,7 +167,7 @@ function Feed() {
         </FeedCard>
         <RecipesList>
           {state.feed.feedRecipes.length > 0 ? (
-            <InfiniteScroll>
+            <InfiniteScroll callback={cb}>
               {state.feed.feedRecipes.map(({ user, recipe }, i) => {
                 const key = i;
                 return <RecipeListCard key={key} recipe={recipe} user={user} />;
