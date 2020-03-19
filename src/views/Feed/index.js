@@ -25,9 +25,11 @@ import {
   SideSection,
   Wrapper
 } from './styled';
+import InfiniteScroll from '../../components/InfiniteScroll';
 
 function Feed() {
   const { state, dispatch } = useStore();
+  // const [data] = useInfiniteScroll();
 
   useEffect(() => {
     (async function fetchFeedData() {
@@ -94,7 +96,7 @@ function Feed() {
                   20
                 </FeedText>
                 <FeedText fontSize='12px' color='#030f09'>
-                  Recipes
+                  Saved
                 </FeedText>
               </Container>
               <Container justifyContent='center' flexDirection='column'>
@@ -102,7 +104,7 @@ function Feed() {
                   20
                 </FeedText>
                 <FeedText fontSize='12px' color='#030f09'>
-                  Recipes
+                  Following
                 </FeedText>
               </Container>
             </Container>
@@ -152,10 +154,13 @@ function Feed() {
         </FeedCard>
         <RecipesList>
           {state.feed.feedRecipes.length > 0 ? (
-            state.feed.feedRecipes.map(({ user, recipe }, i) => {
-              const key = i;
-              return <RecipeListCard key={key} recipe={recipe} user={user} />;
-            })
+            <InfiniteScroll>
+              {state.feed.feedRecipes.map(({ user, recipe }, i) => {
+                const key = i;
+                return <RecipeListCard key={key} recipe={recipe} user={user} />;
+              })}
+              <div style={{ marginBottom: '16px' }}>Loading...</div>
+            </InfiniteScroll>
           ) : (
             <NoRecipes>
               <NoRecipeIcon />

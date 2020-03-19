@@ -10,8 +10,14 @@ const initialState = JSON.parse(localStorage.getItem('store')) || {
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'SET_FEED':
-      return { ...state, feed: action.payload };
+    case 'SET_FEED': {
+      const feed = {
+        ...state.feed,
+        topRecipes: action.payload.topRecipes || state.feed.topRecipes,
+        feedRecipes: action.payload || state.feed.feedRecipes
+      };
+      return { ...state, feed };
+    }
     case 'USER_ONBOARD': {
       const { user, accessToken } = action.payload;
       const { user: storedUser } = state;
