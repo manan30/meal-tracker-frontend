@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FiHeart } from 'react-icons/fi';
 import { GiChefToque } from 'react-icons/gi';
 import { IoIosSearch } from 'react-icons/io';
@@ -8,6 +8,7 @@ import { getInitialFeed } from '../../api/Feed';
 import { ReactComponent as NoRecipeIcon } from '../../assets/img/no-recipes.svg';
 import InfiniteScroll from '../../components/InfiniteScroll';
 import Modal from '../../components/Modal';
+import Spinner from '../../components/Spinner';
 import { Link } from '../../GlobalStyles';
 import { useStore } from '../../Store';
 import {
@@ -27,182 +28,12 @@ import {
   Wrapper
 } from './styled';
 
-function Feed() {
-  const { state, dispatch } = useStore();
-
-  const callback = useCallback(
-    async function fetchFeedData() {
-      try {
-        const { data } = await getInitialFeed();
-        dispatch({ type: 'SET_FEED', payload: data });
-      } catch (e) {
-        dispatch({ type: 'ERROR', payload: [] });
-      }
-    },
-    [dispatch]
-  );
-
-  useEffect(() => {
-    callback();
-  }, [callback]);
-
-  return (
-    <Wrapper>
-      <SideSection marginRight='20px'>
-        {state.user.isAuthenticated && (
-          <FeedCard flexDirection='column'>
-            <Container>
-              <FeedImage backgroundColor='#606060' />
-              <ProfileDataContainer>
-                <FeedText fontWeight='bold' font-size='16px' color='#030F09'>
-                  {state.user.firstName} {state.user.lastName}
-                </FeedText>
-                <FeedText color='#606060'>{state.user.title}</FeedText>
-                <Container justifyContent='flex-start'>
-                  <FeedText
-                    fontSize=' 10px'
-                    lineHeight=' 12px'
-                    color=' #606060'
-                    marginTop='6px'>
-                    {state.user.followers} followers
-                  </FeedText>
-                  <FeedText
-                    fontSize=' 12px'
-                    lineHeight=' 12px'
-                    color=' #606060'
-                    marginTop='6px'
-                    marginLeft='10px'>
-                    |
-                  </FeedText>
-                  <FeedText
-                    fontSize=' 10px'
-                    lineHeight=' 12px'
-                    color=' #606060'
-                    marginTop='6px'
-                    marginLeft='10px'>
-                    {state.user.likes} likes
-                  </FeedText>
-                </Container>
-              </ProfileDataContainer>
-            </Container>
-            <Separator />
-            <Container justifyContent='space-between'>
-              <Container justifyContent='center' flexDirection='column'>
-                <FeedText fontWeight='bold' fontSize='16px' color='#030f09'>
-                  20
-                </FeedText>
-                <FeedText fontSize='12px' color='#030f09'>
-                  Recipes
-                </FeedText>
-              </Container>
-              <Container justifyContent='center' flexDirection='column'>
-                <FeedText fontWeight='bold' fontSize='16px' color='#030f09'>
-                  20
-                </FeedText>
-                <FeedText fontSize='12px' color='#030f09'>
-                  Saved
-                </FeedText>
-              </Container>
-              <Container justifyContent='center' flexDirection='column'>
-                <FeedText fontWeight='bold' fontSize='16px' color='#030f09'>
-                  20
-                </FeedText>
-                <FeedText fontSize='12px' color='#030f09'>
-                  Following
-                </FeedText>
-              </Container>
-            </Container>
-          </FeedCard>
-        )}
-        <FeedCard flexDirection='column' height='auto'>
-          <FeedText fontWeight='bold' fontSize='16px' color='#030f09'>
-            Top 5 recipes for today
-          </FeedText>
-          {state.feed.topRecipes.length > 0 ? (
-            state.feed.topRecipes.map((recipe, i) => {
-              const key = i;
-              return (
-                <Link key={key} to={`/recipe/${recipe.id}`}>
-                  <FeedText marginTop='16px' color='#606060'>
-                    {recipe.name}
-                  </FeedText>
-                </Link>
-              );
-            })
-          ) : (
-            <FeedText marginTop='16px' color='#767676'>
-              No top recipes.
-            </FeedText>
-          )}
-        </FeedCard>
-      </SideSection>
-      <MainSection>
-        <FeedCard
-          height='30px'
-          padding='25px 22px'
-          alignItems='center'
-          adjustDisplay>
-          {state.user.isAuthenticated && (
-            <FeedText color='#030F09' flexGrow='0'>
-              {state.user.onlineFollowers || 0} followers are online
-            </FeedText>
-          )}
-          <FeedButton
-            width='128px'
-            margin='0 0 0 auto'
-            color='#ffffff'
-            bgColor='#30BE76'
-            boxShadow='0px 6px 20px rgba(13, 51, 32, 0.1)'>
-            Create Recipe
-          </FeedButton>
-        </FeedCard>
-        <RecipesList>
-          {state.feed.feedRecipes.length > 0 ? (
-            <InfiniteScroll callback={callback}>
-              {state.feed.feedRecipes.map(({ user, recipe }, i) => {
-                const key = i;
-                return <RecipeListCard key={key} recipe={recipe} user={user} />;
-              })}
-              <div style={{ marginBottom: '16px' }}>Loading...</div>
-            </InfiniteScroll>
-          ) : (
-            <NoRecipes>
-              <NoRecipeIcon />
-              <FeedText fontSize='21px' color='#767676' marginTop='24px'>
-                No recipes found
-              </FeedText>
-            </NoRecipes>
-          )}
-        </RecipesList>
-      </MainSection>
-      <SideSection marginLeft='20px'>
-        <FeedCard
-          flexDirection='column'
-          height='calc(105px - 50px)'
-          width='calc(100% - 70px)'>
-          <Container>
-            <FeedText fontSize='12px' lineHeight='16px'>
-              About Sculptor
-            </FeedText>
-            <FeedText marginLeft='20px' fontSize='12px' line-height='16px'>
-              Settings
-            </FeedText>
-          </Container>
-          <FeedText marginTop='24px' fontSize='10px' lineHeight='14px'>
-            <span role='img' aria-label='copyright'>
-              ©️
-            </span>
-            sculptor by Manan 2020
-          </FeedText>
-        </FeedCard>
-      </SideSection>
-      <BottomBar>
-        <IoIosSearch />
-        <MdViewCarousel />
-        <GiChefToque />
-      </BottomBar>
-    </Wrapper>
-  );
+async function fetchFeed(caller) {
+  const { data } = await getInitialFeed();
+  if (caller === 'effect') {
+    return { feedRecipes: data.feedRecipes, topRecipes: data.topRecipes };
+  }
+  return data.feedRecipes;
 }
 
 function RecipeListCard({ user, recipe }) {
@@ -221,22 +52,22 @@ function RecipeListCard({ user, recipe }) {
       position='relative'
       recipeCard>
       <Container height='45px' flexShrink='0'>
-        <FeedImage height='32px' width='32px' src={user.profilePicture} />
+        <FeedImage height='32px' width='32px' src={user.profilePicture || ''} />
         <Container
           flexDirection='column'
           alignItems='flex-start'
           width='100%'
           marginLeft='16px'>
-          <Link to={`/user/${user.id}`}>
-            <FeedText color='#030F09'>{user.username}</FeedText>
+          <Link to={`/user/${user.id || ''}`}>
+            <FeedText color='#030F09'>{user.username || ''}</FeedText>
           </Link>
-          <FeedText>{user.lastPosted}h ago</FeedText>
+          <FeedText>{user.lastPosted || ''}h ago</FeedText>
         </Container>
       </Container>
       <FeedImage
         height='180px'
         width='100%'
-        src={recipe.recipeImage}
+        src={recipe.recipeImage || ''}
         backgroundColor='#606060'
         borderRadius='0'
       />
@@ -246,13 +77,13 @@ function RecipeListCard({ user, recipe }) {
         marginTop='15px'
         height='100%'>
         <Container width='100%' flexGrow='0'>
-          <Link to={`/recipe/${recipe.id}`} width='100%'>
+          <Link to={`/recipe/${recipe.id || ''}`} width='100%'>
             <FeedText
               fontWeight='600'
               fontSize='18px'
               lineHeight='32px'
               color='#030F09'>
-              {recipe.recipeName}
+              {recipe.recipeName || ''}
             </FeedText>
           </Link>
           <Icon>
@@ -265,14 +96,14 @@ function RecipeListCard({ user, recipe }) {
           alignItems='flex-start'
           adjustRecipeCardText='true'>
           <FeedText color='#A8A8A8' width='100%'>
-            {recipe.recipeDesc}
+            {recipe.recipeDesc || ''}
             ...
           </FeedText>
         </Container>
         <Container marginTop='10px' width='100%' flexGrow='0'>
-          <FeedText color='#606060'>{recipe.likes} Likes</FeedText>
+          <FeedText color='#606060'>{recipe.likes || '0'} Likes</FeedText>
           <FeedText color='#606060' marginLeft='20px'>
-            {recipe.comments} comments
+            {recipe.comments || '0'} comments
           </FeedText>
           {/* <Link to='/profile'> */}
           <FeedButton
@@ -385,6 +216,183 @@ function RecipeListCard({ user, recipe }) {
         </Modal>
       )}
     </FeedCard>
+  );
+}
+
+function Feed() {
+  const { state } = useStore();
+  const [feed, setFeed] = useState({ topRecipes: [], feedRecipes: [] });
+
+  useEffect(() => {
+    (async function fetch() {
+      const { feedRecipes, topRecipes } = await fetchFeed('effect');
+      console.log({ feedRecipes, topRecipes });
+      setFeed(() => {
+        const newState = {
+          topRecipes: topRecipes || [],
+          feedRecipes: feedRecipes || []
+        };
+        return newState;
+      });
+    })();
+  }, []);
+
+  return (
+    <Wrapper>
+      <SideSection marginRight='20px'>
+        {state.user.isAuthenticated && (
+          <FeedCard flexDirection='column'>
+            <Container>
+              <FeedImage backgroundColor='#606060' />
+              <ProfileDataContainer>
+                <FeedText fontWeight='bold' font-size='16px' color='#030F09'>
+                  {state.user.firstName} {state.user.lastName}
+                </FeedText>
+                <FeedText color='#606060'>{state.user.title}</FeedText>
+                <Container justifyContent='flex-start'>
+                  <FeedText
+                    fontSize=' 10px'
+                    lineHeight=' 12px'
+                    color=' #606060'
+                    marginTop='6px'>
+                    {state.user.followers} followers
+                  </FeedText>
+                  <FeedText
+                    fontSize=' 12px'
+                    lineHeight=' 12px'
+                    color=' #606060'
+                    marginTop='6px'
+                    marginLeft='10px'>
+                    |
+                  </FeedText>
+                  <FeedText
+                    fontSize=' 10px'
+                    lineHeight=' 12px'
+                    color=' #606060'
+                    marginTop='6px'
+                    marginLeft='10px'>
+                    {state.user.likes} likes
+                  </FeedText>
+                </Container>
+              </ProfileDataContainer>
+            </Container>
+            <Separator />
+            <Container justifyContent='space-between'>
+              <Container justifyContent='center' flexDirection='column'>
+                <FeedText fontWeight='bold' fontSize='16px' color='#030f09'>
+                  20
+                </FeedText>
+                <FeedText fontSize='12px' color='#030f09'>
+                  Recipes
+                </FeedText>
+              </Container>
+              <Container justifyContent='center' flexDirection='column'>
+                <FeedText fontWeight='bold' fontSize='16px' color='#030f09'>
+                  20
+                </FeedText>
+                <FeedText fontSize='12px' color='#030f09'>
+                  Saved
+                </FeedText>
+              </Container>
+              <Container justifyContent='center' flexDirection='column'>
+                <FeedText fontWeight='bold' fontSize='16px' color='#030f09'>
+                  20
+                </FeedText>
+                <FeedText fontSize='12px' color='#030f09'>
+                  Following
+                </FeedText>
+              </Container>
+            </Container>
+          </FeedCard>
+        )}
+        <FeedCard flexDirection='column' height='auto'>
+          <FeedText fontWeight='bold' fontSize='16px' color='#030f09'>
+            Top 5 recipes for today
+          </FeedText>
+          {feed.topRecipes.length > 0 ? (
+            feed.topRecipes.map((recipe, i) => {
+              const key = i;
+              return (
+                <Link key={key} to={`/recipe/${recipe.id}`}>
+                  <FeedText marginTop='16px' color='#606060'>
+                    {recipe.name}
+                  </FeedText>
+                </Link>
+              );
+            })
+          ) : (
+            <FeedText marginTop='16px' color='#767676'>
+              No top recipes.
+            </FeedText>
+          )}
+        </FeedCard>
+      </SideSection>
+      <MainSection>
+        <FeedCard
+          height='30px'
+          padding='25px 22px'
+          alignItems='center'
+          adjustDisplay>
+          {state.user.isAuthenticated && (
+            <FeedText color='#030F09' flexGrow='0'>
+              {state.user.onlineFollowers || 0} followers are online
+            </FeedText>
+          )}
+          <FeedButton
+            width='128px'
+            margin='0 0 0 auto'
+            color='#ffffff'
+            bgColor='#30BE76'
+            boxShadow='0px 6px 20px rgba(13, 51, 32, 0.1)'>
+            Create Recipe
+          </FeedButton>
+        </FeedCard>
+        <RecipesList>
+          {feed.feedRecipes.length > 0 ? (
+            <InfiniteScroll
+              initialItems={feed.feedRecipes}
+              itemComponent={RecipeListCard}
+              itemComponentProps={['recipe', 'user']}
+              loadingComponent={Spinner}
+              callback={fetchFeed}
+            />
+          ) : (
+            <NoRecipes>
+              <NoRecipeIcon />
+              <FeedText fontSize='21px' color='#767676' marginTop='24px'>
+                No recipes found
+              </FeedText>
+            </NoRecipes>
+          )}
+        </RecipesList>
+      </MainSection>
+      <SideSection marginLeft='20px'>
+        <FeedCard
+          flexDirection='column'
+          height='calc(105px - 50px)'
+          width='calc(100% - 70px)'>
+          <Container>
+            <FeedText fontSize='12px' lineHeight='16px'>
+              About Sculptor
+            </FeedText>
+            <FeedText marginLeft='20px' fontSize='12px' line-height='16px'>
+              Settings
+            </FeedText>
+          </Container>
+          <FeedText marginTop='24px' fontSize='10px' lineHeight='14px'>
+            <span role='img' aria-label='copyright'>
+              ©️
+            </span>
+            sculptor by Manan 2020
+          </FeedText>
+        </FeedCard>
+      </SideSection>
+      <BottomBar>
+        <IoIosSearch />
+        <MdViewCarousel />
+        <GiChefToque />
+      </BottomBar>
+    </Wrapper>
   );
 }
 
