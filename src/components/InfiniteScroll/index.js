@@ -1,6 +1,22 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import styled from 'styled-components';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
+
+const LoadingElementContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 24px;
+  margin-bottom: 12px;
+
+  background: transparent;
+
+  svg {
+    height: inherit;
+  }
+`;
 
 function InfiniteScroll({
   initialItems,
@@ -24,11 +40,9 @@ function InfiniteScroll({
         }, {});
         return <Component key={idx} {...props} />;
       })}
-      <div
-        style={{ height: '16px', background: 'transparent' }}
-        ref={loadingElementRef}>
+      <LoadingElementContainer ref={loadingElementRef}>
         {loading && loadingComponent}
-      </div>
+      </LoadingElementContainer>
     </>
   );
 }

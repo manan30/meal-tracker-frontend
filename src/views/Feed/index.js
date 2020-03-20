@@ -352,7 +352,13 @@ function Feed() {
               initialItems={feed.feedRecipes}
               itemComponent={RecipeListCard}
               itemComponentProps={['recipe', 'user']}
-              loadingComponent={<Spinner />}
+              loadingComponent={
+                <Spinner
+                  primaryColor='green'
+                  secondaryColor='green'
+                  ternaryColor='green'
+                />
+              }
               callback={fetchFeed}
             />
           ) : (
