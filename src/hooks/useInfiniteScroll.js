@@ -1,12 +1,11 @@
 import { useEffect, useState, useRef } from 'react';
 
-export default function useInfiniteScroll(element, callback) {
-  const [loadingElement, setLoadingElement] = useState(element);
+export default function useInfiniteScroll(callback) {
+  const loadingElementRef = useRef();
   const [loading, setLoading] = useState(true);
 
   const observerCallback = entry => {
     if (entry[0].isIntersecting) {
-      console.log('inter');
       setLoading(() => true);
       callback();
       setLoading(() => false);
@@ -20,8 +19,9 @@ export default function useInfiniteScroll(element, callback) {
   );
 
   useEffect(() => {
-    if (element && observer.current) observer.current.observe(element);
+    if (loadingElementRef.current && observer.current)
+      observer.current.observe(loadingElementRef.current);
   });
 
-  return { loadingElement, setLoadingElement, loading };
+  return { loadingElementRef, loading };
 }

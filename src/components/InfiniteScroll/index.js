@@ -1,21 +1,10 @@
-import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 
 function InfiniteScroll({ children, callback }) {
-  const loadingElementRef = useRef();
   const [list, loadingElement] = children;
-  const {
-    loadingElement: element,
-    setLoadingElement,
-    loading
-  } = useInfiniteScroll(loadingElementRef.current, callback);
-
-  useEffect(() => {
-    if (!element && loadingElementRef.current) {
-      setLoadingElement(loadingElementRef.current);
-    }
-  }, [element, setLoadingElement]);
+  const { loading, loadingElementRef } = useInfiniteScroll(callback);
 
   return (
     <>

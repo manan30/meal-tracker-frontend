@@ -12,10 +12,13 @@ const reducer = (state, action) => {
   switch (action.type) {
     case 'SET_FEED': {
       const feed = {
-        ...state.feed,
-        topRecipes: action.payload.topRecipes || state.feed.topRecipes,
-        feedRecipes: action.payload || state.feed.feedRecipes
+        topRecipes: action.payload.topRecipes || [],
+        feedRecipes: [
+          ...state.feed.feedRecipes,
+          ...(action.payload.feedRecipes || [])
+        ]
       };
+      console.log(feed);
       return { ...state, feed };
     }
     case 'USER_ONBOARD': {
