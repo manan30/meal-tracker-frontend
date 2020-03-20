@@ -18,7 +18,6 @@ const reducer = (state, action) => {
           ...(action.payload.feedRecipes || [])
         ]
       };
-      console.log(feed);
       return { ...state, feed };
     }
     case 'USER_ONBOARD': {

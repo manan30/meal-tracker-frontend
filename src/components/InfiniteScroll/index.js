@@ -25,8 +25,7 @@ function InfiniteScroll({
         return <Component key={idx} {...props} />;
       })}
       <div
-        className='Loader'
-        style={{ height: '16px', background: 'red' }}
+        style={{ height: '16px', background: 'transparent' }}
         ref={loadingElementRef}>
         {loading && loadingComponent}
       </div>
@@ -36,9 +35,9 @@ function InfiniteScroll({
 
 InfiniteScroll.propTypes = {
   initialItems: PropTypes.arrayOf(PropTypes.any),
-  itemComponent: PropTypes.element,
+  itemComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
   itemComponentProps: PropTypes.arrayOf(PropTypes.string),
-  loadingComponent: PropTypes.element,
+  loadingComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
   callback: PropTypes.func
 };
 

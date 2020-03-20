@@ -226,7 +226,6 @@ function Feed() {
   useEffect(() => {
     (async function fetch() {
       const { feedRecipes, topRecipes } = await fetchFeed('effect');
-      console.log({ feedRecipes, topRecipes });
       setFeed(() => {
         const newState = {
           topRecipes: topRecipes || [],
@@ -353,7 +352,7 @@ function Feed() {
               initialItems={feed.feedRecipes}
               itemComponent={RecipeListCard}
               itemComponentProps={['recipe', 'user']}
-              loadingComponent={Spinner}
+              loadingComponent={<Spinner />}
               callback={fetchFeed}
             />
           ) : (
