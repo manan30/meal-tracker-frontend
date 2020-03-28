@@ -29,14 +29,6 @@ import {
   Wrapper
 } from './styled';
 
-// async function fetchFeedRecipes(caller) {
-//   const { data } = await getFeedRecipes();
-//   if (caller === 'effect') {
-//     return { feedRecipes: data.feedRecipes, topRecipes: data.topRecipes };
-//   }
-//   return data.feedRecipes;
-// }
-
 function RecipeListCard({ user, recipe }) {
   const { state } = useStore();
   const [showModal, setShowModal] = useState(false);
@@ -129,20 +121,21 @@ function RecipeListCard({ user, recipe }) {
             <FeedCard
               flexWrap='wrap'
               flexDirection='column'
+              alignItems='center'
               height='254px'
               width='286px'
               padding='11px'
               margin='0'
               backgroundColor='white'>
               <Container height='24px' width='100%'>
-                <FeedText
+                {/* <FeedText
                   marginLeft='7px'
                   fontSize='20px'
                   fontWeight='bold'
                   lineHeight='27px'
                   color='#030F09'>
                   Save to
-                </FeedText>
+                </FeedText> */}
                 <Icon
                   height='24px'
                   width='24px'
@@ -152,23 +145,13 @@ function RecipeListCard({ user, recipe }) {
                   <MdClose />
                 </Icon>
               </Container>
-              <Container
+              {/* <Container
                 height='206px'
                 overflow='none'
                 overflowY='scroll'
                 flexDirection='column'
                 alignItems='flex-start'>
-                {new Array(10).fill(0).map((_, i) => {
-                  const key = i;
-                  return (
-                    <FeedText
-                      key={key}
-                      marginTop='8px'
-                      color='030f09'
-                      cursor='pointer'
-                      cookBookSelection='true'>{`Cookbook ${i}`}</FeedText>
-                  );
-                })}
+                Feature in progress
               </Container>
               <FeedText
                 height='24px'
@@ -178,7 +161,8 @@ function RecipeListCard({ user, recipe }) {
                 color='#30BE76'
                 cursor='pointer'>
                 Add New Cookbook
-              </FeedText>
+              </FeedText> */}
+              Feature in progress
             </FeedCard>
           ) : (
             <FeedCard
@@ -246,7 +230,7 @@ function Feed() {
               <FeedImage backgroundColor='#606060' />
               <ProfileDataContainer>
                 <FeedText fontWeight='bold' font-size='16px' color='#030F09'>
-                  {state.user.firstName} {state.user.lastName}
+                  {`${state.user.firstName} ${state.user.lastName}`}
                 </FeedText>
                 <FeedText color='#606060'>{state.user.title}</FeedText>
                 <Container justifyContent='flex-start'>
@@ -280,7 +264,7 @@ function Feed() {
             <Container justifyContent='space-between'>
               <Container justifyContent='center' flexDirection='column'>
                 <FeedText fontWeight='bold' fontSize='16px' color='#030f09'>
-                  20
+                  {state.user.recipes.length}
                 </FeedText>
                 <FeedText fontSize='12px' color='#030f09'>
                   Recipes
@@ -288,7 +272,7 @@ function Feed() {
               </Container>
               <Container justifyContent='center' flexDirection='column'>
                 <FeedText fontWeight='bold' fontSize='16px' color='#030f09'>
-                  20
+                  {state.user.saved.length}
                 </FeedText>
                 <FeedText fontSize='12px' color='#030f09'>
                   Saved
@@ -296,7 +280,7 @@ function Feed() {
               </Container>
               <Container justifyContent='center' flexDirection='column'>
                 <FeedText fontWeight='bold' fontSize='16px' color='#030f09'>
-                  20
+                  {state.user.following}
                 </FeedText>
                 <FeedText fontSize='12px' color='#030f09'>
                   Following
@@ -313,9 +297,9 @@ function Feed() {
             feed.topRecipes.map((recipe, i) => {
               const key = i;
               return (
-                <Link key={key} to={`/recipe/${recipe.id}`}>
+                <Link key={key} to={`/recipe/${recipe._id}`}>
                   <FeedText marginTop='16px' color='#606060'>
-                    {recipe.name}
+                    {recipe.recipeName}
                   </FeedText>
                 </Link>
               );

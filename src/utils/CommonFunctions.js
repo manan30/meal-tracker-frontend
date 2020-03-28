@@ -22,8 +22,6 @@ export function parseDate(date) {
     difference -= res[key] * dateStructure[key];
   });
 
-  console.log({ parsedDate, currentDate, res });
-
   if (res.year > 0) {
     return `${res.year}y`;
   }
