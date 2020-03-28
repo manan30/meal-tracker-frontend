@@ -4,6 +4,12 @@ export default function useInfiniteScroll(callback, initialItems) {
   const loadingElementRef = useRef();
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(initialItems);
+  // const [details, setDetails] = useState({
+  //   results: [],
+  //   nextPage: 0,
+  //   previousPage: 0,
+  //   hasMore: false
+  // });
 
   const observerCallback = async entry => {
     if (entry[0].isIntersecting) {

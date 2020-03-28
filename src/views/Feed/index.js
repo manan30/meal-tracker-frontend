@@ -4,7 +4,7 @@ import { FiHeart } from 'react-icons/fi';
 import { GiChefToque } from 'react-icons/gi';
 import { IoIosSearch } from 'react-icons/io';
 import { MdClose, MdViewCarousel } from 'react-icons/md';
-import { getInitialFeed } from '../../api/Feed';
+import { getInitialFeed, getFeedRecipes } from '../../api/Feed';
 import { ReactComponent as NoRecipeIcon } from '../../assets/img/no-recipes.svg';
 import InfiniteScroll from '../../components/InfiniteScroll';
 import Modal from '../../components/Modal';
@@ -28,13 +28,13 @@ import {
   Wrapper
 } from './styled';
 
-async function fetchFeed(caller) {
-  const { data } = await getInitialFeed();
-  if (caller === 'effect') {
-    return { feedRecipes: data.feedRecipes, topRecipes: data.topRecipes };
-  }
-  return data.feedRecipes;
-}
+// async function fetchFeedRecipes(caller) {
+//   const { data } = await getFeedRecipes();
+//   if (caller === 'effect') {
+//     return { feedRecipes: data.feedRecipes, topRecipes: data.topRecipes };
+//   }
+//   return data.feedRecipes;
+// }
 
 function RecipeListCard({ user, recipe }) {
   const { state } = useStore();
@@ -225,7 +225,9 @@ function Feed() {
 
   useEffect(() => {
     (async function fetch() {
-      const { feedRecipes, topRecipes } = await fetchFeed('effect');
+      const {
+        data: { feedRecipes, topRecipes }
+      } = await getInitialFeed();
       setFeed(() => {
         const newState = {
           topRecipes: topRecipes || [],
@@ -359,7 +361,7 @@ function Feed() {
                   ternaryColor='green'
                 />
               }
-              callback={fetchFeed}
+              callback={getFeedRecipes}
             />
           ) : (
             <NoRecipes>
