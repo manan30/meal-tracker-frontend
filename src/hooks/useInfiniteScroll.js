@@ -8,14 +8,18 @@ export default function useInfiniteScroll(callback, initialItems) {
   const observerCallback = async entry => {
     if (entry[0].isIntersecting) {
       setLoading(() => true);
-      if (details.hasMore) {
-        const {
-          data: { data }
-        } = await callback(details.next.page);
-        setDetails(prevState => ({
-          ...data,
-          results: [...prevState.results, ...data.results]
-        }));
+      try {
+        if (details.hasMore) {
+          const {
+            data: { data }
+          } = await callback(details.next.page);
+          setDetails(prevState => ({
+            ...data,
+            results: [...prevState.results, ...data.results]
+          }));
+        }
+      } catch (err) {
+        console.log(err);
       }
       setLoading(() => false);
     }

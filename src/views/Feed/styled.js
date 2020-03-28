@@ -223,7 +223,7 @@ const FeedImage = styled.img`
 
   border: none;
   border-radius: ${props => props.borderRadius || '50%'};
-  background-color: ${props => props.backgroundColor || '#ffffff'};
+  background-color: ${props => props.backgroundColor || '#606060'};
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;

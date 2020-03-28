@@ -11,6 +11,7 @@ import Modal from '../../components/Modal';
 import Spinner from '../../components/Spinner';
 import { Link } from '../../GlobalStyles';
 import { useStore } from '../../Store';
+import { parseDate } from '../../utils/CommonFunctions';
 import {
   BottomBar,
   Container,
@@ -63,7 +64,7 @@ function RecipeListCard({ user, recipe }) {
               {`${user.firstName} ${user.lastName}` || ''}
             </FeedText>
           </Link>
-          <FeedText>{user.lastPosted || ''}h ago</FeedText>
+          <FeedText>{parseDate(recipe.createdAt) || ''} ago</FeedText>
         </Container>
       </Container>
       <FeedImage
@@ -227,8 +228,12 @@ function Feed() {
 
   useEffect(() => {
     (async function fetch() {
-      const { data } = await getFeedRecipes(1);
-      setFeed(prevState => ({ ...prevState, feedRecipes: data.data }));
+      try {
+        const { data } = await getFeedRecipes(1);
+        setFeed(prevState => ({ ...prevState, feedRecipes: data.data }));
+      } catch (err) {
+        console.log(err);
+      }
     })();
   }, []);
 
