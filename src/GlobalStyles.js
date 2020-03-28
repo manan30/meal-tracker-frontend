@@ -15,7 +15,7 @@ export default createGlobalStyle`
     background-color: #f2f2f2;
     font-family: 'Nunito Sans', sans-serif;
 
-    @media screen and (max-width: 640px){
+    @media screen and (max-width: 767px){
       background-color: #ffffff;
     }
   }

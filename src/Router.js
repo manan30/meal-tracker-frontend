@@ -1,13 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import FeedView from './views/Feed';
-import ProfileView from './views/Profile';
-// import RecipePreviewView from './views/RecipePreview';
 import HeaderBar from './components/HeaderBar';
 import { useStore } from './Store';
 import AuthenticatedRoute from './utils/AuthenticatedRoute';
+import FeedView from './views/Feed';
 import OnboardingView from './views/Onboarding';
-// import ProfileView from './views/Profile';
+import ProfileView from './views/Profile';
 
 function RouterComponent() {
   const { state } = useStore();
@@ -23,6 +21,7 @@ function RouterComponent() {
             path='/profile'
             component={ProfileView}
             authentication={state.user.isAuthenticated}
+            exact
           />
           <Route path='/' exact component={FeedView} />
         </>
@@ -31,7 +30,7 @@ function RouterComponent() {
   );
 }
 
-export default RouterComponent;
+export default React.memo(RouterComponent);
 
 // TODO: Add this route for recipe previews
 /* <Route path='/recipe/:id' component={RecipePreviewView} /> */

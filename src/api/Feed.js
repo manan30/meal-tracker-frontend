@@ -1,6 +1,10 @@
 import axios from 'axios';
 import { PROTOCOL, URL } from '../utils/Constants';
 
-const getInitialFeed = () => axios.get(`${PROTOCOL}://${URL}/feed`);
+const FEED_URL = `${PROTOCOL}://${URL}/feed`;
 
-export { getInitialFeed };
+const getInitialFeed = () => axios.get(FEED_URL);
+
+const getFeedRecipes = page => axios.get(`${FEED_URL}?page=${page}&limit=10`);
+
+export { getInitialFeed, getFeedRecipes };

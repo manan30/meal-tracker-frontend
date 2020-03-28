@@ -2,9 +2,9 @@
 const PROTOCOL = 'http';
 const URL = `${
   process.env.NODE_ENV !== 'development'
-    ? 'sculptor.mananjoshi.me'
-    : 'localhost'
-}:1741`;
+    ? 'sculptor.mananjoshi.me:1741'
+    : 'localhost:2130'
+}`;
 
 const PASSWORD_REQUIREMENTS = [
   ['Uppercase character', false],

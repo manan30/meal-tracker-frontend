@@ -6,7 +6,6 @@ const Container = styled.button`
   height: 36px;
   margin: auto;
   padding: 5px;
-  /* box-shadow: 0px 6px 20px rgba(13, 51, 32, 0.1); */
 
   background: #ffffff;
   border: 2px solid #30be76;
@@ -30,15 +29,7 @@ const Container = styled.button`
   align-items: center;
   justify-content: center;
 
-  ${({ hover }) =>
-      hover &&
-      `:hover {
-    background: #30be76;
-    color: #ffffff;
-    box-shadow: 0px 6px 20px rgba(13, 51, 32, 0.1);
-  }
-  `}
-    :focus {
+  :focus {
     background: #30be76;
     color: #ffffff;
     box-shadow: 0px 6px 20px rgba(13, 51, 32, 0.1);
