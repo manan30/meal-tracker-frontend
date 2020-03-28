@@ -58,8 +58,10 @@ function RecipeListCard({ user, recipe }) {
           alignItems='flex-start'
           width='100%'
           marginLeft='16px'>
-          <Link to={`/user/${user.id || ''}`}>
-            <FeedText color='#030F09'>{user.username || ''}</FeedText>
+          <Link to={`/user/${user._id || ''}`}>
+            <FeedText color='#030F09'>
+              {`${user.firstName} ${user.lastName}` || ''}
+            </FeedText>
           </Link>
           <FeedText>{user.lastPosted || ''}h ago</FeedText>
         </Container>
@@ -77,7 +79,7 @@ function RecipeListCard({ user, recipe }) {
         marginTop='15px'
         height='100%'>
         <Container width='100%' flexGrow='0'>
-          <Link to={`/recipe/${recipe.id || ''}`} width='100%'>
+          <Link to={`/recipe/${recipe._id || ''}`} width='100%'>
             <FeedText
               fontWeight='600'
               fontSize='18px'
@@ -96,14 +98,14 @@ function RecipeListCard({ user, recipe }) {
           alignItems='flex-start'
           adjustRecipeCardText='true'>
           <FeedText color='#A8A8A8' width='100%'>
-            {recipe.recipeDesc || ''}
+            {recipe.recipeDescription || ''}
             ...
           </FeedText>
         </Container>
         <Container marginTop='10px' width='100%' flexGrow='0'>
-          <FeedText color='#606060'>{recipe.likes || '0'} Likes</FeedText>
+          <FeedText color='#606060'>{recipe.recipeLikes || '0'} Likes</FeedText>
           <FeedText color='#606060' marginLeft='20px'>
-            {recipe.comments || '0'} comments
+            {recipe.recipeComments || '0'} comments
           </FeedText>
           {/* <Link to='/profile'> */}
           <FeedButton
