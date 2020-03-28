@@ -40,15 +40,17 @@ function InfiniteScroll({
         }, {});
         return <Component key={idx} {...props} />;
       })}
-      <LoadingElementContainer ref={loadingElementRef}>
-        {loading && loadingComponent}
-      </LoadingElementContainer>
+      {details.hasMore && (
+        <LoadingElementContainer ref={loadingElementRef}>
+          {loading && loadingComponent}
+        </LoadingElementContainer>
+      )}
     </>
   );
 }
 
 InfiniteScroll.propTypes = {
-  initialItems: PropTypes.arrayOf(PropTypes.any),
+  initialItems: PropTypes.objectOf(PropTypes.any),
   itemComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
   itemComponentProps: PropTypes.arrayOf(PropTypes.string),
   loadingComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
@@ -56,7 +58,7 @@ InfiniteScroll.propTypes = {
 };
 
 InfiniteScroll.defaultProps = {
-  initialItems: [],
+  initialItems: {},
   itemComponent: <> </>,
   itemComponentProps: [],
   loadingComponent: <> </>,

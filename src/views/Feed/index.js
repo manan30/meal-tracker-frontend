@@ -4,7 +4,7 @@ import { FiHeart } from 'react-icons/fi';
 import { GiChefToque } from 'react-icons/gi';
 import { IoIosSearch } from 'react-icons/io';
 import { MdClose, MdViewCarousel } from 'react-icons/md';
-import { getInitialFeed, getFeedRecipes } from '../../api/Feed';
+import { getFeedRecipes } from '../../api/Feed';
 import { ReactComponent as NoRecipeIcon } from '../../assets/img/no-recipes.svg';
 import InfiniteScroll from '../../components/InfiniteScroll';
 import Modal from '../../components/Modal';

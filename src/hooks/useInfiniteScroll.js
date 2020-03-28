@@ -8,13 +8,15 @@ export default function useInfiniteScroll(callback, initialItems) {
   const observerCallback = async entry => {
     if (entry[0].isIntersecting) {
       setLoading(() => true);
-      const {
-        data: { data }
-      } = await callback(details.next.page);
-      setDetails(prevState => ({
-        ...prevState,
-        results: [...prevState.results, ...data.results]
-      }));
+      if (details.hasMore) {
+        const {
+          data: { data }
+        } = await callback(details.next.page);
+        setDetails(prevState => ({
+          ...data,
+          results: [...prevState.results, ...data.results]
+        }));
+      }
       setLoading(() => false);
     }
   };
@@ -33,7 +35,7 @@ export default function useInfiniteScroll(callback, initialItems) {
     const element = loadingElementRef.current;
 
     return () => {
-      if (ioObserver) ioObserver.unobserve(element);
+      if (ioObserver && element) ioObserver.unobserve(element);
     };
   });
 
