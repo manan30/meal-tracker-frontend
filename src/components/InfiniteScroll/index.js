@@ -25,14 +25,14 @@ function InfiniteScroll({
   loadingComponent,
   callback
 }) {
-  const { data, loading, loadingElementRef } = useInfiniteScroll(
+  const { details, loading, loadingElementRef } = useInfiniteScroll(
     callback,
     initialItems
   );
 
   return (
     <>
-      {data.map((item, i) => {
+      {details.results.map((item, i) => {
         const idx = i;
         const props = itemComponentProps.reduce((acc, curr) => {
           acc[curr] = item[curr];

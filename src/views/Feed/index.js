@@ -221,20 +221,12 @@ function RecipeListCard({ user, recipe }) {
 
 function Feed() {
   const { state } = useStore();
-  const [feed, setFeed] = useState({ topRecipes: [], feedRecipes: [] });
+  const [feed, setFeed] = useState({ topRecipes: [], feedRecipes: {} });
 
   useEffect(() => {
     (async function fetch() {
-      const {
-        data: { feedRecipes, topRecipes }
-      } = await getInitialFeed();
-      setFeed(() => {
-        const newState = {
-          topRecipes: topRecipes || [],
-          feedRecipes: feedRecipes || []
-        };
-        return newState;
-      });
+      const { data } = await getFeedRecipes(1);
+      setFeed(prevState => ({ ...prevState, feedRecipes: data.data }));
     })();
   }, []);
 
@@ -349,7 +341,7 @@ function Feed() {
           </FeedButton>
         </FeedCard>
         <RecipesList>
-          {feed.feedRecipes.length > 0 ? (
+          {feed.feedRecipes.results && feed.feedRecipes.results.length > 0 ? (
             <InfiniteScroll
               initialItems={feed.feedRecipes}
               itemComponent={RecipeListCard}
