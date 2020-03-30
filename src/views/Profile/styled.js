@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
-import Text from '../../components/Text';
-import Card from '../../components/Card';
 import Button from '../../components/Button';
+import Card from '../../components/Card';
+import Text from '../../components/Text';
 
 const Wrapper = styled.section`
   display: flex;
@@ -20,15 +20,15 @@ const SideSection = styled.section`
 
 const MainSection = styled.section`
   height: 100%;
-  width: 70%;
+  width: 100%;
   margin-top: 30px;
   overflow: hidden;
 `;
 
 const SelectionContainer = styled.div`
-  position: absolute;
+  /* position: absolute; */
   height: 156px;
-  width: 70%;
+  width: 100%;
   margin-top: 24px;
 `;
 
@@ -108,31 +108,39 @@ const ProfileCard = styled(Card)`
 
   overflow: hidden;
   overflow-y: ${props => props.overflowY && props.overflowY};
+`;
 
-  ${props =>
-    props.hover &&
-    css`
-      :hover {
-        transform: scale(0.9);
-        border-radius: 10px;
-      }
-    `}
+const CarouselCard = styled(ProfileCard)`
+  display: inline-block;
 
-  ${props =>
-    props.carousel &&
-    css`
-      :last-child {
-        margin-right: 16px;
-      }
-    `};
+  height: 138px;
+  width: 155px;
+  padding: 0;
+  margin-left: 16px;
 
-  ${props =>
-    props.deduct &&
-    css`
-      :nth-child(even) {
-        margin-left: 2%;
-      }
-    `}
+  cursor: pointer;
+
+  /* :hover {
+    transform: scale(0.9);
+    border-radius: 10px;
+  } */
+
+  :last-child {
+    margin-right: 16px;
+  }
+`;
+
+const ProfileRecipeCard = styled(ProfileCard)`
+  flex: 0 0 auto;
+  flex-direction: column;
+
+  height: 320px;
+  width: 40%;
+  margin-bottom: 25px;
+
+  :last-child {
+    margin-bottom: 16px;
+  }
 `;
 
 const Container = styled.div`
@@ -236,5 +244,7 @@ export {
   ProfileDataContainer,
   Separator,
   ProfileImage,
-  ProfileButton
+  ProfileButton,
+  CarouselCard,
+  ProfileRecipeCard
 };

@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 const CarouselContainer = styled.div`
-  display: flex;
-  flex-wrap: nowrap;
   height: 100%;
-  overflow-x: auto;
+  overflow: hidden;
+  overflow-x: scroll;
+  white-space: nowrap;
 `;
 
 export { CarouselContainer };
