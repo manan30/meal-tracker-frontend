@@ -1,27 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { FiEdit3, FiLogOut, FiSettings } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-import { getCategories, getRecipes } from '../../api/User';
 import Button from '../../components/Button';
 import CardContainer from '../../components/Card/styled';
 import Carousel from '../../components/Carousel';
 import Text from '../../components/Text';
+import { useStore } from '../../Store';
 import {
-  DataContainer,
+  Container,
   LineItem,
   MainSection,
+  ProfileCard,
+  ProfileDataContainer,
   ProfileImage,
+  ProfileText,
   RecipeImage,
   SelectionContainer,
+  Separator,
   SideSection,
   Wrapper,
-  ProfileText,
-  ProfileCard,
-  Container,
-  ProfileDataContainer,
-  Separator
+  ProfileButton
 } from './styled';
-import { useStore } from '../../Store';
 
 function Profile() {
   const { state } = useStore();
@@ -134,16 +133,12 @@ function Profile() {
         </ProfileCard>
       </SideSection>
       <MainSection>
-        <Text
-          margin-top='50px'
-          margin-left='45px'
-          font-size='32px'
-          line-height='32px'
-          color='#030f09'
-          display='inline-block'>
-          My Recipes
-        </Text>
-        <Button text='Add' margin-top='50px' float='right' />
+        <Container>
+          <ProfileText fontSize='32px' lineHeight='32px' color='#030f09'>
+            My Recipes
+          </ProfileText>
+          <ProfileButton>+ Add New</ProfileButton>
+        </Container>
         <SelectionContainer>
           <Carousel width='calc(70% - 32px)'>
             {categories.map((category, i) => {

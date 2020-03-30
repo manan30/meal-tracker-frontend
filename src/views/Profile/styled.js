@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import Text from '../../components/Text';
 import Card from '../../components/Card';
+import Button from '../../components/Button';
 
 const Wrapper = styled.section`
   display: flex;
@@ -20,6 +21,7 @@ const SideSection = styled.section`
 const MainSection = styled.section`
   height: 100%;
   width: 70%;
+  margin-top: 30px;
   overflow: hidden;
 `;
 
@@ -191,6 +193,28 @@ const ProfileImage = styled.img`
   background-size: cover;
 `;
 
+const ProfileButton = styled(Button)`
+  flex-basis: auto;
+  flex-grow: ${props => props.flexGrow || '0'};
+  flex-shrink: 0;
+
+  height: ${props => props.height && props.height};
+  width: ${props => props.width && props.width};
+  margin: 0 0 0 auto;
+  padding: 0;
+
+  font-style: normal;
+  font-weight: bold;
+  font-size: ${props => props.fontSize || '16px'};
+  line-height: 22px;
+  text-align: center;
+
+  :hover {
+    background-color: #30be76;
+    color: #ffffff;
+  }
+`;
+
 export {
   Wrapper,
   SideSection,
@@ -205,5 +229,6 @@ export {
   Container,
   ProfileDataContainer,
   Separator,
-  ProfileImage
+  ProfileImage,
+  ProfileButton
 };
