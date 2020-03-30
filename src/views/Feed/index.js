@@ -229,14 +229,14 @@ function Feed() {
             <Container>
               <FeedImage backgroundColor='#606060' />
               <ProfileDataContainer>
-                <FeedText fontWeight='bold' font-size='16px' color='#030F09'>
+                <FeedText fontWeight='bold' fontSize='16px' color='#030F09'>
                   {`${state.user.firstName} ${state.user.lastName}`}
                 </FeedText>
                 <FeedText color='#606060'>{state.user.title}</FeedText>
                 <Container justifyContent='flex-start'>
                   <FeedText
-                    fontSize=' 10px'
-                    lineHeight=' 12px'
+                    fontSize='10px'
+                    lineHeight='12px'
                     color=' #606060'
                     marginTop='6px'>
                     {state.user.followers} followers
@@ -312,25 +312,26 @@ function Feed() {
         </FeedCard>
       </SideSection>
       <MainSection>
-        <FeedCard
-          height='30px'
-          padding='25px 22px'
-          alignItems='center'
-          adjustDisplay>
-          {state.user.isAuthenticated && (
+        {state.user.isAuthenticated && (
+          <FeedCard
+            height='30px'
+            padding='25px 22px'
+            alignItems='center'
+            width='auto'
+            adjustDisplay>
             <FeedText color='#030F09' flexGrow='0'>
               {state.user.onlineFollowers || 0} followers are online
             </FeedText>
-          )}
-          <FeedButton
-            width='128px'
-            margin='0 0 0 auto'
-            color='#ffffff'
-            bgColor='#30BE76'
-            boxShadow='0px 6px 20px rgba(13, 51, 32, 0.1)'>
-            Create Recipe
-          </FeedButton>
-        </FeedCard>
+            <FeedButton
+              width='128px'
+              margin='0 0 0 auto'
+              color='#ffffff'
+              bgColor='#30BE76'
+              boxShadow='0px 6px 20px rgba(13, 51, 32, 0.1)'>
+              Create Recipe
+            </FeedButton>
+          </FeedCard>
+        )}
         <RecipesList>
           {feed.feedRecipes.results && feed.feedRecipes.results.length > 0 ? (
             <InfiniteScroll
@@ -349,7 +350,7 @@ function Feed() {
           ) : (
             <NoRecipes>
               <NoRecipeIcon />
-              <FeedText fontSize='21px' color='#767676' marginTop='24px'>
+              <FeedText fontSize='21px' marginTop='24px'>
                 No recipes found
               </FeedText>
             </NoRecipes>
@@ -360,7 +361,7 @@ function Feed() {
         <FeedCard
           flexDirection='column'
           height='calc(105px - 50px)'
-          width='calc(100% - 70px)'>
+          width='auto'>
           <Container>
             <FeedText fontSize='12px' lineHeight='16px'>
               About Sculptor
