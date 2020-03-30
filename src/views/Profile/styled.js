@@ -27,10 +27,9 @@ const MainSection = styled.section`
 
 const SelectionContainer = styled.div`
   position: absolute;
-  height: 172px;
-  width: 100%;
-  margin-top: 96px;
-  /* background: black; */
+  height: 156px;
+  width: 70%;
+  margin-top: 24px;
 `;
 
 const DataContainer = styled.div`
@@ -80,6 +79,7 @@ const ProfileText = styled(Text)`
   font-size: ${props => props.fontSize || '14px'};
   font-weight: ${props => props.fontWeight || 'bold'};
   line-height: ${props => props.lineHeight || '22px'};
+  text-align: ${props => props.textAlign && props.textAlign};
   color: ${props => props.color || '#606060'};
 
   svg {
@@ -96,35 +96,27 @@ const ProfileCard = styled(Card)`
   flex-direction: ${props => props.flexDirection && props.flexDirection};
   flex-wrap: ${props => props.flexWrap && props.flexWrap};
   align-items: ${props => props.alignItems && props.alignItems};
+  flex: ${props => props.flex && '0 0 auto'};
 
   width: ${props => props.width || 'calc(100% - 50px)'};
   height: ${props => props.height || '165px'};
   padding: ${props => props.padding || '25px'};
-  margin-bottom: 20px;
   margin: ${props => props.margin && props.margin};
 
-  box-shadow: ${props => props.boxShadow && props.boxShadow};
-  background: ${props => props.backgroundColor && props.backgroundColor};
+  ${props =>
+    props.hover &&
+    css`
+      :hover {
+        transform: scale(0.9);
+        border-radius: 10px;
+      }
+    `}
 
   ${props =>
-    props.adjustDisplay &&
+    props.carousel &&
     css`
-      @media screen and (min-width: 320px) and (max-width: 767px) {
-        display: none;
-      }
-
-      @media screen and (min-width: 768px) and (max-width: 1024px) {
-        width: auto;
-      }
-    `};
-
-  ${props =>
-    props.recipeCard &&
-    css`
-      @media screen and (min-width: 320px) and (max-width: 767px) {
-        width: calc(100% - 52px);
-        box-shadow: none;
-        border: 1px solid #cccccc;
+      :last-child {
+        margin-right: 16px;
       }
     `}
 `;

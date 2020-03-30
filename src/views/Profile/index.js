@@ -134,38 +134,42 @@ function Profile() {
       </SideSection>
       <MainSection>
         <Container>
-          <ProfileText fontSize='32px' lineHeight='32px' color='#030f09'>
+          <ProfileText
+            marginLeft='16px'
+            fontSize='32px'
+            lineHeight='32px'
+            color='#030f09'>
             My Recipes
           </ProfileText>
           <ProfileButton>+ Add New</ProfileButton>
         </Container>
         <SelectionContainer>
-          <Carousel width='calc(70% - 32px)'>
+          <Carousel>
             {categories.map((category, i) => {
+              /* {new Array(20).fill(0).map((category, i) => { */
               const key = i;
               return (
-                <CardContainer
+                <ProfileCard
                   key={key}
                   height='138px'
                   width='155px'
-                  display='inline-block'
-                  marginLeft='16px'
-                  margin-right='16px'
-                  box-shadow='2px 4px 10px rgba(13, 51, 32, 0.1)'
+                  margin='0 0 0 16px'
                   cursor='pointer'
-                  hover>
+                  padding='0'
+                  flexDirection='column'
+                  flex='true'
+                  hover='true'
+                  carousel='true'>
                   <RecipeImage height='105px' image={category.image} />
-                  <Text
-                    font-style='normal'
-                    font-weight='normal'
-                    font-size=' 16px'
-                    line-height=' 22px'
-                    text-align='center'
+                  <ProfileText
+                    fontWeight='normal'
+                    fontSize=' 16px'
+                    textAlign='center'
                     color='#030F09'
-                    margin-top='6px'>
-                    {category.name}
-                  </Text>
-                </CardContainer>
+                    marginTop='6px'>
+                    {category.name || 'ABCD'}
+                  </ProfileText>
+                </ProfileCard>
               );
             })}
           </Carousel>

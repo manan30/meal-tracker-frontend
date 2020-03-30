@@ -10,13 +10,13 @@ const CardContainer = styled.div`
     margin-left: ${props => props.marginLeft && props.marginLeft}
   }
 
-  ${({ hover }) =>
+  /* ${({ hover }) =>
     hover &&
     `:hover {
       /* border: 2px solid #30BE76; */
-      border-radius: 10px;
+      /* border-radius: 10px;
       transform: scale(0.9);
-  }`}
+  }`} */
 
   ${({ deduct }) =>
     deduct &&
