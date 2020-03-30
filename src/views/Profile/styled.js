@@ -96,12 +96,18 @@ const ProfileCard = styled(Card)`
   flex-direction: ${props => props.flexDirection && props.flexDirection};
   flex-wrap: ${props => props.flexWrap && props.flexWrap};
   align-items: ${props => props.alignItems && props.alignItems};
-  flex: ${props => props.flex && '0 0 auto'};
+  justify-content: ${props => props.justifyContent && 'space-between'};
+  flex: ${props => props.flex && props.flex};
 
   width: ${props => props.width || 'calc(100% - 50px)'};
   height: ${props => props.height || '165px'};
   padding: ${props => props.padding || '25px'};
   margin: ${props => props.margin && props.margin};
+
+  border-radius: ${props => props.borderRadius && props.borderRadius};
+
+  overflow: hidden;
+  overflow-y: ${props => props.overflowY && props.overflowY};
 
   ${props =>
     props.hover &&
@@ -117,6 +123,14 @@ const ProfileCard = styled(Card)`
     css`
       :last-child {
         margin-right: 16px;
+      }
+    `};
+
+  ${props =>
+    props.deduct &&
+    css`
+      :nth-child(even) {
+        margin-left: 2%;
       }
     `}
 `;
