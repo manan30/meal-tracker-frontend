@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import Button from '../../components/Button';
 import Card from '../../components/Card';
 import Text from '../../components/Text';
@@ -15,7 +15,7 @@ const SideSection = styled.section`
   height: calc(100% - 30px);
   width: 30%;
   margin-top: 30px;
-  margin-right: 20px;
+  margin-right: 30px;
 `;
 
 const MainSection = styled.section`
@@ -25,7 +25,7 @@ const MainSection = styled.section`
   overflow: hidden;
 `;
 
-const SelectionContainer = styled.div`
+const CategoriesContainer = styled.div`
   height: 156px;
   width: 100%;
   margin-top: 24px;
@@ -40,16 +40,6 @@ const LineItem = styled.div`
   :last-child {
     margin-bottom: 0;
   }
-`;
-
-const RecipeImage = styled.div`
-  height: ${props => props.height && props.height};
-  border-radius: 8px 8px 0 0;
-  background-color: #e5e5e5;
-  background-image: url(${({ image }) => image && image});
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
 `;
 
 const ProfileText = styled(Text)`
@@ -71,23 +61,14 @@ const ProfileText = styled(Text)`
 `;
 
 const ProfileCard = styled(Card)`
-  position: ${props => props.position && props.position};
-
   display: flex;
-  flex-direction: ${props => props.flexDirection && props.flexDirection};
-  flex-wrap: ${props => props.flexWrap && props.flexWrap};
-  align-items: ${props => props.alignItems && props.alignItems};
+  flex-direction: column;
   flex: ${props => props.flex && props.flex};
 
   width: ${props => props.width || 'calc(100% - 50px)'};
   height: ${props => props.height || '165px'};
-  padding: ${props => props.padding || '25px'};
-  margin: ${props => props.margin && props.margin};
-
-  border-radius: ${props => props.borderRadius && props.borderRadius};
-
-  overflow: hidden;
-  overflow-y: ${props => props.overflowY && props.overflowY};
+  padding: 25px;
+  margin-top: ${props => props.marginTop && props.marginTop};
 `;
 
 const CarouselCard = styled(ProfileCard)`
@@ -96,17 +77,17 @@ const CarouselCard = styled(ProfileCard)`
   height: 138px;
   width: 155px;
   padding: 0;
-  margin-left: 16px;
+  margin-right: 16px;
 
   cursor: pointer;
 
-  /* :hover {
+  :hover {
     transform: scale(0.9);
     border-radius: 10px;
-  } */
+  }
 
   :last-child {
-    margin-right: 16px;
+    margin-right: 0;
   }
 `;
 
@@ -132,44 +113,20 @@ const ProfileRecipeCard = styled(ProfileCard)`
   flex: 0 0 auto;
 
   height: 300px;
-
-  :nth-child(2n + 1):nth-last-child(-n + 2) {
-    position: relative;
-    ::after {
-      width: 30px;
-      height: 1px;
-      position: absolute;
-      left: 100%;
-      top: 0px;
-    }
-  }
+  width: 100%;
+  padding: 0;
 `;
 
 const Container = styled.div`
   display: flex;
   flex-direction: ${props => props.flexDirection && props.flexDirection};
   justify-content: ${props => props.justifyContent && props.justifyContent};
-  align-items: ${props => props.alignItems || 'center'};
+  align-items: center;
   flex-basis: auto;
-  flex-grow: ${props => props.flexGrow && props.flexGrow};
-  flex-shrink: ${props => props.flexShrink && props.flexShrink};
 
-  height: ${props => props.height && props.height};
-  width: ${props => props.width && props.width};
   margin-left: ${props => props.marginLeft && props.marginLeft};
   margin-top: ${props => props.marginTop && props.marginTop};
-
-  overflow: ${props => props.overflow && props.overflow};
-  overflow-y: ${props => props.overflowY && props.overflowY};
-
-  ${props =>
-    props.adjustRecipeCardText &&
-    css`
-      @media screen and (min-width: 320px) and (max-width: 480px) {
-        height: 64px;
-        overflow: hidden;
-      }
-    `}
+  padding: ${props => props.padding && props.padding};
 `;
 
 const ProfileDataContainer = styled.div`
@@ -194,15 +151,11 @@ const Separator = styled.div`
 `;
 
 const ProfileImage = styled.img`
-  flex-basis: auto;
-  flex-grow: 0;
-  flex-shrink: 0;
-
-  width: ${props => props.width || '70px'};
+  width: ${props => props.width || '100%'};
   height: ${props => props.height || '70px'};
 
   border: none;
-  border-radius: ${props => props.borderRadius || '50%'};
+  border-radius: 8px 8px 0 0;
   background-color: ${props => props.backgroundColor || '#606060'};
   background-position: center center;
   background-repeat: no-repeat;
@@ -238,9 +191,8 @@ export {
   Wrapper,
   SideSection,
   MainSection,
-  SelectionContainer,
+  CategoriesContainer,
   LineItem,
-  RecipeImage,
   ProfileText,
   ProfileCard,
   Container,
