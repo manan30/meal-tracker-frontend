@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Button from '../../components/Button';
 import Card from '../../components/Card';
 import Text from '../../components/Text';
@@ -92,10 +92,14 @@ const CarouselCard = styled(ProfileCard)`
 `;
 
 const ProfileRecipesContainer = styled(Card)`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-row-gap: 25px;
-  grid-column-gap: 25px;
+  ${props =>
+    props.grid &&
+    css`
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-row-gap: 25px;
+      grid-column-gap: 25px;
+    `}
 
   height: calc(100% - 136px);
   margin-top: 20px;
@@ -187,6 +191,20 @@ const ProfileButton = styled(Button)`
   }
 `;
 
+const NoRecipes = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    height: 128px;
+    width: 128px;
+  }
+`;
+
 export {
   Wrapper,
   SideSection,
@@ -202,5 +220,6 @@ export {
   ProfileButton,
   CarouselCard,
   ProfileRecipeCard,
-  ProfileRecipesContainer
+  ProfileRecipesContainer,
+  NoRecipes
 };

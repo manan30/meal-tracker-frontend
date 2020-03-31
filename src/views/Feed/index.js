@@ -5,9 +5,9 @@ import { GiChefToque } from 'react-icons/gi';
 import { IoIosSearch } from 'react-icons/io';
 import { MdClose, MdViewCarousel } from 'react-icons/md';
 import { getFeedRecipes } from '../../api/Feed';
-import { ReactComponent as NoRecipeIcon } from '../../assets/img/no-recipes.svg';
 import InfiniteScroll from '../../components/InfiniteScroll';
 import Modal from '../../components/Modal';
+import NoRecipes from '../../components/NoRecipes';
 import Spinner from '../../components/Spinner';
 import { Link } from '../../GlobalStyles';
 import { useStore } from '../../Store';
@@ -21,7 +21,6 @@ import {
   FeedText,
   Icon,
   MainSection,
-  NoRecipes,
   ProfileDataContainer,
   RecipesList,
   Separator,
@@ -348,12 +347,7 @@ function Feed() {
               callback={getFeedRecipes}
             />
           ) : (
-            <NoRecipes>
-              <NoRecipeIcon />
-              <FeedText fontSize='21px' marginTop='24px'>
-                No recipes found
-              </FeedText>
-            </NoRecipes>
+            <NoRecipes text='No Recipes Found' />
           )}
         </RecipesList>
       </MainSection>
