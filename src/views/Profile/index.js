@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { FiEdit3, FiLogOut, FiSettings } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import { Link } from '../../GlobalStyles';
 import Carousel from '../../components/Carousel';
-import Text from '../../components/Text';
 import { useStore } from '../../Store';
 import {
   CarouselCard,
@@ -13,14 +12,14 @@ import {
   ProfileCard,
   ProfileDataContainer,
   ProfileImage,
+  ProfileRecipeCard,
+  ProfileRecipesContainer,
   ProfileText,
   RecipeImage,
   SelectionContainer,
   Separator,
   SideSection,
-  Wrapper,
-  ProfileRecipeCard,
-  ProfileRecipesContainer
+  Wrapper
 } from './styled';
 
 function Profile() {
@@ -175,50 +174,31 @@ function Profile() {
               <ProfileRecipeCard key={key}>
                 <RecipeImage height='220px' image={recipe.image} />
                 <ProfileText
-                  marginLeft='22px'
+                  marginLeft='2px'
                   marginTop='16px'
                   fontWeight='600'
                   fontSize='18px'
                   color='#030F09'>
                   {recipe.name || 'Abcd'}
                 </ProfileText>
-                <div
-                  style={{
-                    marginTop: '13px',
-                    marginLeft: '22px',
-                    alignItems: 'center'
-                  }}>
-                  <Text
-                    display='inline-block'
-                    font-style='normal'
-                    font-weight='normal'
-                    font-size=' 14px'
-                    line-height='22px'
-                    color='#606060'>{`${recipe.mins || 0} mins`}</Text>
-                  <Text
-                    display='inline-block'
-                    font-style='normal'
-                    font-weight='normal'
-                    font-size=' 14px'
-                    line-height='22px'
-                    margin-left='24px'
-                    color='#606060'>{`${recipe.ingredients ||
-                    0} ingredients`}</Text>
-                  <Link to={`/recipe/${recipe.id}`}>
+                <Container marginTop='13px' marginLeft='5px'>
+                  <ProfileText fontWeight='normal'>
+                    {recipe.mins && `${recipe.mins} mins`}
+                  </ProfileText>
+                  <ProfileText marginLeft='12px' fontWeight='normal'>
+                    {recipe.ingredients && `${recipe.ingredients} ingredients`}
+                  </ProfileText>
+                  <Link to={`/recipe/${recipe.id}`} margin-left='auto'>
                     <ProfileButton
-                      text='View'
-                      float='right'
                       height='26px'
                       width='96px'
-                      margin-right='22px'
-                      font-size='14px'
-                      line-height='12px'
-                      letter-spacing=' 0.4px'
-                      border-radius='4px'>
+                      fontSize='14px'
+                      borderRadius='4px'
+                      border='1px solid #30be76'>
                       View
                     </ProfileButton>
                   </Link>
-                </div>
+                </Container>
               </ProfileRecipeCard>
             );
           })}

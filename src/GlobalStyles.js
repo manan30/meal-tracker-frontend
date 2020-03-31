@@ -42,10 +42,6 @@ const Link = styled(anchor)`
     color: ${props => props.visitedColor || '#363837'};
   }
 
-  /* :active {
-    text-decoration: none;
-  } */
-
   ${({ children, ...rest }) => rest}
 `;
 

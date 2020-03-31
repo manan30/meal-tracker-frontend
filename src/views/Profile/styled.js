@@ -31,14 +31,6 @@ const SelectionContainer = styled.div`
   margin-top: 24px;
 `;
 
-const DataContainer = styled.div`
-  margin: 25px;
-  height: calc(100% - 50px);
-  width: calc(100% - 50px);
-
-  ${({ children, ...props }) => props} /* return { ...props }; */
-`;
-
 const LineItem = styled.div`
   display: flex;
   align-items: center;
@@ -48,16 +40,6 @@ const LineItem = styled.div`
   :last-child {
     margin-bottom: 0;
   }
-`;
-
-const GroupItem = styled.div`
-  font-style: normal;
-  font-weight: bold;
-  font-size: 20px;
-  line-height: 27px;
-  text-align: center;
-
-  color: #030f09;
 `;
 
 const RecipeImage = styled.div`
@@ -243,6 +225,9 @@ const ProfileButton = styled(Button)`
   line-height: 22px;
   text-align: center;
 
+  border-radius: ${props => props.borderRadius || '4px'};
+  border: ${props => props.border && props.border};
+
   :hover {
     background-color: #30be76;
     color: #ffffff;
@@ -254,9 +239,7 @@ export {
   SideSection,
   MainSection,
   SelectionContainer,
-  DataContainer,
   LineItem,
-  GroupItem,
   RecipeImage,
   ProfileText,
   ProfileCard,
