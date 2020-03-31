@@ -26,7 +26,6 @@ const MainSection = styled.section`
 `;
 
 const SelectionContainer = styled.div`
-  /* position: absolute; */
   height: 156px;
   width: 100%;
   margin-top: 24px;
@@ -96,7 +95,6 @@ const ProfileCard = styled(Card)`
   flex-direction: ${props => props.flexDirection && props.flexDirection};
   flex-wrap: ${props => props.flexWrap && props.flexWrap};
   align-items: ${props => props.alignItems && props.alignItems};
-  justify-content: ${props => props.justifyContent && 'space-between'};
   flex: ${props => props.flex && props.flex};
 
   width: ${props => props.width || 'calc(100% - 50px)'};
@@ -130,16 +128,38 @@ const CarouselCard = styled(ProfileCard)`
   }
 `;
 
+const ProfileRecipesContainer = styled(Card)`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-row-gap: 25px;
+  grid-column-gap: 25px;
+
+  height: calc(100% - 136px);
+  margin-top: 20px;
+  padding: 25px;
+
+  border-radius: 8px 8px 0 0;
+  box-shadow: none;
+
+  overflow: hidden;
+  overflow-y: scroll;
+`;
+
 const ProfileRecipeCard = styled(ProfileCard)`
-  flex: 0 0 auto;
   flex-direction: column;
+  flex: 0 0 auto;
 
-  height: 320px;
-  width: 40%;
-  margin-bottom: 25px;
+  height: 300px;
 
-  :last-child {
-    margin-bottom: 16px;
+  :nth-child(2n + 1):nth-last-child(-n + 2) {
+    position: relative;
+    ::after {
+      width: 30px;
+      height: 1px;
+      position: absolute;
+      left: 100%;
+      top: 0px;
+    }
   }
 `;
 
@@ -246,5 +266,6 @@ export {
   ProfileImage,
   ProfileButton,
   CarouselCard,
-  ProfileRecipeCard
+  ProfileRecipeCard,
+  ProfileRecipesContainer
 };

@@ -4,6 +4,7 @@ import { Link as anchor } from 'react-router-dom';
 export default createGlobalStyle`
   html, body {
     overflow: hidden;
+    box-sizing:border-box;
   }
 
   body {

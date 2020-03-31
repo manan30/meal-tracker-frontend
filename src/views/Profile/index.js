@@ -19,13 +19,14 @@ import {
   Separator,
   SideSection,
   Wrapper,
-  ProfileRecipeCard
+  ProfileRecipeCard,
+  ProfileRecipesContainer
 } from './styled';
 
 function Profile() {
   const { state } = useStore();
   const [recipes, setRecipes] = useState([]);
-  const [categories, setCategories] = useState([1]);
+  const [categories, setCategories] = useState([]);
 
   // useEffect(() => {
   //   (async () => {
@@ -143,41 +144,32 @@ function Profile() {
           </ProfileText>
           <ProfileButton>+ Add New</ProfileButton>
         </Container>
-        {/* {categories.length > 0 && ( */}
-        <SelectionContainer>
-          <Carousel>
-            {/* {categories.map((category, i) => { */}
-            {new Array(10).fill(0).map((category, i) => {
-              const key = i;
-              return (
-                <CarouselCard key={key}>
-                  <RecipeImage height='105px' image={category.image} />
-                  <ProfileText
-                    fontWeight='normal'
-                    fontSize=' 16px'
-                    textAlign='center'
-                    color='#030F09'
-                    marginTop='6px'>
-                    {category.name || 'ABCD'}
-                  </ProfileText>
-                </CarouselCard>
-              );
-            })}
-          </Carousel>
-        </SelectionContainer>
-        {/* )} */}
-        <ProfileCard
-          height={
-            categories.length > 0 ? 'calc(100% - 250px)' : 'calc(100% - 136px)'
-          }
-          margin='20px 0 0 0'
-          borderRadius='8px 8px 0 0'
-          overflowY='scroll'
-          padding='25px'
-          flexWrap='wrap'
-          justifyContent='true'>
+        {categories.length > 0 && (
+          <SelectionContainer>
+            <Carousel>
+              {categories.map((category, i) => {
+                /* {new Array(10).fill(0).map((category, i) => { */
+                const key = i;
+                return (
+                  <CarouselCard key={key}>
+                    <RecipeImage height='105px' image={category.image} />
+                    <ProfileText
+                      fontWeight='normal'
+                      fontSize=' 16px'
+                      textAlign='center'
+                      color='#030F09'
+                      marginTop='6px'>
+                      {category.name || 'ABCD'}
+                    </ProfileText>
+                  </CarouselCard>
+                );
+              })}
+            </Carousel>
+          </SelectionContainer>
+        )}
+        <ProfileRecipesContainer>
           {/* {recipes.map((recipe, i) => { */}
-          {new Array(15).fill(0).map((recipe, i) => {
+          {new Array(16).fill(0).map((recipe, i) => {
             const key = i;
             return (
               <ProfileRecipeCard key={key}>
@@ -230,7 +222,7 @@ function Profile() {
               </ProfileRecipeCard>
             );
           })}
-        </ProfileCard>
+        </ProfileRecipesContainer>
       </MainSection>
     </Wrapper>
   );
