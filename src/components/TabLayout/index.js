@@ -6,21 +6,11 @@ import {
   TabsTextContainer,
   TabText
 } from './styled';
+import useTabHighlighter from '../../hooks/useTabHighlighter';
 
 function TabLayout({ tabs }) {
   const width = `${(tabs.length / 4) * 100}%`;
-
-  const [activeTab, setActiveTab] = useState(
-    new Array(tabs.length).fill(false).map((v, i) => i === 0)
-  );
-
-  function handleActiveTab(index) {
-    setActiveTab(prevState => [
-      ...prevState.slice(0, index).map(() => false),
-      true,
-      ...prevState.slice(index + 1).map(() => false)
-    ]);
-  }
+  const { activeTab, handleActiveTab } = useTabHighlighter(tabs.length);
 
   return (
     <TabLayoutContainer>
