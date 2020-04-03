@@ -17,11 +17,12 @@ import {
   ProfileRecipesContainer,
   ProfileText,
   SideSection,
-  Wrapper
+  Wrapper,
+  ProfileRecipeCardContainer
 } from './styled';
 
 function Profile() {
-  const [recipes, setRecipes] = useState([]);
+  const [recipes, setRecipes] = useState([1, 1, 1, 1, 1, 1]);
   const [categories, setCategories] = useState([]);
 
   // useEffect(() => {
@@ -98,43 +99,46 @@ function Profile() {
             </Carousel>
           </CategoriesContainer>
         )}
-        <ProfileRecipesContainer grid={recipes.length > 0 && 'true'}>
+        <ProfileRecipesContainer
+          height={categories.length > 0 && 'calc(100% - 310px)'}>
           {recipes.length > 0 ? (
             recipes.map((recipe, i) => {
               /* {new Array(16).fill(0).map((recipe, i) => { */
               const key = i;
               return (
-                <ProfileRecipeCard key={key}>
-                  <ProfileImage height='220px' image={recipe.image} />
-                  <div style={{ height: '60px', padding: '10px 20px' }}>
-                    <ProfileText
-                      marginLeft='2px'
-                      fontWeight='600'
-                      fontSize='18px'
-                      color='#030F09'>
-                      {recipe.name}
-                    </ProfileText>
-                    <Container marginTop='4px'>
-                      <ProfileText fontWeight='normal'>
-                        {recipe.mins && `${recipe.mins || 0} mins`}
+                <ProfileRecipeCardContainer key={key}>
+                  <ProfileRecipeCard>
+                    <ProfileImage height='220px' image={recipe.image} />
+                    <div style={{ height: '60px', padding: '10px 20px' }}>
+                      <ProfileText
+                        marginLeft='2px'
+                        fontWeight='600'
+                        fontSize='18px'
+                        color='#030F09'>
+                        {recipe.name}
                       </ProfileText>
-                      <ProfileText marginLeft='12px' fontWeight='normal'>
-                        {recipe.ingredients &&
-                          `${recipe.ingredients || 0} ingredients`}
-                      </ProfileText>
-                      <Link to={`/recipe/${recipe.id}`} margin-left='auto'>
-                        <ProfileButton
-                          height='26px'
-                          width='96px'
-                          fontSize='14px'
-                          borderRadius='4px'
-                          border='1px solid #30be76'>
-                          View
-                        </ProfileButton>
-                      </Link>
-                    </Container>
-                  </div>
-                </ProfileRecipeCard>
+                      <Container marginTop='4px'>
+                        <ProfileText fontWeight='normal'>
+                          {recipe.mins && `${recipe.mins || 0} mins`}
+                        </ProfileText>
+                        <ProfileText marginLeft='12px' fontWeight='normal'>
+                          {recipe.ingredients &&
+                            `${recipe.ingredients || 0} ingredients`}
+                        </ProfileText>
+                        <Link to={`/recipe/${recipe.id}`} margin-left='auto'>
+                          <ProfileButton
+                            height='26px'
+                            width='96px'
+                            fontSize='14px'
+                            borderRadius='4px'
+                            border='1px solid #30be76'>
+                            View
+                          </ProfileButton>
+                        </Link>
+                      </Container>
+                    </div>
+                  </ProfileRecipeCard>
+                </ProfileRecipeCardContainer>
               );
             })
           ) : (

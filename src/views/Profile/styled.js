@@ -28,7 +28,7 @@ const MainSection = styled.section`
 const CategoriesContainer = styled.div`
   height: 156px;
   width: 100%;
-  margin-top: 24px;
+  margin-top: 20px;
 `;
 
 const LineItem = styled.div`
@@ -92,17 +92,9 @@ const CarouselCard = styled(ProfileCard)`
 `;
 
 const ProfileRecipesContainer = styled(Card)`
-  ${props =>
-    props.grid &&
-    css`
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-row-gap: 25px;
-      grid-column-gap: 25px;
-    `}
-
-  height: calc(100% - 136px);
-  margin-top: 20px;
+  height: ${props => props.height || 'calc(100% - 136px)'};
+  width: calc(100% - 50px);
+  margin-top: 16px;
   padding: 25px;
 
   border-radius: 8px 8px 0 0;
@@ -119,6 +111,17 @@ const ProfileRecipeCard = styled(ProfileCard)`
   height: 300px;
   width: 100%;
   padding: 0;
+`;
+
+const ProfileRecipeCardContainer = styled.div`
+  display: inline-block;
+  width: calc(50% - 12.5px);
+  margin-right: 25px;
+  margin-bottom: 25px;
+
+  :nth-child(even) {
+    margin-right: 0;
+  }
 `;
 
 const Container = styled.div`
@@ -194,5 +197,6 @@ export {
   ProfileButton,
   CarouselCard,
   ProfileRecipeCard,
-  ProfileRecipesContainer
+  ProfileRecipesContainer,
+  ProfileRecipeCardContainer
 };
