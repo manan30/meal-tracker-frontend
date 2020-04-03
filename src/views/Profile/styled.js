@@ -9,6 +9,11 @@ const Wrapper = styled.section`
   height: calc(100vh - 60px);
   width: calc(100% - 100px);
   overflow: hidden;
+
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    width: calc(100% - 50px);
+    margin: 0 25px;
+  }
 `;
 
 const SideSection = styled.section`
@@ -16,6 +21,10 @@ const SideSection = styled.section`
   width: 30%;
   margin-top: 30px;
   margin-right: 30px;
+
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    display: none;
+  }
 `;
 
 const MainSection = styled.section`
