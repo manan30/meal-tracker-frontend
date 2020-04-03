@@ -27,6 +27,7 @@ import {
   SideSection,
   Wrapper
 } from './styled';
+import UserInfo from '../../components/UserInfo';
 
 function RecipeListCard({ user, recipe }) {
   const { state } = useStore();
@@ -223,72 +224,8 @@ function Feed() {
   return (
     <Wrapper>
       <SideSection marginRight='20px'>
-        {state.user.isAuthenticated && (
-          <FeedCard flexDirection='column'>
-            <Container>
-              <FeedImage backgroundColor='#606060' />
-              <ProfileDataContainer>
-                <FeedText fontWeight='bold' fontSize='16px' color='#030F09'>
-                  {`${state.user.firstName} ${state.user.lastName}`}
-                </FeedText>
-                <FeedText color='#606060'>{state.user.title}</FeedText>
-                <Container justifyContent='flex-start'>
-                  <FeedText
-                    fontSize='10px'
-                    lineHeight='12px'
-                    color=' #606060'
-                    marginTop='6px'>
-                    {state.user.followers} followers
-                  </FeedText>
-                  <FeedText
-                    fontSize=' 12px'
-                    lineHeight=' 12px'
-                    color=' #606060'
-                    marginTop='6px'
-                    marginLeft='10px'>
-                    |
-                  </FeedText>
-                  <FeedText
-                    fontSize=' 10px'
-                    lineHeight=' 12px'
-                    color=' #606060'
-                    marginTop='6px'
-                    marginLeft='10px'>
-                    {state.user.likes} likes
-                  </FeedText>
-                </Container>
-              </ProfileDataContainer>
-            </Container>
-            <Separator />
-            <Container justifyContent='space-between'>
-              <Container justifyContent='center' flexDirection='column'>
-                <FeedText fontWeight='bold' fontSize='16px' color='#030f09'>
-                  {state.user.recipes.length}
-                </FeedText>
-                <FeedText fontSize='12px' color='#030f09'>
-                  Recipes
-                </FeedText>
-              </Container>
-              <Container justifyContent='center' flexDirection='column'>
-                <FeedText fontWeight='bold' fontSize='16px' color='#030f09'>
-                  {state.user.saved.length}
-                </FeedText>
-                <FeedText fontSize='12px' color='#030f09'>
-                  Saved
-                </FeedText>
-              </Container>
-              <Container justifyContent='center' flexDirection='column'>
-                <FeedText fontWeight='bold' fontSize='16px' color='#030f09'>
-                  {state.user.following}
-                </FeedText>
-                <FeedText fontSize='12px' color='#030f09'>
-                  Following
-                </FeedText>
-              </Container>
-            </Container>
-          </FeedCard>
-        )}
-        <FeedCard flexDirection='column' height='auto'>
+        {state.user.isAuthenticated && <UserInfo />}
+        <FeedCard flexDirection='column' height='auto' marginTop='20px'>
           <FeedText fontWeight='bold' fontSize='16px' color='#030f09'>
             Top 5 recipes for today
           </FeedText>

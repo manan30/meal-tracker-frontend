@@ -143,17 +143,6 @@ const ProfileDataContainer = styled.div`
   height: 72px;
 `;
 
-const Separator = styled.div`
-  flex-shrink: 0;
-
-  height: 1px;
-  width: 100%;
-  margin: 20px 0;
-
-  background-color: #e6e6e6;
-  border-radius: 0.5px;
-`;
-
 const ProfileImage = styled.img`
   width: ${props => props.width || '100%'};
   height: ${props => props.height || '70px'};
@@ -191,20 +180,6 @@ const ProfileButton = styled(Button)`
   }
 `;
 
-const NoRecipes = styled.div`
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  svg {
-    height: 128px;
-    width: 128px;
-  }
-`;
-
 export {
   Wrapper,
   SideSection,
@@ -215,11 +190,9 @@ export {
   ProfileCard,
   Container,
   ProfileDataContainer,
-  Separator,
   ProfileImage,
   ProfileButton,
   CarouselCard,
   ProfileRecipeCard,
-  ProfileRecipesContainer,
-  NoRecipes
+  ProfileRecipesContainer
 };

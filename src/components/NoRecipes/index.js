@@ -26,6 +26,7 @@ const NoRecipesText = styled(Text)`
   font-size: 21px;
   line-height: 22px;
   letter-spacing: 0.4px;
+  text-align: center;
 `;
 
 function NoRecipes({ text }) {

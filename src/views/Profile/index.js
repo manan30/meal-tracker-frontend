@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { FiEdit3, FiLogOut, FiSettings } from 'react-icons/fi';
 import Carousel from '../../components/Carousel';
 import NoRecipes from '../../components/NoRecipes';
+import UserInfo from '../../components/UserInfo';
 import { Link } from '../../GlobalStyles';
-import { useStore } from '../../Store';
 import {
   CarouselCard,
   CategoriesContainer,
@@ -12,18 +12,15 @@ import {
   MainSection,
   ProfileButton,
   ProfileCard,
-  ProfileDataContainer,
   ProfileImage,
   ProfileRecipeCard,
   ProfileRecipesContainer,
   ProfileText,
-  Separator,
   SideSection,
   Wrapper
 } from './styled';
 
 function Profile() {
-  const { state } = useStore();
   const [recipes, setRecipes] = useState([]);
   const [categories, setCategories] = useState([]);
 
@@ -44,63 +41,7 @@ function Profile() {
   return (
     <Wrapper>
       <SideSection>
-        <ProfileCard>
-          <Container>
-            <ProfileImage width='70px' />
-            <ProfileDataContainer>
-              <ProfileText fontSize='16px' color='#030F09'>
-                {`${state.user.firstName} ${state.user.lastName}`}
-              </ProfileText>
-              <ProfileText>{state.user.title}</ProfileText>
-              <Container justifyContent='flex-start'>
-                <ProfileText fontSize='10px' lineHeight='12px' marginTop='6px'>
-                  {state.user.followers} followers
-                </ProfileText>
-                <ProfileText
-                  fontSize=' 12px'
-                  lineHeight=' 12px'
-                  marginTop='6px'
-                  marginLeft='10px'>
-                  |
-                </ProfileText>
-                <ProfileText
-                  fontSize=' 10px'
-                  lineHeight=' 12px'
-                  marginTop='6px'
-                  marginLeft='10px'>
-                  {state.user.likes} likes
-                </ProfileText>
-              </Container>
-            </ProfileDataContainer>
-          </Container>
-          <Separator />
-          <Container justifyContent='space-between'>
-            <Container justifyContent='center' flexDirection='column'>
-              <ProfileText fontSize='16px' color='#030f09'>
-                {state.user.recipes.length}
-              </ProfileText>
-              <ProfileText fontSize='12px' color='#030f09'>
-                Recipes
-              </ProfileText>
-            </Container>
-            <Container justifyContent='center' flexDirection='column'>
-              <ProfileText fontSize='16px' color='#030f09'>
-                {state.user.saved.length}
-              </ProfileText>
-              <ProfileText fontSize='12px' color='#030f09'>
-                Saved
-              </ProfileText>
-            </Container>
-            <Container justifyContent='center' flexDirection='column'>
-              <ProfileText fontSize='16px' color='#030f09'>
-                {state.user.following}
-              </ProfileText>
-              <ProfileText fontSize='12px' color='#030f09'>
-                Following
-              </ProfileText>
-            </Container>
-          </Container>
-        </ProfileCard>
+        <UserInfo />
         <ProfileCard width='auto' height='auto' marginTop='20px'>
           <LineItem>
             <ProfileText marginRight='8px'>
