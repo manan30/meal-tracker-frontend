@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import Button from '../../components/Button';
 import Card from '../../components/Card';
 import Text from '../../components/Text';
@@ -52,15 +52,15 @@ const LineItem = styled.div`
 `;
 
 const ProfileText = styled(Text)`
-  margin-top: ${props => props.marginTop && props.marginTop};
-  margin-left: ${props => props.marginLeft && props.marginLeft};
-  margin-right: ${props => props.marginRight && props.marginRight};
+  margin-top: ${(props) => props.marginTop && props.marginTop};
+  margin-left: ${(props) => props.marginLeft && props.marginLeft};
+  margin-right: ${(props) => props.marginRight && props.marginRight};
 
-  font-size: ${props => props.fontSize || '14px'};
-  font-weight: ${props => props.fontWeight || 'bold'};
-  line-height: ${props => props.lineHeight || '22px'};
-  text-align: ${props => props.textAlign && props.textAlign};
-  color: ${props => props.color || '#606060'};
+  font-size: ${(props) => props.fontSize || '14px'};
+  font-weight: ${(props) => props.fontWeight || 'bold'};
+  line-height: ${(props) => props.lineHeight || '22px'};
+  text-align: ${(props) => props.textAlign && props.textAlign};
+  color: ${(props) => props.color || '#606060'};
 
   svg {
     display: flex;
@@ -72,12 +72,12 @@ const ProfileText = styled(Text)`
 const ProfileCard = styled(Card)`
   display: flex;
   flex-direction: column;
-  flex: ${props => props.flex && props.flex};
+  flex: ${(props) => props.flex && props.flex};
 
-  width: ${props => props.width || 'calc(100% - 50px)'};
-  height: ${props => props.height || '165px'};
+  width: ${(props) => props.width || 'calc(100% - 50px)'};
+  height: ${(props) => props.height || '165px'};
   padding: 25px;
-  margin-top: ${props => props.marginTop && props.marginTop};
+  margin-top: ${(props) => props.marginTop && props.marginTop};
 `;
 
 const CarouselCard = styled(ProfileCard)`
@@ -101,7 +101,7 @@ const CarouselCard = styled(ProfileCard)`
 `;
 
 const ProfileRecipesContainer = styled(Card)`
-  height: ${props => props.height || 'calc(100% - 136px)'};
+  height: ${(props) => props.height || 'calc(100% - 136px)'};
   width: calc(100% - 50px);
   margin-top: 16px;
   padding: 25px;
@@ -135,14 +135,14 @@ const ProfileRecipeCardContainer = styled.div`
 
 const Container = styled.div`
   display: flex;
-  flex-direction: ${props => props.flexDirection && props.flexDirection};
-  justify-content: ${props => props.justifyContent && props.justifyContent};
+  flex-direction: ${(props) => props.flexDirection && props.flexDirection};
+  justify-content: ${(props) => props.justifyContent && props.justifyContent};
   align-items: center;
   flex-basis: auto;
 
-  margin-left: ${props => props.marginLeft && props.marginLeft};
-  margin-top: ${props => props.marginTop && props.marginTop};
-  padding: ${props => props.padding && props.padding};
+  margin-left: ${(props) => props.marginLeft && props.marginLeft};
+  margin-top: ${(props) => props.marginTop && props.marginTop};
+  padding: ${(props) => props.padding && props.padding};
 `;
 
 const ProfileDataContainer = styled.div`
@@ -156,12 +156,12 @@ const ProfileDataContainer = styled.div`
 `;
 
 const ProfileImage = styled.img`
-  width: ${props => props.width || '100%'};
-  height: ${props => props.height || '70px'};
+  width: ${(props) => props.width || '100%'};
+  height: ${(props) => props.height || '70px'};
 
   border: none;
   border-radius: 8px 8px 0 0;
-  background-color: ${props => props.backgroundColor || '#606060'};
+  background-color: ${(props) => props.backgroundColor || '#606060'};
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -169,22 +169,22 @@ const ProfileImage = styled.img`
 
 const ProfileButton = styled(Button)`
   flex-basis: auto;
-  flex-grow: ${props => props.flexGrow || '0'};
+  flex-grow: ${(props) => props.flexGrow || '0'};
   flex-shrink: 0;
 
-  height: ${props => props.height && props.height};
-  width: ${props => props.width && props.width};
+  height: ${(props) => props.height && props.height};
+  width: ${(props) => props.width && props.width};
   margin: 0 0 0 auto;
   padding: 0;
 
   font-style: normal;
   font-weight: bold;
-  font-size: ${props => props.fontSize || '16px'};
+  font-size: ${(props) => props.fontSize || '16px'};
   line-height: 22px;
   text-align: center;
 
-  border-radius: ${props => props.borderRadius || '4px'};
-  border: ${props => props.border && props.border};
+  border-radius: ${(props) => props.borderRadius || '4px'};
+  border: ${(props) => props.border && props.border};
 
   :hover {
     background-color: #30be76;
@@ -207,5 +207,5 @@ export {
   CarouselCard,
   ProfileRecipeCard,
   ProfileRecipesContainer,
-  ProfileRecipeCardContainer
+  ProfileRecipeCardContainer,
 };

@@ -9,6 +9,7 @@ import InfiniteScroll from '../../components/InfiniteScroll';
 import Modal from '../../components/Modal';
 import NoRecipes from '../../components/NoRecipes';
 import Spinner from '../../components/Spinner';
+import UserInfo from '../../components/UserInfo';
 import { Link } from '../../GlobalStyles';
 import { useStore } from '../../Store';
 import { parseDate } from '../../utils/CommonFunctions';
@@ -21,13 +22,10 @@ import {
   FeedText,
   Icon,
   MainSection,
-  ProfileDataContainer,
   RecipesList,
-  Separator,
   SideSection,
   Wrapper,
 } from './styled';
-import UserInfo from '../../components/UserInfo';
 
 function RecipeListCard({ user, recipe }) {
   const { state } = useStore();

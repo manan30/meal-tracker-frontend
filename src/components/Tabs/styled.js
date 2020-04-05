@@ -17,7 +17,7 @@ const TabText = styled.div`
   width: 100%;
   text-align: center;
   padding-bottom: 5px;
-  color: ${(props) => (props.color ? '#30be76' : '#606060')};
+  color: ${(props) => props.color && props.color};
 
   /* border-bottom: ${(props) => props.active && '2px solid #30be76'}; */
 

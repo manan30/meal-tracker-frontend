@@ -12,10 +12,10 @@ function TabsPanel({ tabs }) {
       {tabs.map((tab, idx) => {
         const key = idx;
         return (
-          <div style={{ width }}>
+          <div key={key} style={{ width }}>
             <TabText
               key={key}
-              color={activeTab[key]}
+              color={activeTab[key] ? '#30be76' : '#606060'}
               onClick={() => handleActiveTab(key)}>
               {tab}
             </TabText>

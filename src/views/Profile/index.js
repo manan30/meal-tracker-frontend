@@ -1,9 +1,12 @@
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { FiEdit3, FiLogOut, FiSettings } from 'react-icons/fi';
 import Carousel from '../../components/Carousel';
 import NoRecipes from '../../components/NoRecipes';
+import Tabs from '../../components/Tabs';
 import UserInfo from '../../components/UserInfo';
 import { Link } from '../../GlobalStyles';
+import useWindowSize from '../../hooks/useWindowSize';
 import {
   CarouselCard,
   CategoriesContainer,
@@ -14,17 +17,97 @@ import {
   ProfileCard,
   ProfileImage,
   ProfileRecipeCard,
+  ProfileRecipeCardContainer,
   ProfileRecipesContainer,
   ProfileText,
   SideSection,
   Wrapper,
-  ProfileRecipeCardContainer,
 } from './styled';
-import Tabs from '../../components/Tabs';
+
+function DesktopProfileView({ categories, recipes }) {
+  return (
+    <>
+      <Container>
+        <ProfileText fontSize='32px' lineHeight='32px' color='#030f09'>
+          My Recipes
+        </ProfileText>
+        <ProfileButton>+ Add New</ProfileButton>
+      </Container>
+      {categories.length > 0 && (
+        <CategoriesContainer>
+          <Carousel>
+            {categories.map((category, i) => {
+              const key = i;
+              return (
+                <CarouselCard key={key}>
+                  <ProfileImage height='105px' image={category.image} />
+                  <ProfileText
+                    fontWeight='normal'
+                    fontSize=' 16px'
+                    textAlign='center'
+                    color='#030F09'>
+                    {category.name || 'ABCD'}
+                  </ProfileText>
+                </CarouselCard>
+              );
+            })}
+          </Carousel>
+        </CategoriesContainer>
+      )}
+      <ProfileRecipesContainer
+        height={categories.length > 0 && 'calc(100% - 310px)'}>
+        {recipes.length > 0 ? (
+          recipes.map((recipe, i) => {
+            const key = i;
+            return (
+              <ProfileRecipeCardContainer key={key}>
+                <ProfileRecipeCard>
+                  <ProfileImage height='220px' image={recipe.image} />
+                  <div style={{ height: '60px', padding: '10px 20px' }}>
+                    <ProfileText
+                      marginLeft='2px'
+                      fontWeight='600'
+                      fontSize='18px'
+                      color='#030F09'>
+                      {recipe.name}
+                    </ProfileText>
+                    <Container marginTop='4px'>
+                      <ProfileText fontWeight='normal'>
+                        {recipe.mins && `${recipe.mins || 0} mins`}
+                      </ProfileText>
+                      <ProfileText marginLeft='12px' fontWeight='normal'>
+                        {recipe.ingredients &&
+                          `${recipe.ingredients || 0} ingredients`}
+                      </ProfileText>
+                      <Link to={`/recipe/${recipe.id}`} margin-left='auto'>
+                        <ProfileButton
+                          height='26px'
+                          width='96px'
+                          fontSize='14px'
+                          borderRadius='4px'
+                          border='1px solid #30be76'>
+                          View
+                        </ProfileButton>
+                      </Link>
+                    </Container>
+                  </div>
+                </ProfileRecipeCard>
+              </ProfileRecipeCardContainer>
+            );
+          })
+        ) : (
+          <NoRecipes text="No Recipes Found. Let's start by adding one" />
+        )}
+      </ProfileRecipesContainer>
+      ;
+    </>
+  );
+}
 
 function Profile() {
   const [recipes, setRecipes] = useState([1, 1, 1, 1, 1]);
   const [categories, setCategories] = useState([1, 1, 1, 1, 1]);
+  const { width } = useWindowSize();
 
   // useEffect(() => {
   //   (async () => {
@@ -72,89 +155,24 @@ function Profile() {
         </ProfileCard>
       </SideSection>
       <MainSection>
-        <Tabs tabs={['Recipes', 'Saved', 'Following']} />
+        {width < 1024 ? (
+          <Tabs tabs={['Recipes', 'Saved', 'Following']} />
+        ) : (
+          <DesktopProfileView categories={categories} recipes={recipes} />
+        )}
       </MainSection>
     </Wrapper>
   );
 }
 
+DesktopProfileView.propTypes = {
+  categories: PropTypes.arrayOf(PropTypes.any),
+  recipes: PropTypes.arrayOf(PropTypes.any),
+};
+
+DesktopProfileView.defaultProps = {
+  categories: [],
+  recipes: [],
+};
+
 export default Profile;
-
-/* <Container>
-  <ProfileText fontSize='32px' lineHeight='32px' color='#030f09'>
-    My Recipes
-  </ProfileText>
-  <ProfileButton>+ Add New</ProfileButton>
-</Container>;
-{
-  categories.length > 0 && (
-    <CategoriesContainer>
-      <Carousel>
-        {categories.map((category, i) => { */
-
-/* {new Array(10).fill(0).map((category, i) => { */
-//           const key = i;
-//           return (
-//             <CarouselCard key={key}>
-//               <ProfileImage height='105px' image={category.image} />
-//               <ProfileText
-//                 fontWeight='normal'
-//                 fontSize=' 16px'
-//                 textAlign='center'
-//                 color='#030F09'>
-//                 {category.name || 'ABCD'}
-//               </ProfileText>
-//             </CarouselCard>
-//           );
-//         })}
-//       </Carousel>
-//     </CategoriesContainer>
-//   );
-// }
-
-/* <ProfileRecipesContainer height={categories.length > 0 && 'calc(100% - 310px)'}>
-  {recipes.length > 0 ? (
-    recipes.map((recipe, i) => { */
-
-/* {new Array(16).fill(0).map((recipe, i) => { */
-//       const key = i;
-//       return (
-//         <ProfileRecipeCardContainer key={key}>
-//           <ProfileRecipeCard>
-//             <ProfileImage height='220px' image={recipe.image} />
-//             <div style={{ height: '60px', padding: '10px 20px' }}>
-//               <ProfileText
-//                 marginLeft='2px'
-//                 fontWeight='600'
-//                 fontSize='18px'
-//                 color='#030F09'>
-//                 {recipe.name}
-//               </ProfileText>
-//               <Container marginTop='4px'>
-//                 <ProfileText fontWeight='normal'>
-//                   {recipe.mins && `${recipe.mins || 0} mins`}
-//                 </ProfileText>
-//                 <ProfileText marginLeft='12px' fontWeight='normal'>
-//                   {recipe.ingredients &&
-//                     `${recipe.ingredients || 0} ingredients`}
-//                 </ProfileText>
-//                 <Link to={`/recipe/${recipe.id}`} margin-left='auto'>
-//                   <ProfileButton
-//                     height='26px'
-//                     width='96px'
-//                     fontSize='14px'
-//                     borderRadius='4px'
-//                     border='1px solid #30be76'>
-//                     View
-//                   </ProfileButton>
-//                 </Link>
-//               </Container>
-//             </div>
-//           </ProfileRecipeCard>
-//         </ProfileRecipeCardContainer>
-//       );
-//     })
-//   ) : (
-//     <NoRecipes text="No Recipes Found. Let's start by adding one" />
-//   )}
-// </ProfileRecipesContainer>;
