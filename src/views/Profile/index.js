@@ -18,9 +18,9 @@ import {
   ProfileText,
   SideSection,
   Wrapper,
-  ProfileRecipeCardContainer
+  ProfileRecipeCardContainer,
 } from './styled';
-import TabLayout from '../../components/TabLayout';
+import Tabs from '../../components/Tabs';
 
 function Profile() {
   const [recipes, setRecipes] = useState([1, 1, 1, 1, 1]);
@@ -44,7 +44,7 @@ function Profile() {
     <Wrapper>
       <SideSection>
         <UserInfo />
-        <ProfileCard width='auto' height='auto' marginTop='20px'>
+        <ProfileCard width='auto' height='auto'>
           <LineItem>
             <ProfileText marginRight='8px'>
               <FiEdit3 />
@@ -72,7 +72,7 @@ function Profile() {
         </ProfileCard>
       </SideSection>
       <MainSection>
-        <TabLayout tabs={['Manan', 'Joshi', 'ABCD']} />
+        <Tabs tabs={['Recipes', 'Saved', 'Following']} />
       </MainSection>
     </Wrapper>
   );

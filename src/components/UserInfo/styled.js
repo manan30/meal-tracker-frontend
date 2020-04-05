@@ -9,12 +9,13 @@ const UserInfoCard = styled(Card)`
   width: calc(100% - 50px);
   height: 165px;
   padding: 25px;
+  margin-bottom: 20px;
 `;
 
 const UserInfoContainer = styled.div`
   display: flex;
-  flex-direction: ${props => props.flexDirection || 'column'};
-  justify-content: ${props => props.justifyContent || 'center'};
+  flex-direction: ${(props) => props.flexDirection || 'column'};
+  justify-content: ${(props) => props.justifyContent || 'center'};
   align-items: center;
   flex-basis: auto;
 `;
@@ -23,7 +24,7 @@ const UserProfileImage = styled.img`
   width: 70px;
   height: 70px;
 
-  background: url(${props => props.src && props.src});
+  background: url(${(props) => props.src && props.src});
   border: none;
   border-radius: 50%;
   background-color: #606060;
@@ -43,15 +44,15 @@ const UserInfoDataContainer = styled.div`
 `;
 
 const UserInfoText = styled(Text)`
-  margin-top: ${props => props.marginTop && props.marginTop};
-  margin-left: ${props => props.marginLeft && props.marginLeft};
-  margin-right: ${props => props.marginRight && props.marginRight};
+  margin-top: ${(props) => props.marginTop && props.marginTop};
+  margin-left: ${(props) => props.marginLeft && props.marginLeft};
+  margin-right: ${(props) => props.marginRight && props.marginRight};
 
-  font-size: ${props => props.fontSize || '16px'};
-  font-weight: ${props => props.fontWeight || 'normal'};
-  line-height: ${props => props.lineHeight || '22px'};
-  text-align: ${props => props.textAlign && props.textAlign};
-  color: ${props => props.color || '#030f09'};
+  font-size: ${(props) => props.fontSize || '16px'};
+  font-weight: ${(props) => props.fontWeight || 'normal'};
+  line-height: ${(props) => props.lineHeight || '22px'};
+  text-align: ${(props) => props.textAlign && props.textAlign};
+  color: ${(props) => props.color || '#030f09'};
 
   svg {
     display: flex;
@@ -77,5 +78,5 @@ export {
   UserProfileImage,
   UserInfoDataContainer,
   UserInfoText,
-  Separator
+  Separator,
 };

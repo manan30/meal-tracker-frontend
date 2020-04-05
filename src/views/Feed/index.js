@@ -25,7 +25,7 @@ import {
   RecipesList,
   Separator,
   SideSection,
-  Wrapper
+  Wrapper,
 } from './styled';
 import UserInfo from '../../components/UserInfo';
 
@@ -34,7 +34,7 @@ function RecipeListCard({ user, recipe }) {
   const [showModal, setShowModal] = useState(false);
 
   function handleModalToggle() {
-    setShowModal(prevState => !prevState);
+    setShowModal((prevState) => !prevState);
   }
 
   return (
@@ -214,7 +214,7 @@ function Feed() {
     (async function fetch() {
       try {
         const { data } = await getFeedRecipes(1);
-        setFeed(prevState => ({ ...prevState, feedRecipes: data.data }));
+        setFeed((prevState) => ({ ...prevState, feedRecipes: data.data }));
       } catch (err) {
         console.log(err);
       }
@@ -225,7 +225,7 @@ function Feed() {
     <Wrapper>
       <SideSection marginRight='20px'>
         {state.user.isAuthenticated && <UserInfo />}
-        <FeedCard flexDirection='column' height='auto' marginTop='20px'>
+        <FeedCard flexDirection='column' height='auto'>
           <FeedText fontWeight='bold' fontSize='16px' color='#030f09'>
             Top 5 recipes for today
           </FeedText>
@@ -268,7 +268,12 @@ function Feed() {
             </FeedButton>
           </FeedCard>
         )}
-        <RecipesList>
+        <RecipesList
+          height={
+            state.user.isAuthenticated
+              ? 'calc(100% - 150px)'
+              : 'calc(100% - 50px)'
+          }>
           {feed.feedRecipes.results && feed.feedRecipes.results.length > 0 ? (
             <InfiniteScroll
               initialItems={feed.feedRecipes}
@@ -320,12 +325,12 @@ function Feed() {
 
 RecipeListCard.propTypes = {
   user: PropTypes.objectOf(PropTypes.any),
-  recipe: PropTypes.objectOf(PropTypes.any)
+  recipe: PropTypes.objectOf(PropTypes.any),
 };
 
 RecipeListCard.defaultProps = {
   user: {},
-  recipe: {}
+  recipe: {},
 };
 
 export default Feed;

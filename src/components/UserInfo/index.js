@@ -6,7 +6,7 @@ import {
   UserInfoDataContainer,
   UserInfoText,
   UserProfileImage,
-  Separator
+  Separator,
 } from './styled';
 
 function UserInfo() {
