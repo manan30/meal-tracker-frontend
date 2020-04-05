@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TabsTextContainer, TabText, TabHighlighter } from './styled';
-import useTabHighlighter from '../../hooks/useTabHighlighter';
 
-function TabsPanel({ tabs }) {
+function TabsPanel({ tabs, activeTab, handleActiveTab }) {
   const width = `${(tabs.length / 4) * 100}%`;
-  const { activeTab, handleActiveTab } = useTabHighlighter(tabs.length);
 
   return (
     <TabsTextContainer>
@@ -29,6 +27,8 @@ function TabsPanel({ tabs }) {
 
 TabsPanel.propTypes = {
   tabs: PropTypes.arrayOf(PropTypes.string).isRequired,
+  activeTab: PropTypes.arrayOf(PropTypes.bool).isRequired,
+  handleActiveTab: PropTypes.func.isRequired,
 };
 
 export default TabsPanel;

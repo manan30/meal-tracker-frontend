@@ -10,6 +10,13 @@ const UserInfoCard = styled(Card)`
   height: 165px;
   padding: 25px;
   margin-bottom: 20px;
+
+  @media screen and (max-width: 1024px) {
+    height: auto;
+    margin-bottom: 0;
+    padding: 0 25px;
+    box-shadow: none;
+  }
 `;
 
 const UserInfoContainer = styled.div`

@@ -156,7 +156,16 @@ function Profile() {
       </SideSection>
       <MainSection>
         {width < 1024 ? (
-          <Tabs tabs={['Recipes', 'Saved', 'Following']} />
+          <>
+            <UserInfo />
+            <Tabs
+              tabs={[
+                { tag: 'Recipes', component: <>Recipes</> },
+                { tag: 'Saved', component: <>Saved</> },
+                { tag: 'Following', component: <>Following</> },
+              ]}
+            />
+          </>
         ) : (
           <DesktopProfileView categories={categories} recipes={recipes} />
         )}

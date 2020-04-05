@@ -8,9 +8,11 @@ import {
   UserProfileImage,
   Separator,
 } from './styled';
+import useWindowSize from '../../hooks/useWindowSize';
 
 function UserInfo() {
   const { state } = useStore();
+  const { width } = useWindowSize();
 
   return (
     <UserInfoCard>
@@ -51,24 +53,28 @@ function UserInfo() {
         </UserInfoDataContainer>
       </UserInfoContainer>
       <Separator />
-      <UserInfoContainer flexDirection='row' justifyContent='space-between'>
-        <UserInfoContainer>
-          <UserInfoText fontWeight='bold'>
-            {state.user.recipes.length}
-          </UserInfoText>
-          <UserInfoText fontSize='12px'>Recipes</UserInfoText>
+      {width > 1024 && (
+        <UserInfoContainer flexDirection='row' justifyContent='space-between'>
+          <UserInfoContainer>
+            <UserInfoText fontWeight='bold'>
+              {state.user.recipes.length}
+            </UserInfoText>
+            <UserInfoText fontSize='12px'>Recipes</UserInfoText>
+          </UserInfoContainer>
+          <UserInfoContainer>
+            <UserInfoText fontWeight='bold'>
+              {state.user.saved.length}
+            </UserInfoText>
+            <UserInfoText fontSize='12px'>Saved</UserInfoText>
+          </UserInfoContainer>
+          <UserInfoContainer>
+            <UserInfoText fontWeight='bold'>
+              {state.user.following}
+            </UserInfoText>
+            <UserInfoText fontSize='12px'>Following</UserInfoText>
+          </UserInfoContainer>
         </UserInfoContainer>
-        <UserInfoContainer>
-          <UserInfoText fontWeight='bold'>
-            {state.user.saved.length}
-          </UserInfoText>
-          <UserInfoText fontSize='12px'>Saved</UserInfoText>
-        </UserInfoContainer>
-        <UserInfoContainer>
-          <UserInfoText fontWeight='bold'>{state.user.following}</UserInfoText>
-          <UserInfoText fontSize='12px'>Following</UserInfoText>
-        </UserInfoContainer>
-      </UserInfoContainer>
+      )}
     </UserInfoCard>
   );
 }

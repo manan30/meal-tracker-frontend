@@ -5,7 +5,7 @@ const StoreContext = createContext();
 
 const initialState = JSON.parse(localStorage.getItem('store')) || {
   user: { isAuthenticated: false },
-  feed: { topRecipes: [], feedRecipes: [] }
+  feed: { topRecipes: [], feedRecipes: [] },
 };
 
 const reducer = (state, action) => {
@@ -15,8 +15,8 @@ const reducer = (state, action) => {
         topRecipes: action.payload.topRecipes || [],
         feedRecipes: [
           ...state.feed.feedRecipes,
-          ...(action.payload.feedRecipes || [])
-        ]
+          ...(action.payload.feedRecipes || []),
+        ],
       };
       return { ...state, feed };
     }
@@ -25,7 +25,7 @@ const reducer = (state, action) => {
       const { user: storedUser } = state;
       const newState = {
         ...state,
-        user: { ...storedUser, ...user, isAuthenticated: true }
+        user: { ...storedUser, ...user, isAuthenticated: true },
       };
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('store', JSON.stringify(newState));
@@ -49,11 +49,11 @@ export const StoreProvider = ({ children }) => {
 };
 
 StoreProvider.propTypes = {
-  children: PropTypes.objectOf(PropTypes.any)
+  children: PropTypes.objectOf(PropTypes.any),
 };
 
 StoreProvider.defaultProps = {
-  children: {}
+  children: {},
 };
 
 export const useStore = () => useContext(StoreContext);

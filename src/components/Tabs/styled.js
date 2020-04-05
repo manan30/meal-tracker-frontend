@@ -5,7 +5,6 @@ const TabLayoutContainer = styled.div`
   width: 100%;
 
   background: #ffffff;
-  border-radius: 8px 8px 0 0;
 `;
 
 const TabsTextContainer = styled.div`

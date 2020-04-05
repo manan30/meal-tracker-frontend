@@ -16,7 +16,7 @@ export default createGlobalStyle`
     background-color: #f2f2f2;
     font-family: 'Nunito Sans', sans-serif;
 
-    @media screen and (max-width: 767px){
+    @media screen and (max-width: 1024px){
       background-color: #ffffff;
     }
   }
@@ -35,11 +35,11 @@ const Link = styled(anchor)`
   text-decoration: none;
 
   :link {
-    color: ${props => props.color && props.color};
+    color: ${(props) => props.color && props.color};
   }
 
   :visited {
-    color: ${props => props.visitedColor || '#363837'};
+    color: ${(props) => props.visitedColor || '#363837'};
   }
 
   ${({ children, ...rest }) => rest}
