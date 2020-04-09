@@ -23,7 +23,7 @@ function InfiniteScroll({
   itemComponent: Component,
   itemComponentProps,
   loadingComponent,
-  callback
+  callback,
 }) {
   const { details, loading, loadingElementRef } = useInfiniteScroll(
     callback,
@@ -54,7 +54,7 @@ InfiniteScroll.propTypes = {
   itemComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
   itemComponentProps: PropTypes.arrayOf(PropTypes.string),
   loadingComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
-  callback: PropTypes.func
+  callback: PropTypes.func,
 };
 
 InfiniteScroll.defaultProps = {
@@ -62,7 +62,7 @@ InfiniteScroll.defaultProps = {
   itemComponent: <> </>,
   itemComponentProps: [],
   loadingComponent: <> </>,
-  callback: () => console.log()
+  callback: () => console.log(),
 };
 
 export default InfiniteScroll;

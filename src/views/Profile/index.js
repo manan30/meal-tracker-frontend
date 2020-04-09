@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React from 'react';
 import { FiEdit3, FiLogOut, FiSettings } from 'react-icons/fi';
+import { useHistory } from 'react-router-dom';
 import Carousel from '../../components/Carousel';
 import NoRecipes from '../../components/NoRecipes';
 import Tabs from '../../components/Tabs';
 import UserInfo from '../../components/UserInfo';
 import { Link } from '../../GlobalStyles';
 import useWindowSize from '../../hooks/useWindowSize';
+import { useStore } from '../../Store';
 import {
   CarouselCard,
   CategoriesContainer,
@@ -23,6 +25,7 @@ import {
   SideSection,
   Wrapper,
 } from './styled';
+import { handleLogout } from '../../utils/CommonFunctions';
 
 function DesktopProfileView({ categories, recipes }) {
   return (
@@ -55,7 +58,9 @@ function DesktopProfileView({ categories, recipes }) {
         </CategoriesContainer>
       )}
       <ProfileRecipesContainer
-        height={categories.length > 0 && 'calc(100% - 310px)'}>
+        height={
+          categories.length > 0 ? 'calc(100% - 310px)' : 'calc(100% - 136px)'
+        }>
         {recipes.length > 0 ? (
           recipes.map((recipe, i) => {
             const key = i;
@@ -105,23 +110,12 @@ function DesktopProfileView({ categories, recipes }) {
 }
 
 function Profile() {
-  const [recipes, setRecipes] = useState([1, 1, 1, 1, 1]);
-  const [categories, setCategories] = useState([1, 1, 1, 1, 1]);
+  const {
+    state: { user },
+    dispatch,
+  } = useStore();
+  const history = useHistory();
   const { width } = useWindowSize();
-
-  // useEffect(() => {
-  //   (async () => {
-  //     const { data } = await getRecipes();
-  //     setRecipes(prevState => [...prevState, ...data]);
-  //   })();
-  // }, []);
-
-  // useEffect(() => {
-  //   (async () => {
-  //     const { data } = await getCategories();
-  //     setCategories(prevState => [...prevState, ...data]);
-  //   })();
-  // }, []);
 
   return (
     <Wrapper>
@@ -144,7 +138,7 @@ function Profile() {
               Settings
             </ProfileText>
           </LineItem>
-          <LineItem>
+          <LineItem onClick={() => handleLogout(history, dispatch)}>
             <ProfileText marginRight='8px'>
               <FiLogOut />
             </ProfileText>
@@ -167,7 +161,10 @@ function Profile() {
             />
           </>
         ) : (
-          <DesktopProfileView categories={categories} recipes={recipes} />
+          <DesktopProfileView
+            categories={user.categories || []}
+            recipes={user.recipes}
+          />
         )}
       </MainSection>
     </Wrapper>

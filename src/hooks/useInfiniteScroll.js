@@ -5,17 +5,17 @@ export default function useInfiniteScroll(callback, initialItems) {
   const [loading, setLoading] = useState(true);
   const [details, setDetails] = useState({ ...initialItems });
 
-  const observerCallback = async entry => {
+  const observerCallback = async (entry) => {
     if (entry[0].isIntersecting) {
       setLoading(() => true);
       try {
         if (details.hasMore) {
           const {
-            data: { data }
+            data: { data },
           } = await callback(details.next.page);
-          setDetails(prevState => ({
+          setDetails((prevState) => ({
             ...data,
-            results: [...prevState.results, ...data.results]
+            results: [...prevState.results, ...data.results],
           }));
         }
       } catch (err) {
@@ -27,7 +27,7 @@ export default function useInfiniteScroll(callback, initialItems) {
 
   const observer = useRef(
     new IntersectionObserver(observerCallback, {
-      threshold: 1
+      threshold: 1,
     })
   );
 

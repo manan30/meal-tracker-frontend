@@ -31,6 +31,9 @@ const reducer = (state, action) => {
       localStorage.setItem('store', JSON.stringify(newState));
       return newState;
     }
+    case 'RESET': {
+      return initialState;
+    }
     case 'ERROR':
       return { ...state };
     default:

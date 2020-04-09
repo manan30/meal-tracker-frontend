@@ -5,7 +5,7 @@ const dateStructure = {
   day: 86400,
   hour: 3600,
   minute: 60,
-  second: 1
+  second: 1,
 };
 
 // eslint-disable-next-line import/prefer-default-export
@@ -17,7 +17,7 @@ export function parseDate(date) {
 
   const res = {};
 
-  Object.keys(dateStructure).forEach(key => {
+  Object.keys(dateStructure).forEach((key) => {
     res[key] = Math.floor(difference / dateStructure[key]);
     difference -= res[key] * dateStructure[key];
   });
@@ -47,4 +47,15 @@ export function parseDate(date) {
   }
 
   return '';
+}
+
+export function handleLogout(history, dispatch) {
+  try {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('store');
+    history.push('/');
+    dispatch({ type: 'RESET' });
+  } catch (e) {
+    console.log(e);
+  }
 }

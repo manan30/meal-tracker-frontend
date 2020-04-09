@@ -13,7 +13,7 @@ import {
   OnboardingButton,
   OnboardingText,
   Snackbar,
-  Wrapper
+  Wrapper,
 } from './styled';
 
 function ErrorComponent({ errors, compareKey }) {
@@ -46,24 +46,24 @@ function Onboarding() {
   const [inputs, setInputs] = useState({
     name: '',
     email: '',
-    password: ''
+    password: '',
   });
 
   function handleInputChange(e, type) {
     e.persist();
     if (type === 'name') {
-      setInputs(prevState => {
+      setInputs((prevState) => {
         return { ...prevState, name: e.target.value };
       });
     } else if (type === 'email') {
-      setInputs(prevState => {
+      setInputs((prevState) => {
         return { ...prevState, email: e.target.value };
       });
     } else {
-      setInputs(prevState => {
+      setInputs((prevState) => {
         const { password } = { ...prevState, password: e.target.value };
 
-        setRequirements(oldState => {
+        setRequirements((oldState) => {
           const pwrState = oldState;
 
           if (/[A-Z]/.test(password)) pwrState[0] = [pwrState[0][0], true];
@@ -93,7 +93,7 @@ function Onboarding() {
 
   function handleFocus() {
     if (path === 'login') return;
-    setShowPwRequirements(prevState => !prevState);
+    setShowPwRequirements((prevState) => !prevState);
   }
 
   async function handleSubmit() {
@@ -114,16 +114,16 @@ function Onboarding() {
           path === 'login'
             ? await loginUser({
                 email: inputs.email,
-                password: inputs.password
+                password: inputs.password,
               })
             : await createUser({
                 firstName,
                 lastName: lastNameSanitized,
                 email: inputs.email,
-                password: inputs.password
+                password: inputs.password,
               });
         if (status === 201 || status === 200) {
-          // setAuthenticating(() => false);
+          setAuthenticating(() => false);
           dispatch({ type: 'USER_ONBOARD', payload: data.data });
         }
       } catch (err) {
@@ -134,8 +134,8 @@ function Onboarding() {
             return [
               {
                 errorFor: 'all',
-                errorValue: 'API not available'
-              }
+                errorValue: 'API not available',
+              },
             ];
           });
           return;
@@ -148,8 +148,8 @@ function Onboarding() {
             return [
               {
                 errorFor: 'email',
-                errorValue: data && data.data && data.data
-              }
+                errorValue: data && data.data && data.data,
+              },
             ];
           });
           return;
@@ -161,8 +161,8 @@ function Onboarding() {
           return [
             {
               errorFor: 'all',
-              errorValue: data && data.data && data.data
-            }
+              errorValue: data && data.data && data.data,
+            },
           ];
         });
         // }
@@ -223,7 +223,7 @@ function Onboarding() {
                   showErrors.find(({ errorFor }) => errorFor === 'name') &&
                   '#ff0000'
                 }
-                onChange={e => handleInputChange(e, 'name')}
+                onChange={(e) => handleInputChange(e, 'name')}
                 disabled={authenticating}
               />
               <ErrorComponent errors={showErrors} compareKey='name' />
@@ -243,7 +243,7 @@ function Onboarding() {
               showErrors.find(({ errorFor }) => errorFor === 'email') &&
               '#ff0000'
             }
-            onChange={e => handleInputChange(e, 'email')}
+            onChange={(e) => handleInputChange(e, 'email')}
             disabled={authenticating}
           />
           <ErrorComponent errors={showErrors} compareKey='email' />
@@ -261,7 +261,7 @@ function Onboarding() {
               showErrors.find(({ errorFor }) => errorFor === 'password') &&
               '#ff0000'
             }
-            onChange={e => handleInputChange(e, 'password')}
+            onChange={(e) => handleInputChange(e, 'password')}
             onFocus={handleFocus}
             onBlur={handleFocus}
             disabled={authenticating}
@@ -304,16 +304,16 @@ ErrorComponent.propTypes = {
       errorFor: PropTypes.string,
       errorValue: PropTypes.oneOfType([
         PropTypes.string,
-        PropTypes.arrayOf(PropTypes.string)
-      ])
+        PropTypes.arrayOf(PropTypes.string),
+      ]),
     })
   ),
-  compareKey: PropTypes.string
+  compareKey: PropTypes.string,
 };
 
 ErrorComponent.defaultProps = {
   errors: [],
-  compareKey: ''
+  compareKey: '',
 };
 
 // TODO: Autofocus input field

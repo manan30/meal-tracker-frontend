@@ -101,7 +101,7 @@ const CarouselCard = styled(ProfileCard)`
 `;
 
 const ProfileRecipesContainer = styled(Card)`
-  height: ${(props) => props.height || 'calc(100% - 136px)'};
+  height: ${(props) => props.height};
   width: calc(100% - 50px);
   margin-top: 16px;
   padding: 25px;

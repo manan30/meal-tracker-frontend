@@ -6,7 +6,7 @@ function AuthenticatedRoute({ component: Component, authentication, ...rest }) {
   return (
     <Route
       {...rest}
-      render={props =>
+      render={(props) =>
         authentication ? <Component {...props} /> : <Redirect to='/login' />
       }
     />
@@ -15,7 +15,7 @@ function AuthenticatedRoute({ component: Component, authentication, ...rest }) {
 
 AuthenticatedRoute.propTypes = {
   component: PropTypes.elementType.isRequired,
-  authentication: PropTypes.bool.isRequired
+  authentication: PropTypes.bool.isRequired,
 };
 
 export default AuthenticatedRoute;
