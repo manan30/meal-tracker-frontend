@@ -6,6 +6,7 @@ import AuthenticatedRoute from './utils/AuthenticatedRoute';
 import FeedView from './views/Feed';
 import OnboardingView from './views/Onboarding';
 import ProfileView from './views/Profile';
+import RecipePreviewView from './views/RecipePreview';
 
 function RouterComponent() {
   const { state } = useStore();
@@ -23,6 +24,7 @@ function RouterComponent() {
             authentication={state.user.isAuthenticated}
             exact
           />
+          <Route path='/recipe/:id' exact component={RecipePreviewView} />
           <Route path='/' exact component={FeedView} />
         </>
       </Switch>

@@ -1,35 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { useParams } from 'react-router-dom';
+import { getRecipe } from '../../api/Recipe';
 import Button from '../../components/Button';
 import CardContainer from '../../components/Card/styled';
 import Text from '../../components/Text';
-import { getRecipe } from '../../api/Recipe';
+import useAPI from '../../hooks/useAPI';
 import {
   Content,
   Image,
   ImagesContainer,
   MainSection,
   SideSection,
-  Wrapper
+  Wrapper,
 } from './styled';
 
 function RecipePreview() {
   const { id } = useParams();
-  const [recipeDetails, setRecipeDetails] = useState({});
-
-  useEffect(() => {
-    (async () => {
-      const { data } = await getRecipe(id);
-      setRecipeDetails(prevState => {
-        return { ...prevState, ...data };
-      });
-    })();
-  }, [id]);
+  const callback = useCallback(() => getRecipe(id), [id]);
+  const { data: recipeDetails, error } = useAPI(callback);
 
   return (
     (Object.keys(recipeDetails).length !== 0 && (
       <Wrapper>
-        <SideSection>
+        {/* <SideSection>
           <CardContainer
             display='flex'
             width='calc(100% - 20px)'
@@ -57,7 +50,7 @@ function RecipePreview() {
               </ImagesContainer>
             </Content>
           </CardContainer>
-        </SideSection>
+        </SideSection> */}
         <MainSection>
           <CardContainer
             display='flex'
@@ -70,7 +63,7 @@ function RecipePreview() {
                 style={{
                   display: 'flex',
                   flexDirection: 'row',
-                  alignItems: 'center'
+                  alignItems: 'center',
                 }}>
                 <Text
                   width='60%'
@@ -105,7 +98,7 @@ function RecipePreview() {
                   backgroundColor: '#E6E6E6',
                   borderRadius: '0.5px',
                   marginTop: '30px',
-                  marginBottom: '10px'
+                  marginBottom: '10px',
                 }}
               />
               <Text
@@ -121,12 +114,12 @@ function RecipePreview() {
                 overflow='scroll'
                 width='100%'
                 height='calc(100% - 90px)'>
-                <div
+                {/* <div
                   style={{
                     display: 'flex',
                     flexDirection: 'row',
                     flexWrap: 'wrap',
-                    marginTop: '10px'
+                    marginTop: '10px',
                   }}>
                   {recipeDetails.ingredients.map((ingredient, i) => {
                     const key = i;
@@ -145,7 +138,7 @@ function RecipePreview() {
                       </Text>
                     );
                   })}
-                </div>
+                </div> */}
               </Content>
             </Content>
           </CardContainer>
@@ -165,7 +158,7 @@ function RecipePreview() {
                 margin-bottom='16px'>
                 How to cook
               </Text>
-              <Content
+              {/* <Content
                 margin='0'
                 overflow='scroll'
                 width='100%'
@@ -178,7 +171,7 @@ function RecipePreview() {
                       style={{
                         display: 'flex',
                         direction: 'row',
-                        marginBottom: '10px'
+                        marginBottom: '10px',
                       }}>
                       <div
                         style={{
@@ -193,7 +186,7 @@ function RecipePreview() {
                           fontSize: '12px',
                           lineHeight: '20px',
                           marginRight: '15px',
-                          color: '#30BE76'
+                          color: '#30BE76',
                         }}>
                         {i}
                       </div>
@@ -210,7 +203,7 @@ function RecipePreview() {
                     </div>
                   );
                 })}
-              </Content>
+              </Content> */}
             </Content>
           </CardContainer>
           <CardContainer
@@ -230,7 +223,7 @@ function RecipePreview() {
                 margin-bottom='8px'>
                 Nutritional Information
               </Text>
-              <Content
+              {/* <Content
                 overflow='scroll'
                 margin='0'
                 width='100%'
@@ -250,7 +243,7 @@ function RecipePreview() {
                     </Text>
                   );
                 })}
-              </Content>
+              </Content> */}
             </Content>
           </CardContainer>
         </MainSection>
