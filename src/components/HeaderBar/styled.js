@@ -8,7 +8,7 @@ const Container = styled.div`
   align-items: center;
 
   @media screen and (min-width: 320px) and (max-width: 1024px) {
-    box-shadow: 0px 6px 20px rgba(13, 51, 32, 0.1);
+    box-shadow: 0px 0px 5px rgba(13, 51, 32, 0.1);
   }
 `;
 

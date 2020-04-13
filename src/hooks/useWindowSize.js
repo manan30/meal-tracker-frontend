@@ -12,6 +12,9 @@ export default function useWindowSize() {
   }
 
   const [windowSize, setWindowSize] = useState(getSize);
+  const [isMobile, setIsMobile] = useState(
+    windowSize.width > 320 && windowSize.width < 767
+  );
 
   useEffect(() => {
     if (!isClient) {
@@ -20,6 +23,7 @@ export default function useWindowSize() {
 
     function handleResize() {
       setWindowSize(getSize());
+      setIsMobile(windowSize.width > 320 && windowSize.width < 767);
     }
 
     window.addEventListener('resize', handleResize);
@@ -27,5 +31,5 @@ export default function useWindowSize() {
     return () => window.removeEventListener('resize', handleResize);
   }, []); // Empty array ensures that effect is only run on mount and unmount
 
-  return windowSize;
+  return { ...windowSize, isMobile };
 }

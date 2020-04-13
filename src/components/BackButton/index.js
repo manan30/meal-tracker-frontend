@@ -42,25 +42,27 @@ const Text = styled.div`
   color: ${(props) => props.textColor || '#767676'};
 `;
 
-function BackButton({ text }) {
+function BackButton({ text, textColor }) {
   const { goBack } = useHistory();
 
   return (
     <Container>
-      <Button onClick={goBack}>
+      <Button onClick={goBack} textColor={textColor}>
         <MdChevronLeft />
       </Button>
-      <Text>Back to {text}</Text>
+      <Text textColor={textColor}>Back to {text}</Text>
     </Container>
   );
 }
 
 BackButton.propTypes = {
   text: PropTypes.string,
+  textColor: PropTypes.string,
 };
 
 BackButton.defaultProps = {
   text: '',
+  textColor: '',
 };
 
 export default BackButton;

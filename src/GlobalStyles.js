@@ -1,5 +1,5 @@
-import styled, { createGlobalStyle } from 'styled-components';
 import { Link as anchor } from 'react-router-dom';
+import styled, { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
   html, body {
@@ -34,11 +34,11 @@ const Link = styled(anchor)`
   text-decoration: none;
 
   :link {
-    color: ${props => props.color && props.color};
+    color: ${(props) => props.color && props.color};
   }
 
   :visited {
-    color: ${props => props.visitedColor || '#363837'};
+    color: ${(props) => props.visitedColor || '#363837'};
   }
 
   /* :active {
