@@ -3,7 +3,7 @@ const PROTOCOL = 'http';
 const URL = `${
   process.env.NODE_ENV !== 'development'
     ? 'sculptor.mananjoshi.me:1741'
-    : 'localhost:2130'
+    : '192.168.1.107:2130'
 }`;
 
 const PASSWORD_REQUIREMENTS = [
@@ -11,7 +11,7 @@ const PASSWORD_REQUIREMENTS = [
   ['Lowercase character', false],
   ['Number', false],
   ['Special characters', false],
-  ['8 characters long', false]
+  ['8 characters long', false],
 ];
 
 export { PROTOCOL, URL, PASSWORD_REQUIREMENTS };

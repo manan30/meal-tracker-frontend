@@ -4,14 +4,13 @@ import Text from '../../components/Text';
 const Wrapper = styled.section`
   display: flex;
   margin: 0 80px;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 60px);
   width: calc(100% - 160px);
   overflow: hidden;
 
   @media screen and (min-width: 320px) and (max-width: 767px) {
     flex-direction: column;
 
-    height: 100%;
     width: 100%;
     margin: 0;
   }
@@ -69,7 +68,7 @@ const Image = styled.div`
 `;
 
 const ImageItem = styled.div`
-  height: ${(props) => props.height || '94'}px;
+  height: ${(props) => props.height || '94px'};
   width: 100%;
 
   background: rgba(40, 41, 40, 0.5);
@@ -94,7 +93,7 @@ const ImageItem = styled.div`
 `;
 
 const DataContainer = styled.div`
-  height: calc(100% - 375px);
+  height: calc(70% - 25px);
   width: calc(100% - 50px);
   margin: 25px 25px 0 25px;
 `;
@@ -109,12 +108,38 @@ const ImagesContainerC = styled.div`
 `;
 
 const RecipePreviewText = styled(Text)`
+  font-size: ${(props) => props.fontSize || '20px'};
+  line-height: ${(props) => props.lineHeight || '27px'};
   font-style: normal;
-  font-weight: bold;
-  font-size: 20px;
-  line-height: 27px;
 
-  color: #030f09;
+  color: ${(props) => props.color || '#030f09'};
+`;
+
+const MobileContentContainer = styled.div`
+  display: flex;
+  flex-direction: ${(props) => props.flexDirection && props.flexDirection};
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+`;
+
+const CircularText = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 20px;
+  width: 20px;
+  padding: 5px;
+  margin-right: 15px;
+
+  border-radius: 50%;
+  border: 1px solid #30be76;
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 20px;
+  color: #30be76;
 `;
 
 export {
@@ -128,4 +153,6 @@ export {
   ImagesContainerC,
   DataContainer,
   RecipePreviewText,
+  MobileContentContainer,
+  CircularText,
 };
