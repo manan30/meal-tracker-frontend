@@ -1,10 +1,11 @@
 import styled, { css } from 'styled-components';
 import Text from '../../components/Text';
+import Card from '../../components/Card';
 
 const Wrapper = styled.section`
   display: flex;
-  margin: 0 80px;
-  height: calc(100vh - 60px);
+  margin: 50px 80px 0 80px;
+  height: calc(100vh - 110px);
   width: calc(100% - 160px);
   overflow: hidden;
 
@@ -18,53 +19,52 @@ const Wrapper = styled.section`
 
 const SideSection = styled.section`
   height: 100%;
-  width: 20%;
+  width: 25%;
 `;
 
 const MainSection = styled.section`
   /* display: flex; */
   height: 100%;
-  width: 80%;
+  width: 75%;
   overflow: hidden;
 `;
 
-const Content = styled.div`
-  margin: 25px;
-  height: calc(100% - 50px);
-  width: calc(100% - 50px);
+const RecipePreviewCard = styled(Card)`
+  display: flex;
 
-  ${({ children, ...rest }) => {
-    return rest;
-  }}
-`;
+  height: ${(props) => props.height || '380px'};
+  width: ${(props) => props.width && props.width};
+  margin-right: ${(props) => props.marginRight && props.marginRight};
+  padding: ${(props) => props.padding && props.padding};
 
-const ImagesContainer = styled.div`
-  height: calc(100% - 160px);
-  width: 100%;
+  overflow: hidden;
   overflow-y: scroll;
 `;
 
-const Image = styled.div`
-  height: ${(props) => props.height && props.height};
-  width: ${(props) => props.width && props.width};
-  background-image: ${(props) => props.image && props.image};
-  background-position: center center;
-  background-repeat: no-repeat;
+const ImagesContent = styled.div`
+  margin: 25px;
+  height: calc(100% - 50px);
+  width: calc(100% - 50px);
+`;
 
-  ${({ adjust }) =>
-    adjust &&
-    `
-    :nth-child(3n) {
-      margin-right: 0;
-    }
-    :nth-last-child(-n+3) {
-      margin-bottom: 0;
-    }
-  `}
+const ImagesContainer = styled.div`
+  display: grid;
+  grid-column-gap: 8px;
+  grid-row-gap: 8px;
+  grid-template-columns: 1fr 1fr 1fr;
 
-  ${({ children, height, width, ...rest }) => {
-    return { ...rest };
-  }}
+  height: 94px;
+  width: 100%;
+
+  ${(props) =>
+    props.desktop &&
+    css`
+      height: calc(100% - 160px);
+      margin-top: 10px;
+
+      overflow: hidden;
+      overflow-y: scroll;
+    `};
 `;
 
 const ImageItem = styled.div`
@@ -77,7 +77,7 @@ const ImageItem = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
 
-  opacity: 0.8;
+  /* opacity: 0.8; */
 
   ${(props) =>
     props.overflow &&
@@ -96,15 +96,15 @@ const DataContainer = styled.div`
   height: calc(70% - 25px);
   width: calc(100% - 50px);
   margin: 25px 25px 0 25px;
-`;
 
-const ImagesContainerC = styled.div`
-  display: grid;
-  grid-column-gap: 8px;
-  grid-template-columns: 1fr 1fr 1fr;
+  @media screen and (min-width: 1024px) {
+    display: flex;
+    align-items: ${(props) => props.alignItems || 'flex-start'};
 
-  height: 94px;
-  width: 100%;
+    height: ${(props) => props.height || '100%'};
+    width: 100%;
+    margin: 0;
+  }
 `;
 
 const RecipePreviewText = styled(Text)`
@@ -115,11 +115,19 @@ const RecipePreviewText = styled(Text)`
   color: ${(props) => props.color || '#030f09'};
 `;
 
-const MobileContentContainer = styled.div`
+const ContentContainer = styled.div`
   display: flex;
   flex-direction: ${(props) => props.flexDirection && props.flexDirection};
   flex-wrap: wrap;
+
   margin-bottom: 10px;
+
+  ${(props) =>
+    props.desktop &&
+    css`
+      flex: 0 0 50%;
+      height: 24px;
+    `}
 `;
 
 const CircularText = styled.div`
@@ -146,13 +154,12 @@ export {
   Wrapper,
   SideSection,
   MainSection,
-  Content,
   ImagesContainer,
-  Image,
   ImageItem,
-  ImagesContainerC,
   DataContainer,
   RecipePreviewText,
-  MobileContentContainer,
+  ContentContainer,
   CircularText,
+  RecipePreviewCard,
+  ImagesContent,
 };

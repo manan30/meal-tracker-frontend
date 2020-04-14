@@ -3,7 +3,7 @@ import {
   Wrapper,
   ImageItem,
   DataContainer,
-  ImagesContainerC,
+  ImagesContainer,
   RecipePreviewText,
 } from './styled';
 import BackButton from '../../components/BackButton';
@@ -16,7 +16,7 @@ function RecipePreviewMobileView() {
       <BackButton text='my profile' textColor='#ffffff' />
       <ImageItem height='30%' />
       <DataContainer>
-        <ImagesContainerC>
+        <ImagesContainer>
           {new Array(3).fill(0).map((_, i) => {
             const key = i;
             return i !== 2 ? (
@@ -27,7 +27,7 @@ function RecipePreviewMobileView() {
               </ImageItem>
             );
           })}
-        </ImagesContainerC>
+        </ImagesContainer>
         <div style={{ height: 'calc(100% - 94px)' }}>
           <Tabs
             tabs={[
@@ -36,7 +36,10 @@ function RecipePreviewMobileView() {
                 component: <Content tag='ingredients' />,
               },
               { tag: 'How to cook', component: <Content tag='instructions' /> },
-              { tag: 'Additional Info', component: <></> },
+              {
+                tag: 'Nutritional Info',
+                component: <Content tag='nutrients' />,
+              },
             ]}
           />
         </div>

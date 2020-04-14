@@ -15,6 +15,7 @@ import {
 } from './styled';
 import useWindowSize from '../../hooks/useWindowSize';
 import MobileView from './Mobile';
+import DesktopView from './Desktop';
 
 function RecipePreview() {
   const { id } = useParams();
@@ -22,7 +23,7 @@ function RecipePreview() {
   const { data: recipeDetails, error } = useAPI(callback);
   const { isMobile } = useWindowSize();
 
-  return isMobile ? <MobileView /> : <></>;
+  return isMobile ? <MobileView /> : <DesktopView />;
 }
 
 export default RecipePreview;

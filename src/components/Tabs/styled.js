@@ -20,7 +20,7 @@ const TabsTextContainer = styled.div`
   flex: 0 0 auto;
   box-sizing: border-box;
 
-  margin-left: 16px;
+  margin-left: 48px;
 
   :first-child {
     margin-left: 0;
