@@ -15,6 +15,7 @@ import {
   ScreenWrapper,
   ScrollContainer,
   CreateRecipeCardButton,
+  CreateRecipeDropDown,
 } from './styled';
 import { CREATE_RECIPE_ITEMS } from '../../utils/Constants';
 
@@ -22,7 +23,7 @@ function CreateRecipeItem({ header, desc }) {
   return (
     <CreateRecipeCard>
       <CreateRecipeCardTitle>
-        <CreateRecipeText>{header}</CreateRecipeText>
+        <CreateRecipeText fontWeight='bold'>{header}</CreateRecipeText>
         <Icon>
           <EditIcon />
         </Icon>
@@ -42,9 +43,9 @@ function CreateRecipe({ toggler }) {
     <ScreenWrapper closeHandler={toggler}>
       <Container>
         <ItemContainer>
-          <CreateRecipeCardHeaderText>
+          <CreateRecipeText fontSize='20px' fontWeight='bold'>
             Create New Recipe
-          </CreateRecipeCardHeaderText>
+          </CreateRecipeText>
           <Icon onClick={toggler}>
             <MdClose />
           </Icon>
@@ -60,7 +61,7 @@ function CreateRecipe({ toggler }) {
             </Icon>
           </BorderedBox>
           <div style={{ marginLeft: '16px', width: 'calc(100% - 80px)' }}>
-            <CreateRecipeText marginBottom='16px' opacity='1'>
+            <CreateRecipeText marginBottom='16px' opacity='1' fontWeight='bold'>
               Recipe Name
             </CreateRecipeText>
             <FormInput placeholder='Name of the recipe' type='text' />
@@ -72,23 +73,22 @@ function CreateRecipe({ toggler }) {
           ))}
         </ScrollContainer>
         <ItemContainer marginBottom='10px'>
-          <CreateRecipeText>Save to</CreateRecipeText>
-          <CreateRecipeText marginLeft='auto'>
+          <CreateRecipeText fontWeight='normal'>Save to</CreateRecipeText>
+          <CreateRecipeText
+            fontWeight='normal'
+            marginLeft='auto'
+            color='#F8B449'>
             Complete the recipe to post
           </CreateRecipeText>
         </ItemContainer>
         <ItemContainer marginBottom='0'>
-          <CreateRecipeCardButton>
-            <CreateRecipeText>Save Recipe</CreateRecipeText>
-          </CreateRecipeCardButton>
-
-          <CreateRecipeCardButton>
-            <CreateRecipeText>Save Recipe</CreateRecipeText>
-          </CreateRecipeCardButton>
-
-          <CreateRecipeCardButton>
-            <CreateRecipeText>Post to Feed</CreateRecipeText>
-          </CreateRecipeCardButton>
+          <CreateRecipeDropDown />
+          <div style={{ display: 'flex', marginLeft: 'auto' }}>
+            <CreateRecipeCardButton>Save Recipe</CreateRecipeCardButton>
+            <CreateRecipeCardButton background='#30be76' color='#ffffff'>
+              Post to Feed
+            </CreateRecipeCardButton>
+          </div>
         </ItemContainer>
       </Container>
     </ScreenWrapper>

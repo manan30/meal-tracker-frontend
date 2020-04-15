@@ -8,7 +8,7 @@ const ScreenWrapper = styled.div`
   align-items: center;
   justify-content: center;
 
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   height: 100%;
@@ -59,8 +59,8 @@ const CreateRecipeText = styled(Text)`
   margin-left: ${(props) => props.marginLeft && props.marginLeft};
 
   font-size: ${(props) => props.fontSize || '14px'};
-  line-height: 22px;
-  font-weight: normal;
+  line-height: 20px;
+  font-weight: ${(props) => props.fontWeight || 'normal'};
 
   color: ${(props) => props.color && props.color};
 `;
@@ -118,14 +118,29 @@ const CreateRecipeCardTitle = styled.div`
 `;
 
 const ScrollContainer = styled.div`
-  height: calc(100% - 250px);
-  margin-bottom: 30px;
+  height: calc(100% - 240px);
+  margin-bottom: 20px;
 
   overflow-y: auto;
 `;
 
+const CreateRecipeDropDown = styled.div`
+  height: 50px;
+
+  background: rgba(0, 0, 0, 0.0001);
+  box-shadow: 0px 0px 5px rgba(13, 51, 32, 0.1);
+  border-radius: 8px;
+`;
+
 const CreateRecipeCardButton = styled(Button)`
-  background: #30be76;
+  height: 50px;
+  margin-left: 15px;
+
+  font-size: 12px;
+  font-weight: normal;
+  color: ${(props) => props.color && props.color};
+
+  background: ${(props) => props.background && props.background};
 `;
 
 export {
@@ -140,4 +155,5 @@ export {
   ScreenWrapper,
   ScrollContainer,
   CreateRecipeCardButton,
+  CreateRecipeDropDown,
 };
