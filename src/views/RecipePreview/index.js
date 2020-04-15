@@ -12,7 +12,11 @@ function RecipePreview() {
   const { data: recipeDetails, error } = useAPI(callback);
   const { isMobile } = useWindowSize();
 
-  return isMobile ? <MobileView /> : <DesktopView />;
+  return isMobile ? (
+    <MobileView recipe={recipeDetails} />
+  ) : (
+    <DesktopView data={recipeDetails} />
+  );
 }
 
 export default RecipePreview;

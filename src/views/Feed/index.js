@@ -26,7 +26,7 @@ import {
   RecipesList,
   Separator,
   SideSection,
-  Wrapper
+  Wrapper,
 } from './styled';
 
 function RecipeListCard({ user, recipe }) {
@@ -34,7 +34,7 @@ function RecipeListCard({ user, recipe }) {
   const [showModal, setShowModal] = useState(false);
 
   function handleModalToggle() {
-    setShowModal(prevState => !prevState);
+    setShowModal((prevState) => !prevState);
   }
 
   return (
@@ -214,7 +214,7 @@ function Feed() {
     (async function fetch() {
       try {
         const { data } = await getFeedRecipes(1);
-        setFeed(prevState => ({ ...prevState, feedRecipes: data.data }));
+        setFeed((prevState) => ({ ...prevState, feedRecipes: data.data }));
       } catch (err) {
         console.log(err);
       }
@@ -314,6 +314,7 @@ function Feed() {
       <MainSection>
         <FeedCard
           height='30px'
+          width='auto'
           padding='25px 22px'
           alignItems='center'
           adjustDisplay>
@@ -388,12 +389,12 @@ function Feed() {
 
 RecipeListCard.propTypes = {
   user: PropTypes.objectOf(PropTypes.any),
-  recipe: PropTypes.objectOf(PropTypes.any)
+  recipe: PropTypes.objectOf(PropTypes.any),
 };
 
 RecipeListCard.defaultProps = {
   user: {},
-  recipe: {}
+  recipe: {},
 };
 
 export default Feed;

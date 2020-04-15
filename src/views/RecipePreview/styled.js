@@ -13,6 +13,7 @@ const Wrapper = styled.section`
     flex-direction: column;
 
     width: 100%;
+    height: calc(100vh - 60px);
     margin: 0;
   }
 `;
@@ -54,6 +55,7 @@ const ImagesContainer = styled.div`
 
   height: 94px;
   width: 100%;
+  margin-bottom: ${(props) => props.marginBottom && props.marginBottom};
 
   @media screen and (min-width: 1024px) {
     height: calc(100% - 160px);
@@ -122,6 +124,16 @@ const RecipePreviewText = styled(Text)`
   cursor: ${(props) => props.cursor && props.cursor};
 `;
 
+const RecipeHeader = styled(RecipePreviewText)`
+  position: absolute;
+  top: 28%;
+  margin: 0 25px 15px 25px;
+
+  font-size: 24px;
+  line-height: 32px;
+  color: #ffffff;
+`;
+
 const ContentContainer = styled.div`
   display: flex;
   flex-direction: ${(props) => props.flexDirection && props.flexDirection};
@@ -171,6 +183,25 @@ const Separator = styled.div`
   border-radius: 0.5px;
 `;
 
+const RecipePreviewEditButton = styled.div`
+  position: fixed;
+  right: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 48px;
+  margin-top: 10px;
+  margin-right: 10px;
+  padding: 3px;
+
+  background: rgba(0, 0, 0, 0.4);
+
+  border: 1px solid #ffffff;
+  border-radius: 8px;
+`;
+
 export {
   Wrapper,
   SideSection,
@@ -184,4 +215,6 @@ export {
   RecipePreviewCard,
   ImagesContent,
   Separator,
+  RecipePreviewEditButton,
+  RecipeHeader,
 };

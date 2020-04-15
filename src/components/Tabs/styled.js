@@ -10,10 +10,14 @@ const TabLayoutContainer = styled.div`
 const TabsPanelContainer = styled.div`
   display: flex;
 
-  padding: 25px 0;
+  margin-bottom: 25px;
 
   overflow: hidden;
   overflow-x: auto;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const TabsTextContainer = styled.div`
