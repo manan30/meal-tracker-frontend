@@ -3,7 +3,7 @@ import React from 'react';
 import { ContentContainer, RecipePreviewText, CircularText } from './styled';
 import EmptyContent from '../../components/EmptyContent';
 
-function Content({ data, tag, desktop }) {
+function Content({ data, tag }) {
   return (
     <>
       {data && data.length > 0 ? (
@@ -11,8 +11,7 @@ function Content({ data, tag, desktop }) {
           const key = i;
           return (
             <ContentContainer
-              flexDirection={tag === 'instructions' ? 'row' : 'column'}
-              desktop>
+              flexDirection={tag === 'instructions' ? 'row' : 'column'}>
               {tag === 'instructions' && <CircularText>{key}</CircularText>}
               <RecipePreviewText fontSize='14px' lineHeight='22px'>
                 {d}
@@ -30,9 +29,8 @@ function Content({ data, tag, desktop }) {
 Content.propTypes = {
   data: PropTypes.arrayOf(PropTypes.any),
   tag: PropTypes.string,
-  desktop: PropTypes.bool,
 };
 
-Content.defaultProps = { data: [], tag: '', desktop: false };
+Content.defaultProps = { data: [], tag: '' };
 
 export default Content;

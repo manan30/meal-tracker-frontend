@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import Text from '../../components/Text';
 import Card from '../../components/Card';
+import Button from '../../components/Button';
 
 const Wrapper = styled.section`
   display: flex;
@@ -27,6 +28,7 @@ const MainSection = styled.section`
   height: 100%;
   width: 75%;
   overflow: hidden;
+  overflow-y: scroll;
 `;
 
 const RecipePreviewCard = styled(Card)`
@@ -38,7 +40,6 @@ const RecipePreviewCard = styled(Card)`
   padding: ${(props) => props.padding && props.padding};
 
   overflow: hidden;
-  overflow-y: scroll;
 `;
 
 const ImagesContent = styled.div`
@@ -99,20 +100,30 @@ const DataContainer = styled.div`
 
   @media screen and (min-width: 1024px) {
     display: flex;
+    flex-direction: ${(props) => props.flexDirection && props.flexDirection};
     align-items: ${(props) => props.alignItems || 'flex-start'};
+    flex-wrap: ${(props) => props.wrap && props.wrap};
 
     height: ${(props) => props.height || '100%'};
     width: 100%;
     margin: 0;
+
+    overflow: hidden;
+    overflow-y: scroll;
   }
 `;
 
 const RecipePreviewText = styled(Text)`
+  width: ${(props) => props.width && props.width};
+  margin-left: ${(props) => props.marginLeft && props.marginLeft};
+  margin-bottom: ${(props) => props.marginBottom && props.marginBottom};
+
   font-size: ${(props) => props.fontSize || '20px'};
   line-height: ${(props) => props.lineHeight || '27px'};
   font-style: normal;
-
   color: ${(props) => props.color || '#030f09'};
+
+  cursor: ${(props) => props.cursor && props.cursor};
 `;
 
 const ContentContainer = styled.div`
@@ -122,12 +133,17 @@ const ContentContainer = styled.div`
 
   margin-bottom: 10px;
 
-  ${(props) =>
-    props.desktop &&
-    css`
-      flex: 0 0 50%;
-      height: 24px;
-    `}
+  @media screen and (min-width: 1024px) {
+    ${({ flexDirection }) =>
+      flexDirection === 'row'
+        ? css`
+            align-items: center;
+            width: 100%;
+          `
+        : css`
+            flex: 0 0 50%;
+          `};
+  }
 `;
 
 const CircularText = styled.div`
@@ -150,6 +166,17 @@ const CircularText = styled.div`
   color: #30be76;
 `;
 
+// const RecipePreviewButton = styled(Button)``;
+
+const Separator = styled.div`
+  height: 1px;
+  width: 100%;
+  margin: 12px 0;
+
+  background-color: #e6e6e6;
+  border-radius: 0.5px;
+`;
+
 export {
   Wrapper,
   SideSection,
@@ -162,4 +189,5 @@ export {
   CircularText,
   RecipePreviewCard,
   ImagesContent,
+  Separator,
 };
