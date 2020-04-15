@@ -14,29 +14,39 @@ import {
 } from './styled';
 import Content from './Content';
 
-function RecipePreviewDesktopView({ data }) {
+function RecipePreviewDesktopView({ recipe }) {
+  const { images, ingredients, instructions, nutrients } = recipe;
+
   return (
     <Wrapper>
       <SideSection>
-        <RecipePreviewCard marginRight='20px' padding='0' width='auto'>
+        <RecipePreviewCard
+          marginRight='20px'
+          padding='0'
+          width='auto'
+          height={images && images.length > 0 ? '380px' : 'auto'}>
           <ImagesContent>
-            <ImageItem height='150px' width='100%' />
-            <ImagesContainer>
-              {new Array(16).fill(0).map((imageURL, i) => {
-                const key = i;
-                return <ImageItem key={key} height='80px' src={imageURL} />;
-              })}
-            </ImagesContainer>
+            <ImageItem height='150px' width='100%' src={images?.coverImage} />
+            {images && (
+              <ImagesContainer>
+                {images.map((image, i) => {
+                  const key = i;
+                  return <ImageItem key={key} height='80px' src={image} />;
+                })}
+              </ImagesContainer>
+            )}
           </ImagesContent>
         </RecipePreviewCard>
       </SideSection>
       <MainSection>
         <RecipePreviewCard height='calc(35% - 50px)'>
-          <DataContainer flexDirection='column'>
-            <DataContainer height='auto' alignItems='center'>
+          <DataContainer>
+            <DataContainer
+              height='auto'
+              alignItems='center'
+              flexDirection='row'>
               <RecipePreviewText fontSize='24px' lineHeight='32px'>
-                {/* {data.name} */}
-                ABCD
+                {recipe.recipeName}
               </RecipePreviewText>
               <RecipePreviewText
                 marginLeft='auto'
@@ -49,28 +59,28 @@ function RecipePreviewDesktopView({ data }) {
             <RecipePreviewText marginBottom='16px'>
               Ingredients
             </RecipePreviewText>
-            <DataContainer height='auto' wrap='wrap'>
-              <Content tag='ingredients' data={new Array(15).fill(0)} />
+            <DataContainer height='auto' wrap='wrap' flexDirection='row'>
+              <Content tag='ingredients' data={ingredients} />
             </DataContainer>
           </DataContainer>
         </RecipePreviewCard>
         <RecipePreviewCard height='calc(45% - 50px)' marginTop='20px'>
-          <DataContainer flexDirection='column'>
+          <DataContainer>
             <RecipePreviewText marginBottom='16px'>
               How to cook
             </RecipePreviewText>
-            <DataContainer height='auto' flexDirection='column'>
-              <Content tag='instructions' data={new Array(15).fill(0)} />
+            <DataContainer>
+              <Content tag='instructions' data={instructions} />
             </DataContainer>
           </DataContainer>
         </RecipePreviewCard>
         <RecipePreviewCard height='calc(20% - 50px)' margin-top='20px'>
-          <DataContainer flexDirection='column'>
+          <DataContainer>
             <RecipePreviewText marginBottom='16px'>
               Nutritional Information
             </RecipePreviewText>
-            <DataContainer height='auto' flexDirection='column'>
-              <Content tag='nutrients' data={new Array(15).fill(0)} />
+            <DataContainer>
+              <Content tag='nutrients' data={nutrients} />
             </DataContainer>
           </DataContainer>
         </RecipePreviewCard>
@@ -80,11 +90,11 @@ function RecipePreviewDesktopView({ data }) {
 }
 
 RecipePreviewDesktopView.propTypes = {
-  data: PropTypes.objectOf(PropTypes.any),
+  recipe: PropTypes.objectOf(PropTypes.any),
 };
 
 RecipePreviewDesktopView.defaultProps = {
-  data: {},
+  recipe: {},
 };
 
 export default RecipePreviewDesktopView;

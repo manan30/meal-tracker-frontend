@@ -57,7 +57,11 @@ const TabContentContainer = styled.div`
   height: calc(100% - 82px);
 
   overflow: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export {

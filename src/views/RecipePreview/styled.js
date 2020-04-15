@@ -27,7 +27,7 @@ const MainSection = styled.section`
   height: 100%;
   width: 75%;
   overflow: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
 `;
 
 const RecipePreviewCard = styled(Card)`
@@ -62,7 +62,7 @@ const ImagesContainer = styled.div`
     margin-top: 10px;
 
     overflow: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 `;
 
@@ -98,7 +98,7 @@ const DataContainer = styled.div`
 
   @media screen and (min-width: 1024px) {
     display: flex;
-    flex-direction: ${(props) => props.flexDirection && props.flexDirection};
+    flex-direction: ${(props) => props.flexDirection || 'column'};
     align-items: ${(props) => props.alignItems || 'flex-start'};
     flex-wrap: ${(props) => props.wrap && props.wrap};
 
@@ -107,7 +107,7 @@ const DataContainer = styled.div`
     margin: 0;
 
     overflow: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 `;
 
@@ -143,14 +143,11 @@ const ContentContainer = styled.div`
 
   @media screen and (min-width: 1024px) {
     ${({ flexDirection }) =>
-      flexDirection === 'row'
-        ? css`
-            align-items: center;
-            width: 100%;
-          `
-        : css`
-            flex: 0 0 50%;
-          `};
+      flexDirection === 'row' &&
+      css`
+        align-items: center;
+        width: 100%;
+      `};
   }
 `;
 

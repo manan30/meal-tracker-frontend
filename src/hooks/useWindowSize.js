@@ -23,13 +23,13 @@ export default function useWindowSize() {
 
     function handleResize() {
       setWindowSize(getSize());
-      setIsMobile(windowSize.width > 320 && windowSize.width < 767);
+      setIsMobile(() => windowSize.width > 320 && windowSize.width < 767);
     }
 
     window.addEventListener('resize', handleResize);
 
     return () => window.removeEventListener('resize', handleResize);
-  }, []); // Empty array ensures that effect is only run on mount and unmount
+  }, [windowSize, isMobile]);
 
   return { ...windowSize, isMobile };
 }

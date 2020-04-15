@@ -15,7 +15,7 @@ function RecipePreview() {
   return isMobile ? (
     <MobileView recipe={recipeDetails} />
   ) : (
-    <DesktopView data={recipeDetails} />
+    <DesktopView recipe={recipeDetails} />
   );
 }
 
