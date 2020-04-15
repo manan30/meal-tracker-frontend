@@ -1,8 +1,8 @@
 import React from 'react';
-import { Container } from './styled';
+import { ModalBackground } from './styled';
 
-function Modal({ children, ...rest }) {
-  return <Container {...rest}>{children}</Container>;
+function Modal({ children, ...styles }) {
+  return <ModalBackground {...styles}>{children}</ModalBackground>;
 }
 
 export default Modal;

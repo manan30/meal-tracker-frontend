@@ -4,27 +4,45 @@ import {
   MdMailOutline,
   MdNotificationsNone
 } from 'react-icons/md';
+import { Link } from '../../GlobalStyles';
 import Text from '../Text';
 import { Container, IconsContainer } from './styled';
 
 function HeaderBar() {
   return (
     <Container>
-      <Text
-        margin-left='80px'
-        padding='27px 0'
-        display='inline-block'
-        cursor='pointer'>
-        Sculptor
-      </Text>
-      <IconsContainer>
-        <Text>
-          <MdNotificationsNone
-            style={{ marginRight: '25px', cursor: 'pointer' }}
-          />
-          <MdMailOutline style={{ marginRight: '25px', cursor: 'pointer' }} />
-          <MdAccountCircle style={{ marginRight: '80px', cursor: 'pointer' }} />
+      <Link
+        to='/'
+        flex-auto='basis'
+        flex-grow='8'
+        margin-left='30px'
+        cursor='default'>
+        <Text cursor='pointer' width='0'>
+          Sculptor
         </Text>
+      </Link>
+      <IconsContainer>
+        <Link to='/notifications' height='20px' width='20px' cursor='pointer'>
+          <MdNotificationsNone />
+        </Link>
+        <Link
+          to='/messages'
+          // flex-auto='basis'
+          // flex-grow='1'
+          height='20px'
+          width='20px'
+          cursor='pointer'>
+          <MdMailOutline />
+        </Link>
+        <Link
+          to='/profile'
+          // flex-auto='basis'
+          // flex-grow='1'
+          height='20px'
+          width='20px'
+          cursor='pointer'>
+          <MdAccountCircle />
+        </Link>
       </IconsContainer>
     </Container>
   );

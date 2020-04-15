@@ -1,15 +1,17 @@
 import styled from 'styled-components';
 
-const Container = styled.div`
-  height: ${({ height, margin }) =>
-    height ? `calc(${height} - ${margin * 2})` : '100%'};
-  width: ${({ width, margin }) =>
-    width ? `calc(${width} - ${margin * 2})` : '100%'};
-  background-color: #ffffff;
+const ModalBackground = styled.div`
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+
+  background: rgba(40, 41, 40, 0.5);
+  mix-blend-mode: normal;
   border-radius: 8px;
-  box-shadow: 0px 6px 20px rgba(13, 51, 32, 0.1);
 
   ${({ children, ...rest }) => rest}
 `;
 
-export { Container };
+export { ModalBackground };

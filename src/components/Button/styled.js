@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 
-const Container = styled.div`
+const Container = styled.button`
   display: flex;
   width: 126px;
   height: 36px;
   margin: auto;
   padding: 5px;
-  /* box-shadow: 0px 6px 20px rgba(13, 51, 32, 0.1); */
 
   background: #ffffff;
   border: 2px solid #30be76;
@@ -30,7 +29,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
 
-  :hover {
+  :focus {
     background: #30be76;
     color: #ffffff;
     box-shadow: 0px 6px 20px rgba(13, 51, 32, 0.1);
@@ -41,5 +40,9 @@ const Container = styled.div`
     return rest;
   }};
 `;
+
+Container.defaultProps = {
+  hover: true
+};
 
 export default Container;
