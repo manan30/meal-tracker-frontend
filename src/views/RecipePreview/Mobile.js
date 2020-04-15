@@ -23,7 +23,9 @@ function RecipePreviewMobileView() {
               <ImageItem key={key} />
             ) : (
               <ImageItem overflow='true' key={key}>
-                <RecipePreviewText>12+</RecipePreviewText>
+                <RecipePreviewText fontSize='20px' lineHeight='27px'>
+                  12+
+                </RecipePreviewText>
               </ImageItem>
             );
           })}

@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
-import Text from '../../components/Text';
 import Card from '../../components/Card';
-import Button from '../../components/Button';
+import Text from '../../components/Text';
 
 const Wrapper = styled.section`
   display: flex;
@@ -24,7 +23,6 @@ const SideSection = styled.section`
 `;
 
 const MainSection = styled.section`
-  /* display: flex; */
   height: 100%;
   width: 75%;
   overflow: hidden;
@@ -35,9 +33,9 @@ const RecipePreviewCard = styled(Card)`
   display: flex;
 
   height: ${(props) => props.height || '380px'};
-  width: ${(props) => props.width && props.width};
+  width: ${(props) => props.width || 'calc(100% - 50px)'};
   margin-right: ${(props) => props.marginRight && props.marginRight};
-  padding: ${(props) => props.padding && props.padding};
+  padding: ${(props) => props.padding || '25px'};
 
   overflow: hidden;
 `;
@@ -57,15 +55,13 @@ const ImagesContainer = styled.div`
   height: 94px;
   width: 100%;
 
-  ${(props) =>
-    props.desktop &&
-    css`
-      height: calc(100% - 160px);
-      margin-top: 10px;
+  @media screen and (min-width: 1024px) {
+    height: calc(100% - 160px);
+    margin-top: 10px;
 
-      overflow: hidden;
-      overflow-y: scroll;
-    `};
+    overflow: hidden;
+    overflow-y: scroll;
+  }
 `;
 
 const ImageItem = styled.div`
@@ -118,8 +114,8 @@ const RecipePreviewText = styled(Text)`
   margin-left: ${(props) => props.marginLeft && props.marginLeft};
   margin-bottom: ${(props) => props.marginBottom && props.marginBottom};
 
-  font-size: ${(props) => props.fontSize || '20px'};
-  line-height: ${(props) => props.lineHeight || '27px'};
+  font-size: ${(props) => props.fontSize || '16px'};
+  line-height: ${(props) => props.lineHeight || '22px'};
   font-style: normal;
   color: ${(props) => props.color || '#030f09'};
 
@@ -165,8 +161,6 @@ const CircularText = styled.div`
   line-height: 20px;
   color: #30be76;
 `;
-
-// const RecipePreviewButton = styled(Button)``;
 
 const Separator = styled.div`
   height: 1px;

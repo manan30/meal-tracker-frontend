@@ -13,9 +13,7 @@ function Content({ data, tag }) {
             <ContentContainer
               flexDirection={tag === 'instructions' ? 'row' : 'column'}>
               {tag === 'instructions' && <CircularText>{key}</CircularText>}
-              <RecipePreviewText fontSize='14px' lineHeight='22px'>
-                {d}
-              </RecipePreviewText>
+              <RecipePreviewText fontSize='14px'>{d}</RecipePreviewText>
             </ContentContainer>
           );
         })
