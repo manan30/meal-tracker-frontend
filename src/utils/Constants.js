@@ -11,7 +11,14 @@ const PASSWORD_REQUIREMENTS = [
   ['Lowercase character', false],
   ['Number', false],
   ['Special characters', false],
-  ['8 characters long', false]
+  ['8 characters long', false],
 ];
 
-export { PROTOCOL, URL, PASSWORD_REQUIREMENTS };
+const CREATE_RECIPE_ITEMS = [
+  { header: 'Gallery', desc: 'Upload Images' },
+  { header: 'Ingredients', desc: 'Add Ingredients' },
+  { header: 'How To Cook', desc: 'Add Instructions' },
+  { header: 'Nutritional Information', desc: 'Add Nutritional Info' },
+];
+
+export { PROTOCOL, URL, PASSWORD_REQUIREMENTS, CREATE_RECIPE_ITEMS };

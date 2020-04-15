@@ -54,20 +54,20 @@ const FormInput = styled.input`
   margin-top: 10px;
   background-color: transparent;
   border: none;
-  border-bottom: 1px solid ${props => props.color || '#cccccc'};
+  border-bottom: 1px solid ${(props) => props.color || '#cccccc'};
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
   line-height: 22px;
-  color: ${props => props.color || '#030f09'};
+  color: ${(props) => props.color || '#030f09'};
   transition: all 0.4s linear;
 
   :focus {
-    border-bottom: 1px solid ${props => props.color || '#30be76'};
+    border-bottom: 1px solid ${(props) => props.color || '#30be76'};
   }
 
   :hover {
-    border-bottom: 1px solid ${props => props.color || '#30be76'};
+    border-bottom: 1px solid ${(props) => props.color || '#30be76'};
   }
 
   @media screen and (max-width: 640px) {
@@ -85,12 +85,12 @@ const FormInput = styled.input`
 `;
 
 const OnboardingText = styled(Text)`
-  margin-top: ${props => (props.marginTop ? props.marginTop : '24px')};
-  font-size: ${props => (props.fontSize ? props.fontSize : '14px')};
-  font-weight: ${props => (props.fontWeight ? props.fontWeight : 'normal')};
-  line-height: ${props => (props.lineHeight ? props.lineHeight : '22px')};
-  color: ${props => (props.color ? props.color : '#A8A8A8')};
-  text-align: ${props => props.textAlign && props.textAlign};
+  margin-top: ${(props) => (props.marginTop ? props.marginTop : '24px')};
+  font-size: ${(props) => (props.fontSize ? props.fontSize : '14px')};
+  font-weight: ${(props) => (props.fontWeight ? props.fontWeight : 'normal')};
+  line-height: ${(props) => (props.lineHeight ? props.lineHeight : '22px')};
+  color: ${(props) => (props.color ? props.color : '#A8A8A8')};
+  text-align: ${(props) => props.textAlign && props.textAlign};
 
   @media screen and (max-width: 640px) {
     color: #ffffff;
@@ -144,5 +144,5 @@ export {
   FormInput,
   OnboardingText,
   OnboardingButton,
-  Snackbar
+  Snackbar,
 };

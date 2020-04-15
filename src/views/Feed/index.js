@@ -3,13 +3,14 @@ import React, { useEffect, useState } from 'react';
 import { FiHeart } from 'react-icons/fi';
 import { GiChefToque } from 'react-icons/gi';
 import { IoIosSearch } from 'react-icons/io';
-import { MdClose, MdViewCarousel } from 'react-icons/md';
+import { MdViewCarousel } from 'react-icons/md';
 import { getFeedRecipes } from '../../api/Feed';
 import { ReactComponent as NoRecipeIcon } from '../../assets/img/no-recipes.svg';
 import InfiniteScroll from '../../components/InfiniteScroll';
 import Modal from '../../components/Modal';
 import Spinner from '../../components/Spinner';
 import { Link } from '../../GlobalStyles';
+import useModal from '../../hooks/useModal';
 import { useStore } from '../../Store';
 import { parseDate } from '../../utils/CommonFunctions';
 import {
@@ -26,16 +27,13 @@ import {
   RecipesList,
   Separator,
   SideSection,
-  Wrapper
+  Wrapper,
 } from './styled';
+import CreateRecipe from '../../components/CreateRecipe';
 
 function RecipeListCard({ user, recipe }) {
   const { state } = useStore();
-  const [showModal, setShowModal] = useState(false);
-
-  function handleModalToggle() {
-    setShowModal(prevState => !prevState);
-  }
+  const { showing, handleToggle } = useModal();
 
   return (
     <FeedCard
@@ -109,44 +107,23 @@ function RecipeListCard({ user, recipe }) {
             borderRadius='4px'
             fontSize='14px'
             hover='true'
-            onClick={handleModalToggle}>
+            onClick={handleToggle}>
             + Save
           </FeedButton>
           {/* </Link> */}
         </Container>
       </Container>
-      {showModal && (
-        <Modal display='flex' align-items='center' justify-content='center'>
+      {showing && (
+        <Modal
+          title={
+            state.user.isAuthenticated ? 'Save to' : 'Authentication required'
+          }
+          closeHandler={handleToggle}>
           {state.user.isAuthenticated ? (
-            <FeedCard
-              flexWrap='wrap'
-              flexDirection='column'
-              alignItems='center'
-              height='254px'
-              width='286px'
-              padding='11px'
-              margin='0'
-              backgroundColor='white'>
-              <Container height='24px' width='100%'>
-                {/* <FeedText
-                  marginLeft='7px'
-                  fontSize='20px'
-                  fontWeight='bold'
-                  lineHeight='27px'
-                  color='#030F09'>
-                  Save to
-                </FeedText> */}
-                <Icon
-                  height='24px'
-                  width='24px'
-                  margin='0 0 0 auto'
-                  color='#030f09'
-                  onClick={handleModalToggle}>
-                  <MdClose />
-                </Icon>
-              </Container>
-              {/* <Container
+            <div>
+              <Container
                 height='206px'
+                width='100%'
                 overflow='none'
                 overflowY='scroll'
                 flexDirection='column'
@@ -161,44 +138,19 @@ function RecipeListCard({ user, recipe }) {
                 color='#30BE76'
                 cursor='pointer'>
                 Add New Cookbook
-              </FeedText> */}
-              Feature in progress
-            </FeedCard>
-          ) : (
-            <FeedCard
-              flexWrap='wrap'
-              width='100%'
-              margin='20%'
-              padding='20px'
-              backgroundColor='linear-gradient(to right, #11998e, #38ef7d)'>
-              <Container width='100%' alignItems='flex-start'>
-                <FeedText
-                  fontWeight='bold'
-                  fontSize='20px'
-                  lineHeight='27px'
-                  color='#ffffff'>
-                  Login Required
-                </FeedText>
-                <Icon
-                  height='24px'
-                  width='24px'
-                  margin='0 0 0 auto'
-                  color='#ffffff'
-                  onClick={handleModalToggle}>
-                  <MdClose />
-                </Icon>
-              </Container>
-              <FeedText
-                marginTop='16px'
-                fontWeight='bold'
-                color='#ffffff'
-                textAlign='center'>
-                It looks like you are not logged in. Please
-                <Link to='/login'> login</Link> or
-                <Link to='/signup'> signup </Link>
-                to continue...
               </FeedText>
-            </FeedCard>
+            </div>
+          ) : (
+            <FeedText
+              marginTop='16px'
+              fontWeight='bold'
+              color='#ffffff'
+              textAlign='center'>
+              It looks like you are not logged in. Please
+              <Link to='/login'> login</Link> or
+              <Link to='/signup'> signup </Link>
+              to continue...
+            </FeedText>
           )}
         </Modal>
       )}
@@ -209,12 +161,13 @@ function RecipeListCard({ user, recipe }) {
 function Feed() {
   const { state } = useStore();
   const [feed, setFeed] = useState({ topRecipes: [], feedRecipes: {} });
+  const [showCreateRecipe, setShowCreateRecipe] = useState(false);
 
   useEffect(() => {
     (async function fetch() {
       try {
         const { data } = await getFeedRecipes(1);
-        setFeed(prevState => ({ ...prevState, feedRecipes: data.data }));
+        setFeed((prevState) => ({ ...prevState, feedRecipes: data.data }));
       } catch (err) {
         console.log(err);
       }
@@ -327,7 +280,8 @@ function Feed() {
             margin='0 0 0 auto'
             color='#ffffff'
             bgColor='#30BE76'
-            boxShadow='0px 6px 20px rgba(13, 51, 32, 0.1)'>
+            boxShadow='0px 6px 20px rgba(13, 51, 32, 0.1)'
+            onClick={() => setShowCreateRecipe(true)}>
             Create Recipe
           </FeedButton>
         </FeedCard>
@@ -382,18 +336,21 @@ function Feed() {
         <MdViewCarousel />
         <GiChefToque />
       </BottomBar>
+      {showCreateRecipe && (
+        <CreateRecipe toggler={() => setShowCreateRecipe(() => false)} />
+      )}
     </Wrapper>
   );
 }
 
 RecipeListCard.propTypes = {
   user: PropTypes.objectOf(PropTypes.any),
-  recipe: PropTypes.objectOf(PropTypes.any)
+  recipe: PropTypes.objectOf(PropTypes.any),
 };
 
 RecipeListCard.defaultProps = {
   user: {},
-  recipe: {}
+  recipe: {},
 };
 
 export default Feed;

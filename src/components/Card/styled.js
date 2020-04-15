@@ -7,7 +7,7 @@ const CardContainer = styled.div`
   transition: all 0.3s ease-in-out;
 
   :first-child {
-    margin-left: ${props => props.marginLeft && props.marginLeft}
+    margin-left: ${(props) => props.marginLeft && props.marginLeft}
   }
 
   ${({ hover }) =>
@@ -25,7 +25,7 @@ const CardContainer = styled.div`
         width: 50%;
       }`}
 
-  ${props => {
+  ${(props) => {
     const { children, marginLeft, ...rest } = props;
     return rest;
   }}

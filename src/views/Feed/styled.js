@@ -72,23 +72,23 @@ const BottomBar = styled.section`
 `;
 
 const FeedCard = styled(Card)`
-  position: ${props => props.position && props.position};
+  position: ${(props) => props.position && props.position};
 
   display: flex;
-  flex-direction: ${props => props.flexDirection && props.flexDirection};
-  flex-wrap: ${props => props.flexWrap && props.flexWrap};
-  align-items: ${props => props.alignItems && props.alignItems};
+  flex-direction: ${(props) => props.flexDirection && props.flexDirection};
+  flex-wrap: ${(props) => props.flexWrap && props.flexWrap};
+  align-items: ${(props) => props.alignItems && props.alignItems};
 
-  width: ${props => props.width || 'calc(100% - 50px)'};
-  height: ${props => props.height || '165px'};
-  padding: ${props => props.padding || '25px'};
+  width: ${(props) => props.width || 'calc(100% - 50px)'};
+  height: ${(props) => props.height || '165px'};
+  padding: ${(props) => props.padding || '25px'};
   margin-bottom: 20px;
-  margin: ${props => props.margin && props.margin};
+  margin: ${(props) => props.margin && props.margin};
 
-  box-shadow: ${props => props.boxShadow && props.boxShadow};
-  background: ${props => props.backgroundColor && props.backgroundColor};
+  box-shadow: ${(props) => props.boxShadow && props.boxShadow};
+  background: ${(props) => props.backgroundColor && props.backgroundColor};
 
-  ${props =>
+  ${(props) =>
     props.adjustDisplay &&
     css`
       @media screen and (min-width: 320px) and (max-width: 767px) {
@@ -100,7 +100,7 @@ const FeedCard = styled(Card)`
       }
     `};
 
-  ${props =>
+  ${(props) =>
     props.recipeCard &&
     css`
       @media screen and (min-width: 320px) and (max-width: 767px) {
@@ -113,26 +113,26 @@ const FeedCard = styled(Card)`
 
 const FeedButton = styled(Button)`
   flex-basis: auto;
-  flex-grow: ${props => props.flexGrow || '0'};
+  flex-grow: ${(props) => props.flexGrow || '0'};
   flex-shrink: 0;
 
-  height: ${props => props.height && props.height};
-  width: ${props => props.width && props.width};
-  margin: ${props => props.margin && props.margin};
+  height: ${(props) => props.height && props.height};
+  width: ${(props) => props.width && props.width};
+  margin: ${(props) => props.margin && props.margin};
   padding: 0;
 
   font-style: normal;
   font-weight: bold;
-  font-size: ${props => props.fontSize || '16px'};
+  font-size: ${(props) => props.fontSize || '16px'};
   line-height: 22px;
   text-align: center;
 
-  background-color: ${props => props.bgColor && props.bgColor};
-  color: ${props => props.color && props.color};
-  box-shadow: ${props => props.boxShadow && props.boxShadow};
-  border: ${props => props.border && props.border};
+  background-color: ${(props) => props.bgColor && props.bgColor};
+  color: ${(props) => props.color && props.color};
+  box-shadow: ${(props) => props.boxShadow && props.boxShadow};
+  border: ${(props) => props.border && props.border};
 
-  ${props =>
+  ${(props) =>
     props.hover &&
     css`
       :hover {
@@ -144,22 +144,22 @@ const FeedButton = styled(Button)`
 
 const FeedText = styled(Text)`
   flex-basis: auto;
-  flex-grow: ${props => props.flexGrow && props.flexGrow};
+  flex-grow: ${(props) => props.flexGrow && props.flexGrow};
 
-  height: ${props => props.height && props.height};
-  width: ${props => props.width && props.width};
-  margin-top: ${props => props.marginTop && props.marginTop};
-  margin-left: ${props => props.marginLeft && props.marginLeft};
+  height: ${(props) => props.height && props.height};
+  width: ${(props) => props.width && props.width};
+  margin-top: ${(props) => props.marginTop && props.marginTop};
+  margin-left: ${(props) => props.marginLeft && props.marginLeft};
 
-  font-weight: ${props => props.fontWeight || 'normal'};
-  font-size: ${props => props.fontSize || '14px'};
-  line-height: ${props => props.lineHeight || '22px'};
+  font-weight: ${(props) => props.fontWeight || 'normal'};
+  font-size: ${(props) => props.fontSize || '14px'};
+  line-height: ${(props) => props.lineHeight || '22px'};
   letter-spacing: 0.4px;
-  text-align: ${props => props.textAlign && props.textAlign};
-  color: ${props => props.color || '#767676'};
-  cursor: ${props => props.cursor && props.cursor};
+  text-align: ${(props) => props.textAlign && props.textAlign};
+  color: ${(props) => props.color || '#767676'};
+  cursor: ${(props) => props.cursor && props.cursor};
 
-  ${props =>
+  ${(props) =>
     props.cookBookSelection &&
     css`
       padding: 8px;
@@ -178,22 +178,22 @@ const FeedText = styled(Text)`
 
 const Container = styled.div`
   display: flex;
-  flex-direction: ${props => props.flexDirection && props.flexDirection};
-  justify-content: ${props => props.justifyContent && props.justifyContent};
-  align-items: ${props => props.alignItems || 'center'};
+  flex-direction: ${(props) => props.flexDirection && props.flexDirection};
+  justify-content: ${(props) => props.justifyContent && props.justifyContent};
+  align-items: ${(props) => props.alignItems || 'center'};
   flex-basis: auto;
-  flex-grow: ${props => props.flexGrow && props.flexGrow};
-  flex-shrink: ${props => props.flexShrink && props.flexShrink};
+  flex-grow: ${(props) => props.flexGrow && props.flexGrow};
+  flex-shrink: ${(props) => props.flexShrink && props.flexShrink};
 
-  height: ${props => props.height && props.height};
-  width: ${props => props.width && props.width};
-  margin-left: ${props => props.marginLeft && props.marginLeft};
-  margin-top: ${props => props.marginTop && props.marginTop};
+  height: ${(props) => props.height && props.height};
+  width: ${(props) => props.width && props.width};
+  margin-left: ${(props) => props.marginLeft && props.marginLeft};
+  margin-top: ${(props) => props.marginTop && props.marginTop};
 
-  overflow: ${props => props.overflow && props.overflow};
-  overflow-y: ${props => props.overflowY && props.overflowY};
+  overflow: ${(props) => props.overflow && props.overflow};
+  overflow-y: ${(props) => props.overflowY && props.overflowY};
 
-  ${props =>
+  ${(props) =>
     props.adjustRecipeCardText &&
     css`
       @media screen and (min-width: 320px) and (max-width: 480px) {
@@ -218,12 +218,12 @@ const FeedImage = styled.img`
   flex-grow: 0;
   flex-shrink: 0;
 
-  width: ${props => props.width || '70px'};
-  height: ${props => props.height || '70px'};
+  width: ${(props) => props.width || '70px'};
+  height: ${(props) => props.height || '70px'};
 
   border: none;
-  border-radius: ${props => props.borderRadius || '50%'};
-  background-color: ${props => props.backgroundColor || '#606060'};
+  border-radius: ${(props) => props.borderRadius || '50%'};
+  background-color: ${(props) => props.backgroundColor || '#606060'};
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -234,14 +234,14 @@ const Icon = styled.div`
   flex-grow: 0;
 
   height: 24px;
-  margin: ${props => props.margin && props.margin};
+  margin: ${(props) => props.margin && props.margin};
 
   cursor: pointer;
 
   svg {
-    height: ${props => props.height || '16px'};
-    width: ${props => props.width || '16px'};
-    color: ${props => props.color && props.color};
+    height: ${(props) => props.height || '16px'};
+    width: ${(props) => props.width || '16px'};
+    color: ${(props) => props.color && props.color};
   }
 `;
 
@@ -308,5 +308,5 @@ export {
   FeedText,
   FeedButton,
   ProfileDataContainer,
-  Separator
+  Separator,
 };

@@ -8,11 +8,11 @@ function Button(props) {
 }
 
 Button.propTypes = {
-  text: PropTypes.string
+  text: PropTypes.string,
 };
 
 Button.defaultProps = {
-  text: ''
+  text: '',
 };
 
 export default Button;

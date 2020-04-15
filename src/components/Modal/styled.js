@@ -16,7 +16,6 @@ const ModalBackground = styled.div`
 
   background: rgba(40, 41, 40, 0.5);
   mix-blend-mode: normal;
-  border-radius: 8px;
 `;
 
 const ModalContainer = styled.div`
