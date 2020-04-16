@@ -6,6 +6,7 @@ import { IoIosSearch } from 'react-icons/io';
 import { MdViewCarousel } from 'react-icons/md';
 import { getFeedRecipes } from '../../api/Feed';
 import { ReactComponent as NoRecipeIcon } from '../../assets/img/no-recipes.svg';
+import CreateRecipe from '../../components/CreateRecipe';
 import InfiniteScroll from '../../components/InfiniteScroll';
 import Modal from '../../components/Modal';
 import Spinner from '../../components/Spinner';
@@ -29,7 +30,6 @@ import {
   SideSection,
   Wrapper,
 } from './styled';
-import CreateRecipe from '../../components/CreateRecipe';
 
 function RecipeListCard({ user, recipe }) {
   const { state } = useStore();
@@ -161,7 +161,7 @@ function RecipeListCard({ user, recipe }) {
 function Feed() {
   const { state } = useStore();
   const [feed, setFeed] = useState({ topRecipes: [], feedRecipes: {} });
-  const [showCreateRecipe, setShowCreateRecipe] = useState(false);
+  const { showing, handleToggle } = useModal();
 
   useEffect(() => {
     (async function fetch() {
@@ -281,7 +281,7 @@ function Feed() {
             color='#ffffff'
             bgColor='#30BE76'
             boxShadow='0px 6px 20px rgba(13, 51, 32, 0.1)'
-            onClick={() => setShowCreateRecipe(true)}>
+            onClick={handleToggle}>
             Create Recipe
           </FeedButton>
         </FeedCard>
@@ -336,9 +336,7 @@ function Feed() {
         <MdViewCarousel />
         <GiChefToque />
       </BottomBar>
-      {showCreateRecipe && (
-        <CreateRecipe toggler={() => setShowCreateRecipe(() => false)} />
-      )}
+      {showing && <CreateRecipe toggler={handleToggle} />}
     </Wrapper>
   );
 }

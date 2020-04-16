@@ -1,23 +1,23 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import { MdClose } from 'react-icons/md';
 import { ReactComponent as EditIcon } from '../../assets/img/edit-icon.svg';
 import { ReactComponent as PlusIcon } from '../../assets/img/plus-icon.svg';
+import { CREATE_RECIPE_ITEMS } from '../../utils/Constants';
 import {
   BorderedBox,
   Container,
   CreateRecipeCard,
+  CreateRecipeCardButton,
   CreateRecipeCardTitle,
+  CreateRecipeDropDown,
   CreateRecipeText,
   FormInput,
   Icon,
   ItemContainer,
   ScreenWrapper,
   ScrollContainer,
-  CreateRecipeCardButton,
-  CreateRecipeDropDown,
 } from './styled';
-import { CREATE_RECIPE_ITEMS } from '../../utils/Constants';
 
 function CreateRecipeItem({ header, desc }) {
   return (
@@ -39,14 +39,25 @@ function CreateRecipeItem({ header, desc }) {
 }
 
 function CreateRecipe({ toggler }) {
+  const [transition, setTransition] = useState('enter');
+
+  const timeout = () =>
+    setTimeout(() => {
+      toggler();
+    }, 300);
+
   return (
-    <ScreenWrapper closeHandler={toggler}>
-      <Container>
+    <ScreenWrapper transition={transition}>
+      <Container transition={transition}>
         <ItemContainer>
           <CreateRecipeText fontSize='20px' fontWeight='bold'>
             Create New Recipe
           </CreateRecipeText>
-          <Icon onClick={toggler}>
+          <Icon
+            onClick={() => {
+              setTransition(() => 'exit');
+              timeout();
+            }}>
             <MdClose />
           </Icon>
         </ItemContainer>
@@ -68,9 +79,10 @@ function CreateRecipe({ toggler }) {
           </div>
         </ItemContainer>
         <ScrollContainer>
-          {CREATE_RECIPE_ITEMS.map(({ header, desc }) => (
-            <CreateRecipeItem header={header} desc={desc} />
-          ))}
+          {CREATE_RECIPE_ITEMS.map(({ header, desc }, idx) => {
+            const key = idx;
+            return <CreateRecipeItem key={key} header={header} desc={desc} />;
+          })}
         </ScrollContainer>
         <ItemContainer marginBottom='10px'>
           <CreateRecipeText fontWeight='normal'>Save to</CreateRecipeText>

@@ -1,7 +1,21 @@
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import Button from '../Button';
 import Card from '../Card';
 import Text from '../Text';
+
+const ModalEnter = keyframes`
+  from {
+    -webkit-transform: translate3d(0, 100px, 0);
+    transform: translate3d(0, 100px, 0);
+  }
+`;
+
+const ModalExit = keyframes`
+  to {
+    -webkit-transform: translate3d(0, 100px, 0);
+    transform: translate3d(0, 100px, 0);
+  }
+`;
 
 const ScreenWrapper = styled.div`
   display: flex;
@@ -18,6 +32,9 @@ const ScreenWrapper = styled.div`
 
   background: rgba(40, 41, 40, 0.5);
   mix-blend-mode: normal;
+
+  opacity: ${(props) => (props.transition === 'enter' ? 1 : 0)};
+  transition: opacity 0.3s ease-in-out;
 `;
 
 const Container = styled.div`
@@ -31,6 +48,17 @@ const Container = styled.div`
   border-radius: 8px;
 
   overflow: hidden;
+
+  ${(props) =>
+    props.transition === 'enter'
+      ? css`
+          -webkit-animation: ${ModalEnter} 0.5s linear;
+          animation: ${ModalEnter} 0.5s linear;
+        `
+      : css`
+          -webkit-animation: ${ModalExit} 0.5s linear;
+          animation: ${ModalExit} 0.5s linear;
+        `}
 `;
 
 const ItemContainer = styled.div`
