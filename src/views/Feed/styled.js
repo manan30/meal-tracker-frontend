@@ -10,7 +10,7 @@ const Wrapper = styled.section`
   width: calc(100% - 100px);
   overflow: hidden;
 
-  @media screen and (min-width: 320px) and (max-width: 1024px) {
+  @media screen and (min-width: 320px) and (max-width: 767px) {
     margin: 0 20px;
     width: calc(100% - 40px);
   }
