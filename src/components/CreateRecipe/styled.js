@@ -59,6 +59,14 @@ const Container = styled.div`
           -webkit-animation: ${ModalExit} 0.5s linear;
           animation: ${ModalExit} 0.5s linear;
         `}
+
+  @media screen and (max-width: 767px) {
+    width: 100%;
+    height: calc(100% - 50px);
+    margin: 0;
+
+    overflow-y: auto;
+  }
 `;
 
 const ItemContainer = styled.div`
@@ -91,6 +99,10 @@ const CreateRecipeText = styled(Text)`
   font-weight: ${(props) => props.fontWeight || 'normal'};
 
   color: ${(props) => props.color && props.color};
+
+  @media screen and (max-width: 767px) {
+    display: ${(props) => props.displayOnMobile && props.displayOnMobile};
+  }
 `;
 
 const Icon = styled.div`
@@ -169,6 +181,14 @@ const CreateRecipeCardButton = styled(Button)`
   color: ${(props) => props.color && props.color};
 
   background: ${(props) => props.background && props.background};
+
+  @media screen and (max-width: 767px) {
+    height: auto;
+    width: ${(props) => props.width};
+    margin: ${(props) => props.margin};
+
+    border: ${(props) => props.border};
+  }
 `;
 
 export {

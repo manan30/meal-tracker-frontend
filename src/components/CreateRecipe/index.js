@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { MdClose } from 'react-icons/md';
 import { ReactComponent as EditIcon } from '../../assets/img/edit-icon.svg';
 import { ReactComponent as PlusIcon } from '../../assets/img/plus-icon.svg';
+import useWindowSize from '../../hooks/useWindowSize';
 import { CREATE_RECIPE_ITEMS } from '../../utils/Constants';
 import {
   BorderedBox,
@@ -40,6 +41,7 @@ function CreateRecipeItem({ header, desc }) {
 
 function CreateRecipe({ toggler }) {
   const [transition, setTransition] = useState('enter');
+  const { width } = useWindowSize();
 
   const timeout = () =>
     setTimeout(() => {
@@ -89,7 +91,8 @@ function CreateRecipe({ toggler }) {
           <CreateRecipeText
             fontWeight='normal'
             marginLeft='auto'
-            color='#F8B449'>
+            color='#F8B449'
+            displayOnMobile='none'>
             Complete the recipe to post
           </CreateRecipeText>
         </ItemContainer>
@@ -97,11 +100,23 @@ function CreateRecipe({ toggler }) {
           <CreateRecipeDropDown />
           <div style={{ display: 'flex', marginLeft: 'auto' }}>
             <CreateRecipeCardButton>Save Recipe</CreateRecipeCardButton>
-            <CreateRecipeCardButton background='#30be76' color='#ffffff'>
-              Post to Feed
-            </CreateRecipeCardButton>
+            {width > 767 && (
+              <CreateRecipeCardButton background='#30be76' color='#ffffff'>
+                Post to Feed
+              </CreateRecipeCardButton>
+            )}
           </div>
         </ItemContainer>
+        {width < 768 && (
+          <CreateRecipeCardButton
+            background='#CCCCCC'
+            color='#ffffff'
+            border='0px'
+            width='calc(100% - 10px)'
+            margin='10px 5px 10px 5px'>
+            Post to Feed
+          </CreateRecipeCardButton>
+        )}
       </Container>
     </ScreenWrapper>
   );
