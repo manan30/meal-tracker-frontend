@@ -30,6 +30,7 @@ import {
   SideSection,
   Wrapper,
 } from './styled';
+import useEvent from '../../hooks/useEvent';
 
 function RecipeListCard({ user, recipe }) {
   const { state } = useStore();
@@ -173,6 +174,10 @@ function Feed() {
       }
     })();
   }, []);
+
+  useEvent((e) => {
+    if (showing && e.keyCode === 27) handleToggle();
+  }, 'keyup');
 
   return (
     <Wrapper>
