@@ -31,7 +31,8 @@ function FeedMobile({ recipes }) {
             padding='25px 22px'
             alignItems='center'
             width='calc(100% - 50px)'
-            margin='3px 3px 24px 3px'>
+            margin='3px 3px 24px 3px'
+            boxShadow='0px 0px 5px rgba(13, 51, 32, 0.1)'>
             <FeedText color='#030F09' flexGrow='0'>
               {state.user.onlineFollowers || 0} followers are online
             </FeedText>
