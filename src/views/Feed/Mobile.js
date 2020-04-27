@@ -1,5 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { MdViewCarousel } from 'react-icons/md';
+import { IoIosSearch } from 'react-icons/io';
+import { GiChefToque } from 'react-icons/gi';
 import { getFeedRecipes } from '../../api/Feed';
 import InfiniteScroll from '../../components/InfiniteScroll';
 import NoRecipes from '../../components/NoRecipes';
@@ -7,14 +10,14 @@ import Spinner from '../../components/Spinner';
 import { useStore } from '../../Store';
 import RecipeListCard from './RecipeListCard';
 import {
+  BottomBar,
+  FeedButton,
+  FeedCard,
+  FeedText,
   MainSection,
   RecipesList,
   Wrapper,
-  FeedCard,
-  FeedText,
-  FeedButton,
 } from './styled';
-// import BottomBar from '../../components/Bott'
 
 function FeedMobile({ recipes }) {
   const { state } = useStore();
@@ -63,11 +66,11 @@ function FeedMobile({ recipes }) {
           )}
         </RecipesList>
       </MainSection>
-      {/* <BottomBar>
+      <BottomBar>
         <IoIosSearch />
         <MdViewCarousel />
         <GiChefToque />
-      </BottomBar> */}
+      </BottomBar>
     </Wrapper>
   );
 }

@@ -40,7 +40,7 @@ const MainSection = styled.section`
 
   @media screen and (min-width: 320px) and (max-width: 767px) {
     width: 100%;
-    height: calc(100% - 24px);
+    height: calc(100% - 76px);
     margin-top: 24px;
   }
 
