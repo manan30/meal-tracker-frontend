@@ -11,11 +11,12 @@ const UserInfoCard = styled(Card)`
   padding: 25px;
   margin-bottom: 20px;
 
+  box-shadow: none;
+
   @media screen and (max-width: 1024px) {
     height: auto;
     margin-bottom: 0;
     padding: 0 25px;
-    box-shadow: none;
   }
 `;
 

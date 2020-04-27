@@ -13,7 +13,6 @@ const Wrapper = styled.section`
   @media screen and (min-width: 320px) and (max-width: 767px) {
     flex-direction: column;
 
-    height: calc(100vh - 60px);
     width: calc(100% - 40px);
     margin: 0 20px;
   }
@@ -26,10 +25,6 @@ const SideSection = styled.section`
   overflow: hidden;
   margin-left: ${({ marginLeft }) => marginLeft && marginLeft};
   margin-right: ${({ marginRight }) => marginRight && marginRight};
-
-  @media screen and (min-width: 320px) and (max-width: 1024px) {
-    display: none;
-  }
 `;
 
 const MainSection = styled.section`
@@ -51,8 +46,6 @@ const MainSection = styled.section`
 `;
 
 const BottomBar = styled.section`
-  display: none;
-
   @media screen and (min-width: 320px) and (max-width: 1024px) {
     position: fixed;
     bottom: 0;
@@ -60,7 +53,6 @@ const BottomBar = styled.section`
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    /* height: calc(72px - 60px); */
     width: calc(100% - 32px);
     padding: 16px;
     background-color: #ffffff;
@@ -75,8 +67,6 @@ const BottomBar = styled.section`
 `;
 
 const FeedCard = styled(Card)`
-  position: ${(props) => props.position && props.position};
-
   display: flex;
   flex-direction: ${(props) => props.flexDirection && props.flexDirection};
   flex-wrap: ${(props) => props.flexWrap && props.flexWrap};
@@ -88,33 +78,23 @@ const FeedCard = styled(Card)`
   margin-bottom: 20px;
   margin: ${(props) => props.margin && props.margin};
 
-  box-shadow: ${(props) => props.boxShadow && props.boxShadow};
+  box-shadow: ${(props) => props.boxShadow || 'none'};
   background: ${(props) => props.backgroundColor && props.backgroundColor};
-
-  ${(props) =>
-    props.adjustDisplay &&
-    css`
-      ${'' /* @media screen and (min-width: 320px) and (max-width: 767px) {
-        display: none;
-      } */}
-
-      @media screen and (min-width: 768px) and (max-width: 1024px) {
-        width: auto;
-      }
-    `};
 
   ${(props) =>
     props.recipeCard &&
     css`
-      :first-child {
-        margin-top: 10px;
-      }
+      position: relative;
 
       @media screen and (min-width: 320px) and (max-width: 767px) {
         width: calc(100% - 56px);
         margin: 0 3px 20px 3px;
 
         box-shadow: 0 0 5px rgba(13, 51, 32, 0.1);
+
+        :first-child {
+          margin-top: 10px;
+        }
       }
     `}
 `;
@@ -211,16 +191,6 @@ const Container = styled.div`
     `}
 `;
 
-const ProfileDataContainer = styled.div`
-  flex-basis: auto;
-  flex-grow: 1;
-  flex-shrink: 0;
-
-  margin-left: 16px;
-  margin-top: 4px;
-  height: 72px;
-`;
-
 const FeedImage = styled.img`
   flex-basis: auto;
   flex-grow: 0;
@@ -256,8 +226,10 @@ const Icon = styled.div`
 const RecipesList = styled(Card)`
   width: calc(100% - 50px);
   height: ${(props) => props.height && props.height};
-  padding: 25px;
+  padding: 25px 25px 5px 25px;
   border-radius: 8px 8px 0 0;
+  box-shadow: none;
+
   overflow-y: scroll;
 
   @media screen and (min-width: 320px) and (max-width: 767px) {
@@ -266,7 +238,6 @@ const RecipesList = styled(Card)`
     margin: 0;
 
     border-radius: 0;
-    box-shadow: none;
   }
 
   @media screen and (min-width: 768px) and (max-width: 1024px) {
@@ -316,6 +287,5 @@ export {
   FeedCard,
   FeedText,
   FeedButton,
-  ProfileDataContainer,
   Separator,
 };

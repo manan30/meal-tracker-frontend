@@ -54,8 +54,7 @@ function FeedDesktop({ topRecipes, feedRecipes }) {
             height='30px'
             padding='25px 22px'
             alignItems='center'
-            width='auto'
-            adjustDisplay>
+            width='auto'>
             <FeedText color='#030F09' flexGrow='0'>
               {state.user.onlineFollowers || 0} followers are online
             </FeedText>
@@ -64,7 +63,7 @@ function FeedDesktop({ topRecipes, feedRecipes }) {
               margin='0 0 0 auto'
               color='#ffffff'
               bgColor='#30BE76'
-              boxShadow='0px 6px 20px rgba(13, 51, 32, 0.1)'>
+              boxShadow='0px 0px 5px rgba(13, 51, 32, 0.1)'>
               Create Recipe
             </FeedButton>
           </FeedCard>
@@ -72,13 +71,13 @@ function FeedDesktop({ topRecipes, feedRecipes }) {
         <RecipesList
           height={
             state.user.isAuthenticated
-              ? 'calc(100% - 150px)'
-              : 'calc(100% - 50px)'
+              ? 'calc(100% - 130px)'
+              : 'calc(100% - 30px)'
           }>
           {feedRecipes.results && feedRecipes.results.length > 0 ? (
             <InfiniteScroll
               initialItems={feedRecipes}
-              itemComponent={<RecipeListCard />}
+              itemComponent={RecipeListCard}
               itemComponentProps={['recipe', 'user']}
               loadingComponent={
                 <Spinner

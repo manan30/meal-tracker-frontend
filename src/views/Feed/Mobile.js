@@ -40,7 +40,7 @@ function FeedMobile({ recipes }) {
               margin='0 0 0 auto'
               color='#ffffff'
               bgColor='#30BE76'
-              boxShadow='0px 6px 20px rgba(13, 51, 32, 0.1)'>
+              boxShadow='0px 0px 5px rgba(13, 51, 32, 0.1)'>
               Create Recipe
             </FeedButton>
           </FeedCard>
