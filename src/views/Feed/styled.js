@@ -11,8 +11,11 @@ const Wrapper = styled.section`
   overflow: hidden;
 
   @media screen and (min-width: 320px) and (max-width: 767px) {
-    margin: 0 20px;
+    flex-direction: column;
+
+    height: calc(100vh - 60px);
     width: calc(100% - 40px);
+    margin: 0 20px;
   }
 `;
 
@@ -37,8 +40,8 @@ const MainSection = styled.section`
 
   @media screen and (min-width: 320px) and (max-width: 767px) {
     width: 100%;
-    height: calc(100% - 50px);
-    margin-top: 5px;
+    height: calc(100% - 24px);
+    margin-top: 24px;
   }
 
   @media screen and (min-width: 768px) and (max-width: 1024px) {
@@ -91,9 +94,9 @@ const FeedCard = styled(Card)`
   ${(props) =>
     props.adjustDisplay &&
     css`
-      @media screen and (min-width: 320px) and (max-width: 767px) {
+      ${'' /* @media screen and (min-width: 320px) and (max-width: 767px) {
         display: none;
-      }
+      } */}
 
       @media screen and (min-width: 768px) and (max-width: 1024px) {
         width: auto;
@@ -103,10 +106,15 @@ const FeedCard = styled(Card)`
   ${(props) =>
     props.recipeCard &&
     css`
+      :first-child {
+        margin-top: 10px;
+      }
+
       @media screen and (min-width: 320px) and (max-width: 767px) {
-        width: calc(100% - 52px);
-        box-shadow: none;
-        border: 1px solid #cccccc;
+        width: calc(100% - 56px);
+        margin: 0 3px 20px 3px;
+
+        box-shadow: 0 0 5px rgba(13, 51, 32, 0.1);
       }
     `}
 `;
@@ -253,10 +261,12 @@ const RecipesList = styled(Card)`
   overflow-y: scroll;
 
   @media screen and (min-width: 320px) and (max-width: 767px) {
-    height: 100%;
     width: 100%;
     padding: 0;
     margin: 0;
+
+    border-radius: 0;
+    box-shadow: none;
   }
 
   @media screen and (min-width: 768px) and (max-width: 1024px) {

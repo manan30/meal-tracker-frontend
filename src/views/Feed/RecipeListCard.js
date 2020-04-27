@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import { MdClose } from 'react-icons/md';
 import { FiHeart } from 'react-icons/fi';
+import { MdClose } from 'react-icons/md';
+import Modal from '../../components/Modal';
 import { Link } from '../../GlobalStyles';
 import { useStore } from '../../Store';
 import { parseDate } from '../../utils/CommonFunctions';

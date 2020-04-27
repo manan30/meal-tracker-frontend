@@ -1,22 +1,25 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { getFeedRecipes } from '../../api/Feed';
+import InfiniteScroll from '../../components/InfiniteScroll';
+import NoRecipes from '../../components/NoRecipes';
+import Spinner from '../../components/Spinner';
 import UserInfo from '../../components/UserInfo';
 import { Link } from '../../GlobalStyles';
+import { useStore } from '../../Store';
+import RecipeListCard from './RecipeListCard';
 import {
+  Container,
+  FeedButton,
   FeedCard,
   FeedText,
+  MainSection,
+  RecipesList,
   SideSection,
   Wrapper,
-  MainSection,
-  FeedButton,
-  RecipesList,
-  Container,
 } from './styled';
-import { useStore } from '../../Store';
-import InfiniteScroll from '../../components/InfiniteScroll';
-import Spinner from '../../components/Spinner';
-import NoRecipes from '../../components/NoRecipes';
 
-function FeedDesktop({ topRecipes, feedRecipes, infiniteScrollCallback }) {
+function FeedDesktop({ topRecipes, feedRecipes }) {
   const { state } = useStore();
 
   return (
@@ -75,7 +78,7 @@ function FeedDesktop({ topRecipes, feedRecipes, infiniteScrollCallback }) {
           {feedRecipes.results && feedRecipes.results.length > 0 ? (
             <InfiniteScroll
               initialItems={feedRecipes}
-              itemComponent={RecipeListCard}
+              itemComponent={<RecipeListCard />}
               itemComponentProps={['recipe', 'user']}
               loadingComponent={
                 <Spinner
@@ -115,5 +118,15 @@ function FeedDesktop({ topRecipes, feedRecipes, infiniteScrollCallback }) {
     </Wrapper>
   );
 }
+
+FeedDesktop.propTypes = {
+  topRecipes: PropTypes.arrayOf(PropTypes.any),
+  feedRecipes: PropTypes.arrayOf(PropTypes.any),
+};
+
+FeedDesktop.defaultProps = {
+  topRecipes: [],
+  feedRecipes: [],
+};
 
 export default FeedDesktop;

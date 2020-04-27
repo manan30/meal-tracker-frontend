@@ -1,20 +1,22 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
+import { getFeedRecipes } from '../../api/Feed';
+import InfiniteScroll from '../../components/InfiniteScroll';
+import NoRecipes from '../../components/NoRecipes';
+import Spinner from '../../components/Spinner';
+import { useStore } from '../../Store';
+import RecipeListCard from './RecipeListCard';
 import {
-  Wrapper,
   MainSection,
   RecipesList,
-  FeedButton,
-  FeedText,
+  Wrapper,
   FeedCard,
+  FeedText,
+  FeedButton,
 } from './styled';
-import { useStore } from '../../Store';
-import InfiniteScroll from '../../components/InfiniteScroll';
-import Spinner from '../../components/Spinner';
-import NoRecipes from '../../components/NoRecipes';
 // import BottomBar from '../../components/Bott'
 
-function FeedMobile({ recipes, infiniteScrollCallback, recipeCardComponent }) {
+function FeedMobile({ recipes }) {
   const { state } = useStore();
 
   return (
@@ -25,8 +27,8 @@ function FeedMobile({ recipes, infiniteScrollCallback, recipeCardComponent }) {
             height='30px'
             padding='25px 22px'
             alignItems='center'
-            width='auto'
-            adjustDisplay>
+            width='calc(100% - 50px)'
+            margin='3px 3px 24px 3px'>
             <FeedText color='#030F09' flexGrow='0'>
               {state.user.onlineFollowers || 0} followers are online
             </FeedText>
@@ -41,15 +43,11 @@ function FeedMobile({ recipes, infiniteScrollCallback, recipeCardComponent }) {
           </FeedCard>
         )}
         <RecipesList
-          height={
-            state.user.isAuthenticated
-              ? 'calc(100% - 150px)'
-              : 'calc(100% - 50px)'
-          }>
-          {recipes.length > 0 ? (
+          height={state.user.isAuthenticated ? 'calc(100% - 105px)' : '100%'}>
+          {recipes?.results?.length > 0 ? (
             <InfiniteScroll
               initialItems={recipes}
-              itemComponent={recipeCardComponent}
+              itemComponent={RecipeListCard}
               itemComponentProps={['recipe', 'user']}
               loadingComponent={
                 <Spinner
@@ -58,7 +56,7 @@ function FeedMobile({ recipes, infiniteScrollCallback, recipeCardComponent }) {
                   ternaryColor='green'
                 />
               }
-              callback={infiniteScrollCallback}
+              callback={getFeedRecipes}
             />
           ) : (
             <NoRecipes text='No Recipes Found' />
@@ -75,15 +73,11 @@ function FeedMobile({ recipes, infiniteScrollCallback, recipeCardComponent }) {
 }
 
 FeedMobile.propTypes = {
-  recipes: PropTypes.arrayOf(PropTypes.any),
-  infiniteScrollCallback: PropTypes.func,
-  recipeCardComponent: PropTypes.elementType,
+  recipes: PropTypes.objectOf(PropTypes.any),
 };
 
 FeedMobile.defaultProps = {
-  recipes: [],
-  infiniteScrollCallback: () => {},
-  recipeCardComponent: <></>,
+  recipes: {},
 };
 
 export default FeedMobile;

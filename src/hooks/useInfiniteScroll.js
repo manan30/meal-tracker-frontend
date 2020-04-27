@@ -27,7 +27,7 @@ export default function useInfiniteScroll(callback, initialItems) {
 
   const observer = useRef(
     new IntersectionObserver(observerCallback, {
-      threshold: 1,
+      threshold: 0.7,
     })
   );
 
