@@ -8,7 +8,7 @@
     "url": "https://github.com/manan30/meal-tracker-frontend"
   },
   "dependencies": {
-    "axios": "0.19.2",
+    "axios": "0.21.1",
     "prop-types": "15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
